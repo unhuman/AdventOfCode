@@ -22,6 +22,18 @@ public class DayOne extends InputParser {
 
     @Override
     protected void processInput(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
-
+        int maxCarry = 0;
+        for (List<List<String>> item: dataItems1) {
+            int wallet = 0;
+            for (List<String> individual: item) {
+                for (String value: individual) {
+                    wallet += Integer.parseInt(value);
+                }
+            }
+            if (wallet > maxCarry) {
+                maxCarry = wallet;
+            }
+        }
+        System.out.println(maxCarry);
     }
 }
