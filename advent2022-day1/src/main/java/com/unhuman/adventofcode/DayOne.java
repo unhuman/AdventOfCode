@@ -39,7 +39,11 @@ public class DayOne extends InputParser {
 
     @Override
     protected void processInput2(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
-        int maxCarry = 0;
+        int count = 3;
+        int[] maxCarry = new int[count];
+        for (int i = 0; i < count; i++) {
+            maxCarry[i] = 0;
+        }
         for (List<List<String>> item: dataItems1) {
             int wallet = 0;
             for (List<String> individual: item) {
@@ -47,10 +51,24 @@ public class DayOne extends InputParser {
                     wallet += Integer.parseInt(value);
                 }
             }
-            if (wallet > maxCarry) {
-                maxCarry = wallet;
+            for (int i = 0; i < count; i++) {
+                if (wallet > maxCarry[i]) {
+                    // copy the other wallets down
+                    for (int j = count - 1; j > i; j--) {
+                        maxCarry[j] = maxCarry[j-1];
+                    }
+
+                    // now swap in our wallet
+                    maxCarry[i] = wallet;
+                    break;
+                }
             }
         }
-        System.out.println(maxCarry);
+
+        int total = 0;
+        for (int i = 0; i < count; i++) {
+            total += maxCarry[i];
+        }
+        System.out.println(total);
     }
 }
