@@ -15,5 +15,6 @@
     <modules>
         <module>aoc-framework</module>
         <module>aoc-proofofconcept</module>
+        <module>advent2022-day1</module>
     </modules>
 </project>

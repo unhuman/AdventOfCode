@@ -4,6 +4,9 @@ import com.unhuman.adventofcode.aoc_framework.utility.LineInput;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -68,12 +71,31 @@ public abstract class InputParser {
      */
     protected LineInput readFile() {
         List<String> lines = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(filename))) {
+
+        Scanner scanner = null;
+        if (filename.startsWith("https://")) {
+            try {
+                scanner = new Scanner(new URL(filename).openStream(),
+                        StandardCharsets.UTF_8.toString());
+            } catch (IOException e) {
+                System.err.println("Could not process url: " + filename + " message: " + e.getMessage());
+                System.exit(-1);
+            }
+        } else {
+            try {
+                scanner = new Scanner(new File(filename));
+            } catch (FileNotFoundException e) {
+                System.err.println("Could not find file: " + filename);
+                System.exit(-1);
+            }
+        }
+
+        try {
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("Could not find file: " + filename);
+        } catch (Exception e) {
+            System.err.println("Error processing file: " + filename + " message: " + e.getMessage());
             System.exit(-1);
         }
         return new LineInput(lines);

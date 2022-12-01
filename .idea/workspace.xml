@@ -5,14 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/advent2022-day1/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/DayOne.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/test/java/com/unhuman/adventofcode/aoc_framework/InputParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/test/java/com/unhuman/adventofcode/aoc_framework/InputParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -30,18 +42,35 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20306513" />
   </component>
-  <component name="RunManager" selected="JUnit.InputParserTest">
-    <configuration name="AppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="aoc-proofofconcept" />
+  <component name="RunManager" selected="Application.DayOne">
+    <configuration name="DayOne" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="advent2022-day1" />
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DayOne" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.DayOne" />
+      <module name="advent2022-day1" />
+      <option name="PROGRAM_PARAMETERS" value="https://adventofcode.com/2022/day/1/input" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode.proofofconcept.*" />
+          <option name="PATTERN" value="com.unhuman.adventofcode.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode.proofofconcept" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.proofofconcept.AppTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -61,25 +90,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.unhuman.adventofcode.aoc_framework in aoc-framework" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="aoc-framework" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode.aoc_framework.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode.aoc_framework" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <list>
+      <item itemvalue="Application.DayOne" />
+      <item itemvalue="JUnit.InputParserTest" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DayOne" />
         <item itemvalue="JUnit.InputParserTest" />
-        <item itemvalue="JUnit.AppTest" />
-        <item itemvalue="JUnit.com.unhuman.adventofcode.aoc_framework in aoc-framework" />
       </list>
     </recent_temporary>
   </component>

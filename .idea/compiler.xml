@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="aoc-proofofconcept" />
         <module name="aoc-framework" />
+        <module name="advent2022-day1" />
       </profile>
     </annotationProcessing>
   </component>
