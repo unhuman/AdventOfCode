@@ -171,9 +171,18 @@ public abstract class InputParser {
      * @param dataItems2 (optional/empty) this is a list (items) of rows of items
      */
     protected void processInputWrapper(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
-        System.out.println("\n*** Start Data ***\n");
-        processInput(dataItems1, dataItems2);
-        System.out.println("\n*** End Data ***\n");
+        long time;
+        System.out.println("\n*** Start Task 1 ***\n");
+        time = System.nanoTime();
+        processInput1(dataItems1, dataItems2);
+        time = System.nanoTime() - time;
+        System.out.println("\n*** End Data 1 - Time " + time + "us ***\n");
+        
+        System.out.println("\n*** Start Task 2 ***\n");
+        time = System.nanoTime();
+        processInput2(dataItems1, dataItems2);
+        time = System.nanoTime() - time;
+        System.out.println("\n*** End Task 2 - Time " + time + "us ***\n");
     }
 
     /**
@@ -181,5 +190,13 @@ public abstract class InputParser {
      * @param dataItems1 this is a list (items) of rows of items
      * @param dataItems2 (optional/empty) this is a list (items) of rows of items
      */
-    protected abstract void processInput(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2);
+    protected abstract void processInput1(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2);
+
+    /**
+     * This method should process the input and output the requested information to stdout
+     * @param dataItems1 this is a list (items) of rows of items
+     * @param dataItems2 (optional/empty) this is a list (items) of rows of items
+     */
+    protected abstract void processInput2(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2);
+
 }

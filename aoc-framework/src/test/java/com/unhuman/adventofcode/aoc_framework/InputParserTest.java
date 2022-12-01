@@ -102,7 +102,16 @@ public class InputParserTest {
         }
 
         @Override
-        protected void processInput(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+        protected void processInput1(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+            validateInput(dataItems1, expectedItems1, expectedLines1, expectedItemsPerLine1);
+            if (expectedItems2 > 0) {
+                System.out.println("\n----------------\n");
+            }
+            validateInput(dataItems2, expectedItems2, expectedLines2, expectedItemsPerLine2);
+        }
+
+        @Override
+        protected void processInput2(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
             validateInput(dataItems1, expectedItems1, expectedLines1, expectedItemsPerLine1);
             if (expectedItems2 > 0) {
                 System.out.println("\n----------------\n");
