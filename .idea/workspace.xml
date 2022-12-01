@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aoc-framework/src/test/java/com/unhuman/adventofcode/aoc_framework/InputParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/test/java/com/unhuman/adventofcode/aoc_framework/InputParserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,24 +20,16 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="2ICy6J8hc0DLfRfZPoYNQD46x3D" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.20306513" />
+  </component>
   <component name="RunManager" selected="JUnit.InputParserTest">
     <configuration name="AppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="aoc-proofofconcept" />

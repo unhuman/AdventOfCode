@@ -1,4 +1,4 @@
-package com.unhuman.adventofcode.proofofconcept;
+package com.unhuman.adventofcode.aoc_framework;
 
 import com.unhuman.adventofcode.aoc_framework.utility.LineInput;
 

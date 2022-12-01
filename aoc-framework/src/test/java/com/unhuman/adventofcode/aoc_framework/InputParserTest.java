@@ -1,6 +1,6 @@
 package com.unhuman.adventofcode.aoc_framework;
 
-import com.unhuman.adventofcode.proofofconcept.InputParser;
+import com.unhuman.adventofcode.aoc_framework.InputParser;
 import org.junit.Test;
 
 import java.util.List;
