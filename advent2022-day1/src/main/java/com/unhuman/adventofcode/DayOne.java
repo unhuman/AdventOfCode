@@ -9,14 +9,14 @@ public class DayOne extends InputParser {
     /**
      * Creates an InputParser that will process line-by-line
      *
-     * @param filename
+     * @param args
      */
-    public DayOne(String filename) {
-        super(filename, regex1, null);
+    public DayOne(String[] args) {
+        super(args, regex1, null);
     }
 
     public static void main(String [] args) {
-        DayOne parser = new DayOne(args[0]);
+        DayOne parser = new DayOne(args);
         parser.process();
     }
 

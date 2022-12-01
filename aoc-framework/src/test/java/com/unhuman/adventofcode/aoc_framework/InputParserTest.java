@@ -92,7 +92,7 @@ public class InputParserTest {
                                int expectedItems1, int expectedLines1, int expectedItemsPerLine1,
                                String lineItemRegex2,
                                int expectedItems2, int expectedLines2, int expectedItemsPerLine2) {
-            super(filename, lineItemRegex1, lineItemRegex2);
+            super(new String[] { filename }, lineItemRegex1, lineItemRegex2);
             this.expectedItems1 = expectedItems1;
             this.expectedLines1 = expectedLines1;
             this.expectedItemsPerLine1 = expectedItemsPerLine1;

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +16,28 @@ import java.util.regex.Pattern;
 
 public abstract class InputParser {
     private final String filename;
+    private String cookie;
     private final String lineItemRegex1;
     private final String lineItemRegex2;
 
     /**
      * Creates an InputParser that will process line-by-line
-     * @param filename
-     * @param lineItemRegex1 (this will be used to find as many matching items per line as possible)
-     * @param lineItemRegex2 (optional: this will be used to find as many matching items per line as possible)
+     * @param filenameAndCookie
+     * @param lineItemRegex1
+     * @param lineItemRegex2
      */
-    public InputParser(String filename, String lineItemRegex1, String lineItemRegex2) {
+    public InputParser(String[] filenameAndCookie, String lineItemRegex1, String lineItemRegex2) {
+        if (filenameAndCookie.length < 1 || filenameAndCookie.length > 2) {
+            throw new RuntimeException("Must provide filename (or url) and cookie");
+        }
+        this.filename = filenameAndCookie[0];
+        this.cookie = (filenameAndCookie.length >= 2) ? filenameAndCookie[1] : null;
         this.lineItemRegex1 = lineItemRegex1;
         this.lineItemRegex2 = lineItemRegex2;
-        this.filename = filename;
+    }
+
+    public void setCookie(String cookie) {
+        this.cookie = cookie;
     }
 
     public void process() {
@@ -75,7 +85,16 @@ public abstract class InputParser {
         Scanner scanner = null;
         if (filename.startsWith("https://")) {
             try {
-                scanner = new Scanner(new URL(filename).openStream(),
+                URL url = new URL(filename);
+                URLConnection connection = url.openConnection();
+                if (cookie == null) {
+                    System.err.println("No cookie provided");
+                    System.exit(-1);
+                }
+                connection.setRequestProperty("COOKIE", cookie);
+                connection.connect();
+
+                scanner = new Scanner(connection.getInputStream(),
                         StandardCharsets.UTF_8.toString());
             } catch (IOException e) {
                 System.err.println("Could not process url: " + filename + " message: " + e.getMessage());
