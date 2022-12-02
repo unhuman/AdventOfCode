@@ -19,28 +19,28 @@ import java.util.regex.Pattern;
 
 public abstract class InputParser {
     private final String filename;
-    private String cookie;
+    private String cookieOrCookieFile;
     private final String lineItemRegex1;
     private final String lineItemRegex2;
 
     /**
      * Creates an InputParser that will process line-by-line
-     * @param filenameAndCookie
+     * @param filenameAndCookieInfo
      * @param lineItemRegex1
      * @param lineItemRegex2
      */
-    public InputParser(String[] filenameAndCookie, String lineItemRegex1, String lineItemRegex2) {
-        if (filenameAndCookie.length < 1 || filenameAndCookie.length > 2) {
+    public InputParser(String[] filenameAndCookieInfo, String lineItemRegex1, String lineItemRegex2) {
+        if (filenameAndCookieInfo.length < 1 || filenameAndCookieInfo.length > 2) {
             throw new RuntimeException("Must provide filename (or url) and cookie");
         }
-        this.filename = filenameAndCookie[0];
-        this.cookie = (filenameAndCookie.length >= 2) ? filenameAndCookie[1] : null;
+        this.filename = filenameAndCookieInfo[0];
+        this.cookieOrCookieFile = (filenameAndCookieInfo.length >= 2) ? filenameAndCookieInfo[1] : null;
         this.lineItemRegex1 = lineItemRegex1;
         this.lineItemRegex2 = lineItemRegex2;
     }
 
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
+    public void setCookieOrCookieFile(String cookieOrCookieFile) {
+        this.cookieOrCookieFile = cookieOrCookieFile;
     }
 
     public void process() {
@@ -90,11 +90,18 @@ public abstract class InputParser {
             try {
                 URL url = new URL(filename);
                 URLConnection connection = url.openConnection();
-                if (cookie == null) {
+                if (cookieOrCookieFile == null) {
                     System.err.println("No cookie provided");
                     System.exit(-1);
                 }
-                connection.setRequestProperty("COOKIE", cookie);
+
+                if (!cookieOrCookieFile.startsWith("session=")) {
+                    try (Scanner scannerCookie = new Scanner(new File(cookieOrCookieFile))) {
+                        cookieOrCookieFile = scannerCookie.nextLine();
+                    }
+                }
+
+                connection.setRequestProperty("COOKIE", cookieOrCookieFile);
                 connection.connect();
 
                 scanner = new Scanner(connection.getInputStream(),
