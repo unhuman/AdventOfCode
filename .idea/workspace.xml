@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/DayOne.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/DayOne.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/advent2022-day2/src/main/java/com/unhuman/adventofcode/DayTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022-day2/src/main/java/com/unhuman/adventofcode/DayTwo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/representation/DataLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/representation/ItemLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/representation/GroupItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/representation/GroupItems.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +40,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20306513" />
   </component>
-  <component name="RunManager" selected="Application.DayTwo (https)">
+  <component name="RunManager" selected="Application.DayOne (https)">
     <configuration name="DayOne (https)" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.DayOne" />
       <module name="advent2022-day1" />
@@ -55,19 +51,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
-        <option name="credential" />
-        <option name="region" />
-        <option name="useCurrentConnection" value="false" />
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DayOne" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <module name="advent2022-day1" />
       <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
         <option name="credential" />
         <option name="region" />
@@ -107,6 +90,19 @@
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode.aoc_framework" />
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.aoc_framework.InputParserTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="aoc-proofofconcept" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="aoc-proofofconcept" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

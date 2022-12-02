@@ -9,8 +9,10 @@
         <module name="aoc-framework" />
         <module name="advent2022-day1" />
         <module name="advent2022-day2" />
-        <module name="aoc-proofofconcept" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="aoc-proofofconcept" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

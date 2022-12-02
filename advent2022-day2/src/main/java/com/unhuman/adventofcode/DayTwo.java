@@ -68,15 +68,7 @@ public class DayTwo extends InputParser {
     }
 
     private int calculateScore(RPS p1, RPS p2) {
-        int score = p2.value;
-        int win = p2.getWin(p1);
-        switch (win) {
-            case 0: score += 3;
-                    break;
-            case 1: score += 6;
-                    break;
-        }
-        return score;
+        return p2.value + (p2.getWin(p1) + 1) * 3;
     }
 
     @Override
