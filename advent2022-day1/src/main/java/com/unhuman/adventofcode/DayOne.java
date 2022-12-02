@@ -1,6 +1,9 @@
 package com.unhuman.adventofcode;
 
+import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
+import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.InputParser;
+import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 import java.util.List;
 
@@ -21,11 +24,11 @@ public class DayOne extends InputParser {
     }
 
     @Override
-    protected void processInput1(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+    protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         int maxCarry = 0;
-        for (List<List<String>> item: dataItems1) {
+        for (GroupItem item: dataItems1) {
             int wallet = 0;
-            for (List<String> individual: item) {
+            for (ItemLine individual: item) {
                 for (String value: individual) {
                     wallet += Integer.parseInt(value);
                 }
@@ -38,13 +41,13 @@ public class DayOne extends InputParser {
     }
 
     @Override
-    protected void processInput2(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+    protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         int count = 3;
         int[] maxCarry = new int[count];
         for (int i = 0; i < count; i++) {
             maxCarry[i] = 0;
         }
-        for (List<List<String>> item: dataItems1) {
+        for (GroupItem item: dataItems1) {
             int wallet = 0;
             for (List<String> individual: item) {
                 for (String value: individual) {

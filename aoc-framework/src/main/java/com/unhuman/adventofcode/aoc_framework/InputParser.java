@@ -1,5 +1,8 @@
 package com.unhuman.adventofcode.aoc_framework;
 
+import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
+import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
+import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 import com.unhuman.adventofcode.aoc_framework.utility.LineInput;
 
 import java.io.File;
@@ -47,10 +50,10 @@ public abstract class InputParser {
         // Convert file to usable data
         // This will try to read in dataItems1 and then read in dataItems2 if present
         // this will not allow multiple items for dataItems1 if lineItemRegex2 exists
-        List<List<List<String>>> dataItems1 = new ArrayList<>();
-        List<List<List<String>>> dataItems2 = new ArrayList<>();
+        ConfigGroup dataItems1 = new ConfigGroup();
+        ConfigGroup dataItems2 = new ConfigGroup();
         while (true) {
-            List<List<String>> data = parseLinesItem(lineInput, lineItemRegex1);
+            GroupItem data = parseLinesItem(lineInput, lineItemRegex1);
             if (data == null) {
                 break;
             }
@@ -64,7 +67,7 @@ public abstract class InputParser {
         }
 
         while (true) {
-            List<List<String>> data = parseLinesItem(lineInput, lineItemRegex2);
+            GroupItem data = parseLinesItem(lineInput, lineItemRegex2);
             if (data == null) {
                 break;
             }
@@ -126,7 +129,7 @@ public abstract class InputParser {
      * @param regexLineItem
      * @return
      */
-    protected List<List<String>> parseLinesItem(LineInput lineInput, String regexLineItem) {
+    protected GroupItem parseLinesItem(LineInput lineInput, String regexLineItem) {
         if (regexLineItem == null) {
             return null;
         }
@@ -144,7 +147,7 @@ public abstract class InputParser {
             }
         }
 
-        List<List<String>> data = new ArrayList<>();
+        GroupItem data = new GroupItem();
         while (true) {
             String line = lineInput.readLine();
 
@@ -154,7 +157,7 @@ public abstract class InputParser {
             }
 
             int start = 0;
-            List<String> dataLine = new ArrayList<>();
+            ItemLine dataLine = new ItemLine();
             Matcher matcher = patternLineItem.matcher(line);
 
             while (true) {
@@ -189,19 +192,19 @@ public abstract class InputParser {
      * @param dataItems1 this is a list (items) of rows of items
      * @param dataItems2 (optional/empty) this is a list (items) of rows of items
      */
-    protected void processInputWrapper(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+    protected void processInputWrapper(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         long time;
-        System.out.println("\n*** Start Task 1 ***\n");
+        System.out.println("\n*** Start " + getClass().getSimpleName() + " Task 1 ***\n");
         time = System.nanoTime();
         processInput1(dataItems1, dataItems2);
         time = System.nanoTime() - time;
-        System.out.println("\n*** End Data 1 - Time " + time + "us ***\n");
+        System.out.println("\n*** End " + getClass().getSimpleName() + " Task 1 - Time " + time + "us ***\n");
 
-        System.out.println("\n*** Start Task 2 ***\n");
+        System.out.println("\n*** Start" + getClass().getSimpleName() + " Task 2 ***\n");
         time = System.nanoTime();
         processInput2(dataItems1, dataItems2);
         time = System.nanoTime() - time;
-        System.out.println("\n*** End Task 2 - Time " + time + "us ***\n");
+        System.out.println("\n*** End  " + getClass().getSimpleName() + " Task 2 - Time " + time + "us ***\n");
     }
 
     /**
@@ -209,13 +212,13 @@ public abstract class InputParser {
      * @param dataItems1 this is a list (items) of rows of items
      * @param dataItems2 (optional/empty) this is a list (items) of rows of items
      */
-    protected abstract void processInput1(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2);
+    protected abstract void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2);
 
     /**
      * This method should process the input and output the requested information to stdout
      * @param dataItems1 this is a list (items) of rows of items
      * @param dataItems2 (optional/empty) this is a list (items) of rows of items
      */
-    protected abstract void processInput2(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2);
+    protected abstract void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2);
 
 }

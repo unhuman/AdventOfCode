@@ -1,6 +1,7 @@
 package com.unhuman.adventofcode.aoc_framework;
 
-import com.unhuman.adventofcode.aoc_framework.InputParser;
+import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
+import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import org.junit.Test;
 
 import java.util.List;
@@ -102,7 +103,7 @@ public class InputParserTest {
         }
 
         @Override
-        protected void processInput1(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+        protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
             validateInput(dataItems1, expectedItems1, expectedLines1, expectedItemsPerLine1);
             if (expectedItems2 > 0) {
                 System.out.println("\n----------------\n");
@@ -111,7 +112,7 @@ public class InputParserTest {
         }
 
         @Override
-        protected void processInput2(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+        protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
             validateInput(dataItems1, expectedItems1, expectedLines1, expectedItemsPerLine1);
             if (expectedItems2 > 0) {
                 System.out.println("\n----------------\n");
@@ -119,14 +120,14 @@ public class InputParserTest {
             validateInput(dataItems2, expectedItems2, expectedLines2, expectedItemsPerLine2);
         }
 
-        protected void validateInput(List<List<List<String>>> dataItems,
+        protected void validateInput(ConfigGroup dataItems,
                                      int expectedItems, int expectedLines, int expectedItemsPerLine) {
             if (dataItems.size() != expectedItems) {
                 throw new RuntimeException("Data items: " + dataItems.size() + " did not match expected items: " + expectedItems);
             }
 
             for (int i = 0; i < dataItems.size(); i++) {
-                List<List<String>> dataItem = dataItems.get(i);
+                GroupItem dataItem = dataItems.get(i);
                 if (dataItem.size() != expectedLines) {
                     throw new RuntimeException("Data item: " + i + " lines: " + dataItem.size()
                             + " did not match expected lines: " + expectedLines);

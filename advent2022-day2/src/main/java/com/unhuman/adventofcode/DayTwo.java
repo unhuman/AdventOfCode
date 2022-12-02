@@ -1,8 +1,9 @@
 package com.unhuman.adventofcode;
 
+import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
+import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.InputParser;
-
-import java.util.List;
+import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 public class DayTwo extends InputParser {
     private enum RPS {
@@ -12,7 +13,7 @@ public class DayTwo extends InputParser {
 
         private final int value;
 
-        private RPS(int value) {
+        RPS(int value) {
             this.value = value;
         }
 
@@ -79,10 +80,10 @@ public class DayTwo extends InputParser {
     }
 
     @Override
-    protected void processInput1(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+    protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         int score = 0;
-        for (List<List<String>> item: dataItems1) {
-            for (List<String> individual: item) {
+        for (GroupItem item: dataItems1) {
+            for (ItemLine individual: item) {
                 RPS p1 = convert(individual.get(0));
                 RPS p2 = convert(individual.get(1));
 
@@ -93,10 +94,10 @@ public class DayTwo extends InputParser {
     }
 
     @Override
-    protected void processInput2(List<List<List<String>>> dataItems1, List<List<List<String>>> dataItems2) {
+    protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         int score = 0;
-        for (List<List<String>> item: dataItems1) {
-            for (List<String> individual: item) {
+        for (GroupItem item: dataItems1) {
+            for (ItemLine individual: item) {
                 RPS p1 = convert(individual.get(0));
                 RPS p2 = p1;
                 switch (individual.get(1)) {
