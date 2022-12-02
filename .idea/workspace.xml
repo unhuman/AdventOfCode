@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" afterDir="false" />
     </list>
@@ -17,7 +17,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -29,9 +28,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2ICy6J8hc0DLfRfZPoYNQD46x3D" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,8 +38,8 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20306513" />
   </component>
-  <component name="RunManager" selected="Application.DayTwo (https)">
-    <configuration name="DayOne (https)" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.2022 DayTwo (https) ">
+    <configuration name="2022 DayOne (https)" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.DayOne" />
       <module name="advent2022-day1" />
       <option name="PROGRAM_PARAMETERS" value="https://adventofcode.com/2022/day/1/input aocSessionTokenFile.txt" />
@@ -61,10 +58,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DayTwo (https)" type="Application" factoryName="Application">
+    <configuration name="2022 DayTwo (https) " type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.DayTwo" />
       <module name="advent2022-day2" />
       <option name="PROGRAM_PARAMETERS" value="https://adventofcode.com/2022/day/2/input aocSessionTokenFile.txt" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DayOne" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.DayOne" />
+      <module name="advent2022-day1" />
+      <option name="PROGRAM_PARAMETERS" value="$MODULE_DIR$/adventDay1Input.txt" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.unhuman.adventofcode.*" />
@@ -84,7 +100,7 @@
       <module name="aoc-framework" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode.aoc_framework.representation.*" />
+          <option name="PATTERN" value="com.unhuman.adventofcode.aoc_framework.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -96,21 +112,21 @@
       </method>
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
-      <module name="aoc-proofofconcept" />
+      <module name="adventofcode" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="aoc-proofofconcept" />
+      <module name="adventofcode" />
       <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.DayOne (https)" />
-      <item itemvalue="Application.DayTwo (https)" />
+      <item itemvalue="Application.2022 DayOne (https)" />
+      <item itemvalue="Application.2022 DayTwo (https) " />
       <item itemvalue="JUnit.InputParserTest" />
     </list>
     <recent_temporary>
@@ -135,8 +151,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/DayOne.java</url>
-          <line>60</line>
+          <line>57</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

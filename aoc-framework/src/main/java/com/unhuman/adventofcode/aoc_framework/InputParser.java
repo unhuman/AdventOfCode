@@ -207,7 +207,7 @@ public abstract class InputParser {
         time = System.nanoTime() - time;
         System.out.println("\n*** End " + getClass().getSimpleName() + " Task 1 - Time " + time + "us ***\n");
 
-        System.out.println("\n*** Start" + getClass().getSimpleName() + " Task 2 ***\n");
+        System.out.println("\n*** Start " + getClass().getSimpleName() + " Task 2 ***\n");
         time = System.nanoTime();
         processInput2(dataItems1, dataItems2);
         time = System.nanoTime() - time;
