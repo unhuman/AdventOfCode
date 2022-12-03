@@ -18,13 +18,13 @@ public class Advent2022
 //        puzzle = new Day1(argsFixed);
 //        puzzle.process();
 
-        argsFixed[0] = generateFile(2);
-        puzzle = new Day2(argsFixed);
-        puzzle.process();
-//
-//        argsFixed[0] = generateFile(3);
-//        puzzle = new Day3(argsFixed);
+//        argsFixed[0] = generateFile(2);
+//        puzzle = new Day2(argsFixed);
 //        puzzle.process();
+
+        argsFixed[0] = generateFile(3);
+        puzzle = new Day3(argsFixed);
+        puzzle.process();
     }
 
     static String generateFile(int day) {

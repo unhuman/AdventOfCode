@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2021/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Advent2021.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle0.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Advent2022.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day0.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/DayOne.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022-day2/src/main/java/com/unhuman/adventofcode/DayTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Advent2022.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Advent2022.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day3.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day3.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
