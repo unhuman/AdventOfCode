@@ -5,9 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2021/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Advent2021.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle0.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Advent2022.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day0.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/DayOne.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022-day2/src/main/java/com/unhuman/adventofcode/DayTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,14 +45,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.20306513" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-17"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.unhuman.adventofcode" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.2022 DayTwo (https) ">
+  <component name="RunManager" selected="Application.Advent2022">
+    <configuration name="2021 (https) " type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Advent2021" />
+      <module name="advent2021" />
+      <option name="PROGRAM_PARAMETERS" value="aocSessionTokenFile.txt" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="2022 DayOne (https)" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.DayOne" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Day1" />
       <module name="advent2022-day1" />
       <option name="PROGRAM_PARAMETERS" value="https://adventofcode.com/2022/day/1/input aocSessionTokenFile.txt" />
       <extension name="coverage">
@@ -59,8 +96,8 @@
       </method>
     </configuration>
     <configuration name="2022 DayTwo (https) " type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.DayTwo" />
-      <module name="advent2022-day2" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Day2" />
+      <module name="advent2022-day1" />
       <option name="PROGRAM_PARAMETERS" value="https://adventofcode.com/2022/day/2/input aocSessionTokenFile.txt" />
       <extension name="coverage">
         <pattern>
@@ -72,6 +109,20 @@
         <option name="credential" />
         <option name="region" />
         <option name="useCurrentConnection" value="false" />
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Advent2022" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Advent2022" />
+      <module name="advent2022-day1" />
+      <option name="PROGRAM_PARAMETERS" value=" aocSessionTokenFile.txt" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
       </extension>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -125,12 +176,15 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.2021 (https) " />
       <item itemvalue="Application.2022 DayOne (https)" />
       <item itemvalue="Application.2022 DayTwo (https) " />
+      <item itemvalue="Application.Advent2022" />
       <item itemvalue="JUnit.InputParserTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Advent2022" />
         <item itemvalue="JUnit.InputParserTest" />
       </list>
     </recent_temporary>
@@ -146,24 +200,59 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/DayOne.java</url>
+          <url>file://$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day1.java</url>
           <line>57</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java</url>
-          <line>99</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle2.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle2.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle3.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day1.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day1.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2022-day1/src/main/java/com/unhuman/adventofcode/Day2.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="21" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

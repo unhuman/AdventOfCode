@@ -5,7 +5,7 @@ import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
-public class DayTwo extends InputParser {
+public class Day2 extends InputParser {
     private enum RPS {
         ROCK(1),
         PAPER(2),
@@ -44,18 +44,14 @@ public class DayTwo extends InputParser {
     }
 
     private static final String regex1 = "(\\w) (\\w)";
+    private static final String regex2 = null;
     /**
      * Creates an InputParser that will process line-by-line
      *
      * @param args
      */
-    public DayTwo(String[] args) {
-        super(args, regex1, null);
-    }
-
-    public static void main(String [] args) {
-        DayTwo parser = new DayTwo(args);
-        parser.process();
+    public Day2(String[] args) {
+        super(args, regex1, regex2);
     }
 
     private RPS convert(String item) {

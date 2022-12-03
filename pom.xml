@@ -14,7 +14,9 @@
     <!-- sub modules -->
     <modules>
         <module>aoc-framework</module>
+        <module>advent2021</module>
         <module>advent2022-day1</module>
         <module>advent2022-day2</module>
+        <module>advent2021-day1</module>
     </modules>
 </project>

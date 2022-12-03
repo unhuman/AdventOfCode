@@ -7,20 +7,16 @@ import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 import java.util.List;
 
-public class DayOne extends InputParser {
+public class Day1 extends InputParser {
     private static final String regex1 = "(\\d+)";
+    private static final String regex2 = null;
+
     /**
      * Creates an InputParser that will process line-by-line
-     *
-     * @param args
+     * @param filenameAndCookieInfo
      */
-    public DayOne(String[] args) {
-        super(args, regex1, null);
-    }
-
-    public static void main(String [] args) {
-        DayOne parser = new DayOne(args);
-        parser.process();
+    public Day1(String[] filenameAndCookieInfo) {
+        super(filenameAndCookieInfo, regex1, regex2);
     }
 
     @Override
