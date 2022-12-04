@@ -14,16 +14,25 @@ public class Advent2022
         String[] argsFixed = new String[2];
         argsFixed[1] = args[0];
 
-//        argsFixed[0] = generateFile(1);
+        int i = 0;
+        ++i;
+//        argsFixed[0] = generateFile(i);
 //        puzzle = new Day1(argsFixed);
 //        puzzle.process();
 
-//        argsFixed[0] = generateFile(2);
+        ++i;
+//        argsFixed[0] = generateFile(i);
 //        puzzle = new Day2(argsFixed);
 //        puzzle.process();
 
-        argsFixed[0] = generateFile(3);
-        puzzle = new Day3(argsFixed);
+        ++i;
+//        argsFixed[0] = generateFile(i);
+//        puzzle = new Day3(argsFixed);
+//        puzzle.process();
+
+        ++i;
+        argsFixed[0] = generateFile(i);
+        puzzle = new Day4(argsFixed);
         puzzle.process();
     }
 

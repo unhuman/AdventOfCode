@@ -86,6 +86,8 @@ public abstract class InputParser {
         List<String> lines = new ArrayList<>();
 
         Scanner scanner = null;
+        File file = null;
+        InputStream inputStream = null;
         if (filename.startsWith("https://")) {
             try {
                 URL url = new URL(filename);
@@ -104,15 +106,16 @@ public abstract class InputParser {
                 connection.setRequestProperty("COOKIE", cookieOrCookieFile);
                 connection.connect();
 
-                scanner = new Scanner(connection.getInputStream(),
-                        StandardCharsets.UTF_8.toString());
+                inputStream = connection.getInputStream();
+                scanner = new Scanner(inputStream, StandardCharsets.UTF_8.toString());
             } catch (IOException e) {
                 System.err.println("Could not process url: " + filename + " message: " + e.getMessage());
                 System.exit(-1);
             }
         } else {
             try {
-                scanner = new Scanner(new File(filename));
+                file = new File(filename);
+                scanner = new Scanner(file);
             } catch (FileNotFoundException e) {
                 System.err.println("Could not find file: " + filename);
                 System.exit(-1);
@@ -126,6 +129,13 @@ public abstract class InputParser {
         } catch (Exception e) {
             System.err.println("Error processing file: " + filename + " message: " + e.getMessage());
             System.exit(-1);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if (file != null) {
+                file.close();
+            }
         }
         return new LineInput(lines);
     }
