@@ -167,21 +167,22 @@ public abstract class InputParser {
                 return (data.size() > 0) ? data : null;
             }
 
-            int start = 0;
             ItemLine dataLine = new ItemLine();
             Matcher matcher = patternLineItem.matcher(line);
             while (true) {
-                if (matcher.find(start)) {
+                if (matcher.find()) {
                     if (matcher.groupCount() >= 1) {
                         for (int i = 1; i <= matcher.groupCount(); i++) {
                             String lineItem = (matcher.group(i).length() > 0) ? matcher.group(i) : null;
                             dataLine.add(lineItem);
                         }
-                        start += matcher.group(0).length();
+                        // allow continuation for duplicate matchers on a line
+                        line = line.substring(matcher.group(0).length());
                         // if we advance to the end of the string and it's done, then we process next line
-                        if (start == line.length()) {
+                        if (line.isEmpty()) {
                             break;
                         }
+                        matcher = patternLineItem.matcher(line);
                     } else {
                         throw new RuntimeException("Found no item (" + matcher.groupCount()
                                 + ") in line: " + line + " with regex: " + regexLineItem);

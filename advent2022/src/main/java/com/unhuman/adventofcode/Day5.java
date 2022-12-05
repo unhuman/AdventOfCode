@@ -6,7 +6,7 @@ import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 public class Day5 extends InputParser {
-    private static final String regex1 = "(\\[[\\w]\\]|\\s\\s\\s)\\s?";
+    private static final String regex1 = "^(\\[[\\w]\\]|\\s\\s\\s)\\s?";
     private static final String regex2 = null;
 
     public Day5(String[] filenameAndCookieInfo) {
