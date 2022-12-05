@@ -9,7 +9,8 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/aoc-proofofconcept/pom.xml" />
+        <option value="$PROJECT_DIR$/advent2022-day2/pom.xml" />
+        <option value="$PROJECT_DIR$/aoc-framework/pom.xml" />
       </set>
     </option>
   </component>

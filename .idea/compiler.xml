@@ -6,14 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="advent2022-day1" />
-        <module name="advent2022-day2" />
+        <module name="advent2022" />
+        <module name="aoc-framework" />
         <module name="advent2021" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="advent2022-day2" target="17" />
       <module name="adventofcode" target="1.5" />
-      <module name="aoc-framework" target="17" />
       <module name="aoc-proofofconcept" target="17" />
     </bytecodeTargetLevel>
   </component>

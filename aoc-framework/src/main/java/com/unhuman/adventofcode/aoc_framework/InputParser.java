@@ -8,6 +8,7 @@ import com.unhuman.adventofcode.aoc_framework.utility.LineInput;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -129,13 +130,6 @@ public abstract class InputParser {
         } catch (Exception e) {
             System.err.println("Error processing file: " + filename + " message: " + e.getMessage());
             System.exit(-1);
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-            if (file != null) {
-                file.close();
-            }
         }
         return new LineInput(lines);
     }
@@ -176,7 +170,6 @@ public abstract class InputParser {
             int start = 0;
             ItemLine dataLine = new ItemLine();
             Matcher matcher = patternLineItem.matcher(line);
-
             while (true) {
                 if (matcher.find(start)) {
                     if (matcher.groupCount() >= 1) {
