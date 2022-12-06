@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>advent2022</artifactId>
+    <name>advent2022</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
