@@ -27,17 +27,14 @@ public class Day6 extends InputParser {
     }
 
     protected void process(ConfigGroup dataItems1, int groupCount) {
-        Queue<Character> lookback = new ConcurrentLinkedQueue<>();
         for (GroupItem item : dataItems1) {
             for (ItemLine line : item) {
                 for (int i = 0; i < line.size(); i++) {
-                    Character character = line.get(i).charAt(0);
                     boolean foundDupe = false;
-                    if (lookback.size() == groupCount) {
-                        Object[] last4Array = lookback.toArray();
-                        for (int j = 0; j < lookback.size() - 1; j++) {
-                            for (int k = j + 1; k < lookback.size(); k++) {
-                                if (last4Array[j].equals(last4Array[k])) {
+                    if (i >= groupCount) {
+                        for (int j = i - groupCount + 1; j <= i -1; j++) {
+                            for (int k = j + 1; k <= i; k++) {
+                                if (line.get(j).charAt(0) == line.get(k).charAt(0)) {
                                     foundDupe = true;
                                 }
                             }
@@ -47,10 +44,7 @@ public class Day6 extends InputParser {
                             System.out.println(i);
                             return;
                         }
-
-                        lookback.remove();
                     }
-                    lookback.add(character);
                 }
             }
         }
