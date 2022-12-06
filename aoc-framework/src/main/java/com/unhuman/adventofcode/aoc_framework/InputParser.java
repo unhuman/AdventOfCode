@@ -205,17 +205,23 @@ public abstract class InputParser {
      */
     protected void processInputWrapper(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         long time;
+        float timeMs;
         System.out.println("\n*** Start " + getClass().getSimpleName() + " Task 1 ***\n");
         time = System.nanoTime();
         processInput1(dataItems1, dataItems2);
         time = System.nanoTime() - time;
-        System.out.println("\n*** End " + getClass().getSimpleName() + " Task 1 - Time " + time + "us ***\n");
+        timeMs = time / 1000000;
+
+        System.out.println("\n*** End " + getClass().getSimpleName() + " Task 1 - Time "
+                + time / 1000 + "us " + timeMs +"ms ***\n");
 
         System.out.println("\n*** Start " + getClass().getSimpleName() + " Task 2 ***\n");
         time = System.nanoTime();
         processInput2(dataItems1, dataItems2);
         time = System.nanoTime() - time;
-        System.out.println("\n*** End  " + getClass().getSimpleName() + " Task 2 - Time " + time + "us ***\n");
+        timeMs = time / 1000000;
+        System.out.println("\n*** End  " + getClass().getSimpleName() + " Task 2 - Time "
+                + time / 1000 + "us " + timeMs +"ms ***\n");
     }
 
     /**
