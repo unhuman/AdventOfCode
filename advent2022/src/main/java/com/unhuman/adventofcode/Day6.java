@@ -53,7 +53,7 @@ public class Day6 extends InputParser {
     protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         Queue<Character> last14 = new ConcurrentLinkedQueue<>();
         int counter;
-
+git 
         for (GroupItem item : dataItems1) {
             for (ItemLine line : item) {
                 for (int i = 0; i < line.size(); i++) {
