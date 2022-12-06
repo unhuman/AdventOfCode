@@ -36,7 +36,11 @@ public class Day6 extends InputParser {
                             for (int k = j + 1; k <= i; k++) {
                                 if (line.get(j).charAt(0) == line.get(k).charAt(0)) {
                                     foundDupe = true;
+                                    break;
                                 }
+                            }
+                            if (foundDupe) {
+                                break;
                             }
                         }
 
