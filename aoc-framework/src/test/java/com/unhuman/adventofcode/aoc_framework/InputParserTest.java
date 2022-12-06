@@ -2,7 +2,7 @@ package com.unhuman.adventofcode.aoc_framework;
 
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
