@@ -45,6 +45,14 @@ public abstract class InputParser {
     }
 
     public void process() {
+        // get the data
+        ConfigGroup[] configGroups = parseFiles();
+
+        // Once we have all the data, process it
+        processInputWrapper(configGroups);
+    }
+
+    public ConfigGroup[] parseFiles() {
         // read in data from file
         LineInput lineInput = readFile();
 
@@ -74,9 +82,7 @@ public abstract class InputParser {
             }
             dataItems2.add(data);
         }
-
-        // Once we have all the data, process it
-        processInputWrapper(dataItems1, dataItems2);
+        return new ConfigGroup[] { dataItems1, dataItems2 };
     }
 
     /**
@@ -200,15 +206,17 @@ public abstract class InputParser {
 
     /**
      * This method should process the input (call implementation)
-     * @param dataItems1 this is a list (items) of rows of items
-     * @param dataItems2 (optional/empty) this is a list (items) of rows of items
+     * @param configGroups 2 sets of data
      */
-    protected void processInputWrapper(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    protected void processInputWrapper(ConfigGroup[] configGroups) {
         long time;
         float timeMs;
+        ConfigGroup dataItems1 = configGroups[0];
+        ConfigGroup dataItems2 = configGroups[1];
         System.out.println("\n*** Start " + getClass().getSimpleName() + " Task 1 ***\n");
         time = System.nanoTime();
-        processInput1(dataItems1, dataItems2);
+        Object results1 = processInput1(dataItems1, dataItems2);
+        System.out.println(results1);
         time = System.nanoTime() - time;
         timeMs = time / 1000000;
 
@@ -217,7 +225,8 @@ public abstract class InputParser {
 
         System.out.println("\n*** Start " + getClass().getSimpleName() + " Task 2 ***\n");
         time = System.nanoTime();
-        processInput2(dataItems1, dataItems2);
+        Object results2 = processInput2(dataItems1, dataItems2);
+        System.out.println(results2);
         time = System.nanoTime() - time;
         timeMs = time / 1000000;
         System.out.println("\n*** End  " + getClass().getSimpleName() + " Task 2 - Time "
@@ -229,13 +238,13 @@ public abstract class InputParser {
      * @param dataItems1 this is a list (items) of rows of items
      * @param dataItems2 (optional/empty) this is a list (items) of rows of items
      */
-    protected abstract void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2);
+    public abstract Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2);
 
     /**
      * This method should process the input and output the requested information to stdout
      * @param dataItems1 this is a list (items) of rows of items
      * @param dataItems2 (optional/empty) this is a list (items) of rows of items
      */
-    protected abstract void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2);
+    public abstract Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2);
 
 }

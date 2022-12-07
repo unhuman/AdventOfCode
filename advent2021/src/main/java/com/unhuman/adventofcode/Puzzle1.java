@@ -14,7 +14,7 @@ public class Puzzle1 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         int increases = 0;
         Integer prior = null;
         for (GroupItem item: configGroup) {
@@ -30,11 +30,11 @@ public class Puzzle1 extends InputParser {
                 }
             }
         }
-        System.out.println(increases);
+        return increases;
     }
 
     @Override
-    protected void processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         int increases = 0;
 
         List<Integer> lists = new ArrayList<>();
@@ -57,6 +57,6 @@ public class Puzzle1 extends InputParser {
                 }
             }
         }
-        System.out.println(increases);
+        return increases;
     }
 }

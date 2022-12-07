@@ -22,7 +22,7 @@ public class Day3 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         List<Character> dupes = new ArrayList<>();
         for (GroupItem item : configGroup) {
             for (ItemLine line : item) {
@@ -49,11 +49,11 @@ public class Day3 extends InputParser {
                 total += Character.getNumericValue(character) - Character.getNumericValue('A') + 27;
             }
         }
-        System.out.println(total);
+        return total;
     }
 
     @Override
-    protected void processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         List<Character> dupes = new ArrayList<>();
         for (GroupItem item : configGroup) {
             for (int li = 0; li < item.size(); li++) {
@@ -86,6 +86,6 @@ public class Day3 extends InputParser {
                 total += Character.getNumericValue(character) - Character.getNumericValue('A') + 27;
             }
         }
-        System.out.println(total);
+        return total;
     }
 }

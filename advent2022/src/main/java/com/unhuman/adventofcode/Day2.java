@@ -68,7 +68,7 @@ public class Day2 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         int score = 0;
         for (GroupItem item: dataItems1) {
             for (ItemLine individual: item) {
@@ -78,11 +78,11 @@ public class Day2 extends InputParser {
                 score += calculateScore(p1, p2);
             }
         }
-        System.out.println(score);
+        return score;
     }
 
     @Override
-    protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         int score = 0;
         for (GroupItem item: dataItems1) {
             for (ItemLine individual: item) {
@@ -102,6 +102,6 @@ public class Day2 extends InputParser {
                 score += calculateScore(p1, p2);
             }
         }
-        System.out.println(score);
+        return score;
     }
 }

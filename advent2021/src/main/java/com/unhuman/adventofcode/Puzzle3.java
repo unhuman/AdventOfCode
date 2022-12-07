@@ -14,7 +14,7 @@ public class Puzzle3 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         List<Integer> zeroBits = new ArrayList<>();
         List<Integer> oneBits = new ArrayList<>();
 
@@ -51,8 +51,10 @@ public class Puzzle3 extends InputParser {
             long gamma = convertBitsToLong(mostBitsGamma);
             long epsilon = convertBitsToLong(leastBitsEpsilon);
 
-            System.out.println(gamma * epsilon);
+            return (gamma * epsilon);
         }
+
+        throw new RuntimeException("bad data");
     }
 
     private long convertBitsToLong(List<Integer> bits) {
@@ -66,6 +68,7 @@ public class Puzzle3 extends InputParser {
     }
 
     @Override
-    protected void processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+        return null;
     }
 }

@@ -14,7 +14,7 @@ public class Day0 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         for (GroupItem item : dataItems1) {
             for (ItemLine line : item) {
                 for (String element : line) {
@@ -22,9 +22,11 @@ public class Day0 extends InputParser {
                 }
             }
         }
+        return 1;
     }
 
     @Override
-    protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+        return 2;
     }
 }

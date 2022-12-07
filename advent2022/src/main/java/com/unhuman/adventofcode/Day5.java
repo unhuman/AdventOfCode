@@ -19,7 +19,7 @@ public class Day5 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         List<Stack<String>> stacks = new ArrayList<>();
         for (GroupItem item : dataItems1) {
             for (int i = item.size() - 1; i >= 0; --i) {
@@ -59,11 +59,11 @@ public class Day5 extends InputParser {
             answer += crate;
         }
 
-        System.out.println(answer);
+        return answer;
     }
 
     @Override
-    protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         List<Stack<String>> stacks = new ArrayList<>();
         for (GroupItem item : dataItems1) {
             for (int i = item.size() - 1; i >= 0; --i) {
@@ -118,6 +118,6 @@ public class Day5 extends InputParser {
             }
         }
 
-        System.out.println(answer);
+        return answer;
     }
 }

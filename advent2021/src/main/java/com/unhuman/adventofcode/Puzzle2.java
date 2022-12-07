@@ -5,16 +5,13 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Puzzle2 extends InputParser {
     public Puzzle2(String[] filenameAndCookieInfo) {
         super(filenameAndCookieInfo, "(\\w+) (\\d+)", null);
     }
 
     @Override
-    protected void processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         int depth = 0;
         int horiz = 0;
         for (GroupItem item: configGroup) {
@@ -35,11 +32,11 @@ public class Puzzle2 extends InputParser {
                 }
             }
         }
-        System.out.println(depth * horiz);
+        return (depth * horiz);
     }
 
     @Override
-    protected void processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         int aim = 0;
         int depth = 0;
         int horiz = 0;
@@ -62,6 +59,6 @@ public class Puzzle2 extends InputParser {
                 }
             }
         }
-        System.out.println(depth * horiz);
+        return (depth * horiz);
     }
 }

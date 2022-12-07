@@ -11,7 +11,7 @@ public class Puzzle0 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         for (GroupItem item : configGroup) {
             for (ItemLine line : item) {
                 for (String element : line) {
@@ -19,9 +19,12 @@ public class Puzzle0 extends InputParser {
                 }
             }
         }
+
+        return 1;
     }
 
     @Override
-    protected void processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+        return 2;
     }
 }

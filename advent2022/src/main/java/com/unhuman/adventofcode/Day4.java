@@ -5,8 +5,6 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
-import java.util.HashSet;
-
 public class Day4 extends InputParser {
     private static final String regex1 = "(\\d+)\\-(\\d+),(\\d+)\\-(\\d+)";
     private static final String regex2 = null;
@@ -16,7 +14,7 @@ public class Day4 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         int count = 0;
         for (GroupItem item : configGroup) {
             for (ItemLine line : item) {
@@ -30,11 +28,11 @@ public class Day4 extends InputParser {
                 }
             }
         }
-        System.out.println(count);
+        return count;
     }
 
     @Override
-    protected void processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+    public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         int count = 0;
         for (GroupItem item : configGroup) {
             for (ItemLine line : item) {
@@ -51,6 +49,6 @@ public class Day4 extends InputParser {
                 }
             }
         }
-        System.out.println(count);
+        return count;
     }
 }

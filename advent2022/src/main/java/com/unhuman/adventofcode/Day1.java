@@ -20,7 +20,7 @@ public class Day1 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         int maxCarry = 0;
         for (GroupItem item: dataItems1) {
             int wallet = 0;
@@ -33,11 +33,11 @@ public class Day1 extends InputParser {
                 maxCarry = wallet;
             }
         }
-        System.out.println(maxCarry);
+        return maxCarry;
     }
 
     @Override
-    protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+    public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         int count = 3;
         int[] maxCarry = new int[count];
         for (int i = 0; i < count; i++) {
@@ -68,6 +68,6 @@ public class Day1 extends InputParser {
         for (int i = 0; i < count; i++) {
             total += maxCarry[i];
         }
-        System.out.println(total);
+        return total;
     }
 }

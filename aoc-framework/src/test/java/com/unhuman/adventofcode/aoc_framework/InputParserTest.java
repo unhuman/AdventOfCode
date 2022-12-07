@@ -103,21 +103,23 @@ public class InputParserTest {
         }
 
         @Override
-        protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+        public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
             validateInput(dataItems1, expectedItems1, expectedLines1, expectedItemsPerLine1);
             if (expectedItems2 > 0) {
                 System.out.println("\n----------------\n");
             }
             validateInput(dataItems2, expectedItems2, expectedLines2, expectedItemsPerLine2);
+            return "";
         }
 
         @Override
-        protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+        public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
             validateInput(dataItems1, expectedItems1, expectedLines1, expectedItemsPerLine1);
             if (expectedItems2 > 0) {
                 System.out.println("\n----------------\n");
             }
             validateInput(dataItems2, expectedItems2, expectedLines2, expectedItemsPerLine2);
+            return "";
         }
 
         protected void validateInput(ConfigGroup dataItems,

@@ -5,9 +5,6 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 public class Day6 extends InputParser {
     private static final String regex1 = "(\\w)";
     private static final String regex2 = null;
@@ -17,16 +14,16 @@ public class Day6 extends InputParser {
     }
 
     @Override
-    protected void processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
-        process(dataItems1, 4);
+    public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+        return process(dataItems1, 4);
     }
 
     @Override
-    protected void processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
-        process(dataItems1, 14);
+    public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+        return process(dataItems1, 14);
     }
 
-    protected void process(ConfigGroup dataItems1, int groupCount) {
+    protected Object process(ConfigGroup dataItems1, int groupCount) {
         for (GroupItem item : dataItems1) {
             for (ItemLine line : item) {
                 for (int i = 0; i < line.size(); i++) {
@@ -45,13 +42,12 @@ public class Day6 extends InputParser {
                         }
 
                         if (!foundDupe) {
-                            System.out.println(i);
-                            return;
+                            return i + 1;
                         }
                     }
                 }
             }
         }
+        throw new RuntimeException("bad data");
     }
-
 }
