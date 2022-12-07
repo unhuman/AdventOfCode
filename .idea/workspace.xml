@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day6Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2022/src/test/resources/Day6Case.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle0.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle1.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle2.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle3.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode/Puzzle3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day0.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day1.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day2.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day3.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day4.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day5.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day6.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day6.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/InputParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/test/java/com/unhuman/adventofcode/aoc_framework/InputParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/test/java/com/unhuman/adventofcode/aoc_framework/InputParserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +58,7 @@
       <recent name="com.unhuman.adventofcode" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Day6Test">
+  <component name="RunManager" selected="Application.Advent 2022 (https)">
     <configuration name="Advent 2021 (https) " type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Advent2021" />
       <module name="advent2021" />
@@ -190,8 +175,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Day6Test" />
         <item itemvalue="Application.Advent 2022 (https)" />
+        <item itemvalue="JUnit.Day6Test" />
         <item itemvalue="JUnit.Day5Test" />
         <item itemvalue="JUnit.Day0Test" />
         <item itemvalue="JUnit.Puzzle0Test" />

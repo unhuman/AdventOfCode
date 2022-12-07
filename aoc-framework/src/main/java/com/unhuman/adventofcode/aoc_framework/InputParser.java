@@ -213,24 +213,22 @@ public abstract class InputParser {
         float timeMs;
         ConfigGroup dataItems1 = configGroups[0];
         ConfigGroup dataItems2 = configGroups[1];
-        System.out.println("\n*** Start " + getClass().getSimpleName() + " Task 1 ***\n");
+
+        System.out.print("*** " + getClass().getSimpleName() + " Task 1 *** ");
         time = System.nanoTime();
         Object results1 = processInput1(dataItems1, dataItems2);
-        System.out.println(results1);
+        System.out.print(results1);
         time = System.nanoTime() - time;
-        timeMs = time / 1000000;
+        timeMs = (float) time / 1000000;
+        System.out.println(" *** Time " + time / 1000 + "us " + timeMs + "ms ***");
 
-        System.out.println("\n*** End " + getClass().getSimpleName() + " Task 1 - Time "
-                + time / 1000 + "us " + timeMs +"ms ***\n");
-
-        System.out.println("\n*** Start " + getClass().getSimpleName() + " Task 2 ***\n");
+        System.out.print("*** " + getClass().getSimpleName() + " Task 2 *** ");
         time = System.nanoTime();
         Object results2 = processInput2(dataItems1, dataItems2);
-        System.out.println(results2);
+        System.out.print(results2);
         time = System.nanoTime() - time;
-        timeMs = time / 1000000;
-        System.out.println("\n*** End  " + getClass().getSimpleName() + " Task 2 - Time "
-                + time / 1000 + "us " + timeMs +"ms ***\n");
+        timeMs = (float) time / 1000000;
+        System.out.println(" *** Time " + time / 1000 + "us " + timeMs + "ms ***\n");
     }
 
     /**
