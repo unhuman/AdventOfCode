@@ -179,7 +179,8 @@ public abstract class InputParser {
                 if (matcher.find()) {
                     if (matcher.groupCount() >= 1) {
                         for (int i = 1; i <= matcher.groupCount(); i++) {
-                            String lineItem = (matcher.group(i).length() > 0) ? matcher.group(i) : null;
+                            String lineItem = (matcher.group(i) != null && matcher.group(i).length() > 0)
+                                    ? matcher.group(i) : null;
                             dataLine.add(lineItem);
                         }
                         // allow continuation for duplicate matchers on a line
