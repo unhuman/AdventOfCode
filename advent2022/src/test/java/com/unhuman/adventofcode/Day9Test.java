@@ -12,6 +12,16 @@ public class Day9Test {
         ConfigGroup[] groups = day.parseFiles();
 
         Assertions.assertEquals(13, day.processInput1(groups[0], groups[1]));
-        Assertions.assertEquals(2, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(1, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2() {
+        String[] test1 = new String[] { "src/test/resources/Day9Case2.txt" };
+        Day9 day = new Day9(test1);
+        ConfigGroup[] groups = day.parseFiles();
+
+        Assertions.assertEquals(88, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(36, day.processInput2(groups[0], groups[1]));
     }
 }
