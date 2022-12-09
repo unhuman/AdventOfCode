@@ -82,7 +82,6 @@ public class Day9 extends InputParser {
                     }
 
                     // Append the current tail location to the journey
-                    Point tailLocation = new Point(priorSegment);
                     trailJourney.add(new Point(priorSegment));
                 }
             }
