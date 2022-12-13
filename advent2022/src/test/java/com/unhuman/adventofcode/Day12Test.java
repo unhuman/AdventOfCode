@@ -11,7 +11,7 @@ public class Day12Test {
         Day12 day = new Day12(test1);
         ConfigGroup[] groups = day.parseFiles();
 
-        Assertions.assertEquals(1, day.processInput1(groups[0], groups[1]));
-        Assertions.assertEquals(2, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(31, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(29, day.processInput2(groups[0], groups[1]));
     }
 }
