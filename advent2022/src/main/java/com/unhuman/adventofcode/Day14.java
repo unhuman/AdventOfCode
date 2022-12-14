@@ -15,9 +15,12 @@ public class Day14 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
-        for (GroupItem item : dataItems1) {
-            for (ItemLine line : item) {
-                for (String element : line) {
+        for (int groupItemIdx = 0; groupItemIdx < dataItems1.size(); groupItemIdx++) {
+            GroupItem item = dataItems1.get(groupItemIdx);
+            for (int lineIdx = 0; lineIdx < item.size(); lineIdx++) {
+                ItemLine line = item.get(lineIdx);
+                for (int elementIdx = 0; elementIdx < line.size(); elementIdx++) {
+                    String element = line.get(elementIdx);
 
                 }
             }
