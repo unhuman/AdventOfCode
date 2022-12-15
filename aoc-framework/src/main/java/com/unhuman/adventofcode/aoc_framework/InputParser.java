@@ -3,7 +3,7 @@ package com.unhuman.adventofcode.aoc_framework;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
-import com.unhuman.adventofcode.aoc_framework.utility.LineInput;
+import com.unhuman.adventofcode.aoc_framework.helper.LineInput;
 
 import java.io.File;
 import java.io.FileNotFoundException;

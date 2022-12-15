@@ -1,4 +1,4 @@
-package com.unhuman.adventofcode.aoc_framework.utility;
+package com.unhuman.adventofcode.aoc_framework.helper;
 
 import java.util.List;
 
