@@ -8,8 +8,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SparseMatrix<T> {
-    Map<Point, T> matrix = new HashMap();
-    T defaultValue = null;
+    enum MatrixSystem { CARTESIAN, ROW }
+
+    private Map<Point, T> matrix = new HashMap();
+    private T defaultValue = null;
+
+    private MatrixSystem matrixSystem = MatrixSystem.ROW;
 
     public SparseMatrix() {
         this(null);
@@ -59,32 +63,33 @@ public class SparseMatrix<T> {
 
     public Point getTopLeft() {
         Point topLeft = null;
-        for(Point checkPoint: matrix.keySet()) {
-            if (checkPoint == null) {
+        for (Point checkPoint: matrix.keySet()) {
+            if (topLeft == null) {
                 topLeft = new Point(checkPoint);
             } else {
-                if (checkPoint.x < topLeft.x) {
-                    topLeft.x = checkPoint.x;
-                }
-                if (checkPoint.y > topLeft.y) {
-                    topLeft.y = checkPoint.y;
+                topLeft.x = Math.min(checkPoint.x, topLeft.x);
+
+                if (matrixSystem == MatrixSystem.ROW) {
+                    topLeft.y = Math.min(checkPoint.y, topLeft.y);
+                } else { // cartesian
+                    topLeft.y = Math.max(checkPoint.y, topLeft.y);
                 }
             }
         }
         return topLeft;
     }
-
     public Point getBottomRight() {
         Point bottomRight = null;
-        for(Point checkPoint: matrix.keySet()) {
-            if (checkPoint == null) {
+        for (Point checkPoint: matrix.keySet()) {
+            if (bottomRight == null) {
                 bottomRight = new Point(checkPoint);
             } else {
-                if (checkPoint.x > bottomRight.x) {
-                    bottomRight.x = checkPoint.x;
-                }
-                if (checkPoint.y < bottomRight.y) {
-                    bottomRight.y = checkPoint.y;
+                bottomRight.x = Math.max(checkPoint.x, bottomRight.x);
+
+                if (matrixSystem == MatrixSystem.ROW) {
+                    bottomRight.y = Math.max(checkPoint.y, bottomRight.y);
+                } else { // cartesian
+                    bottomRight.y = Math.min(checkPoint.y, bottomRight.y);
                 }
             }
         }
@@ -97,11 +102,32 @@ public class SparseMatrix<T> {
 
     private Set<Point> getPopulatedPoints(T desiredValue) {
         return Collections.unmodifiableSet(
-                matrix.keySet().stream().filter(point ->
-                        matrix.get(point).equals(desiredValue)).collect(Collectors.toSet()));
+                matrix.keySet().stream().filter
+                        (point -> matrix.get(point).equals(desiredValue)).collect(Collectors.toSet()));
     }
 
     private T defaultValueOf(T value) {
         return (value != null) ? value : defaultValue;
+    }
+
+    @Override
+    public String toString() {
+        int startRow = getTopLeft().y;
+        int endRow = getBottomRight().y;
+        int increment = (startRow < endRow) ? 1 : -1;
+
+        int startCol = getTopLeft().x;
+        int endCol = getBottomRight().x;
+
+        StringBuilder sb = new StringBuilder();
+        for (int y = startRow; (y >= startRow && y <= endRow) || (y <= startRow && y >= endRow); y += increment) {
+            for (int x = startCol; x <= endCol; x++) {
+                T ch = matrix.get(new Point(x, y));
+                sb.append(ch != null ? ch : '.');
+            }
+            sb.append("  " + y);
+            sb.append('\n');
+        }
+        return sb.toString();
     }
 }

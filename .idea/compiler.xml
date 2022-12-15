@@ -11,10 +11,6 @@
         <module name="advent2021" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="advent2022-day2" target="17" />
-      <module name="adventofcode" target="1.5" />
-      <module name="aoc-proofofconcept" target="17" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="17" />
   </component>
 </project>
