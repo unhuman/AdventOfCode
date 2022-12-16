@@ -6,14 +6,14 @@ import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 import com.unhuman.adventofcode.aoc_framework.utility.SparseMatrix;
 
-import java.awt.Point;
-import java.util.HashMap;
+import java.awt.*;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Day15 extends InputParser {
     private static final String regex1 = "Sensor at x=(-?\\d+), y=(-?\\d+): closest beacon is at x=(-?\\d+), y=(-?\\d+)";
     private static final String regex2 = null;
-    private int checkRow = 20000;
+    private int checkRow = 2000000;
 
     public Day15(String[] filenameAndCookieInfo) {
         super(filenameAndCookieInfo, regex1, regex2);
@@ -26,7 +26,7 @@ public class Day15 extends InputParser {
     @Override
     public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         SparseMatrix<Character> matrix = new SparseMatrix<>();
-        Map<Point, Point> sensorToBeacon = new HashMap<>();
+        Map<Point, Point> sensorToBeacon = new LinkedHashMap<>();
         for (int groupItemIdx = 0; groupItemIdx < dataItems1.size(); groupItemIdx++) {
             GroupItem item = dataItems1.get(groupItemIdx);
             for (int lineIdx = 0; lineIdx < item.size(); lineIdx++) {
@@ -43,6 +43,10 @@ public class Day15 extends InputParser {
         sensorToBeacon.forEach((sensor, beacon) -> {
             int manhattanDistance = Math.abs(beacon.x - sensor.x) + Math.abs(beacon.y - sensor.y);
             for (int y = -manhattanDistance; y <= manhattanDistance; y++) {
+                // Optimization - only process desired row
+                if (sensor.y + y != checkRow) {
+                    continue;
+                }
                 int horizontalDifference = manhattanDistance - (Math.abs(y));
                 for (int x = -horizontalDifference; x <= horizontalDifference; x++) {
                     Point point = new Point(sensor.x + x, sensor.y + y);
@@ -53,7 +57,6 @@ public class Day15 extends InputParser {
                 }
             }
         });
-        System.out.println(matrix);
 
         Point topLeft = matrix.getTopLeft();
         Point bottomRight = matrix.getBottomRight();
