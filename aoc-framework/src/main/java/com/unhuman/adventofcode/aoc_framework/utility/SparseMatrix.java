@@ -110,24 +110,33 @@ public class SparseMatrix<T> {
         return (value != null) ? value : defaultValue;
     }
 
-//    @Override
-//    public String toString() {
-//        int startRow = getTopLeft().y;
-//        int endRow = getBottomRight().y;
-//        int increment = (startRow < endRow) ? 1 : -1;
-//
-//        int startCol = getTopLeft().x;
-//        int endCol = getBottomRight().x;
-//
-//        StringBuilder sb = new StringBuilder();
-//        for (int y = startRow; (y >= startRow && y <= endRow) || (y <= startRow && y >= endRow); y += increment) {
-//            for (int x = startCol; x <= endCol; x++) {
-//                T ch = matrix.get(new Point(x, y));
-//                sb.append(ch != null ? ch : '.');
-//            }
-//            sb.append("  " + y);
-//            sb.append('\n');
-//        }
-//        return sb.toString();
-//    }
+    @Override
+    public String toString() {
+        // Safety
+        if (Math.abs(getTopLeft().x - getBottomRight().x) + Math.abs(getTopLeft().y - getBottomRight().y) > 100) {
+            return "TOO BIG TO RENDER";
+        }
+
+        int startRow = getTopLeft().y;
+        int endRow = getBottomRight().y;
+        int increment = (startRow < endRow) ? 1 : -1;
+
+        int startCol = getTopLeft().x;
+        int endCol = getBottomRight().x;
+
+        StringBuilder sb = new StringBuilder();
+        for (int x = startCol; x <= endCol; x++) {
+            sb.append((x == 0) ? '0' : ' ');
+        }
+        sb.append('\n');
+        for (int y = startRow; (y >= startRow && y <= endRow) || (y <= startRow && y >= endRow); y += increment) {
+            for (int x = startCol; x <= endCol; x++) {
+                T ch = matrix.get(new Point(x, y));
+                sb.append(ch != null ? ch : '.');
+            }
+            sb.append("  " + y);
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
 }
