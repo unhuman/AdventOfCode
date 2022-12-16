@@ -7,8 +7,8 @@ import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 import com.unhuman.adventofcode.aoc_framework.utility.SparseMatrix;
 
 import java.awt.*;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 public class Day15 extends InputParser {
     private static final String regex1 = "Sensor at x=(-?\\d+), y=(-?\\d+): closest beacon is at x=(-?\\d+), y=(-?\\d+)";
@@ -49,10 +49,11 @@ public class Day15 extends InputParser {
             int manhattanDistance = Math.abs(beacon.x - sensor.x) + Math.abs(beacon.y - sensor.y);
             for (int y = -manhattanDistance; y <= manhattanDistance; y++) {
                 // Optimization - only process desired row
-                if (sensor.y + y != part1CheckRow) {
+                if (sensor.y + y != part1CheckRow && part1CheckRow > 100) {
                     continue;
                 }
                 int horizontalDifference = manhattanDistance - (Math.abs(y));
+
                 for (int x = -horizontalDifference; x <= horizontalDifference; x++) {
                     Point point = new Point(sensor.x + x, sensor.y + y);
                     // do not plot points outside of our existing placement
@@ -79,6 +80,12 @@ public class Day15 extends InputParser {
     @Override
     public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         SparseMatrix<Character> matrix = new SparseMatrix<>();
+
+        List<BlockedRangeList> rows = new ArrayList<>(part2Maximum);
+        for (int i = 0; i < part2Maximum; i++) {
+            rows.add(new BlockedRangeList());
+        }
+
         Map<Point, Point> sensorToBeacon = new LinkedHashMap<>();
         for (int groupItemIdx = 0; groupItemIdx < dataItems1.size(); groupItemIdx++) {
             GroupItem item = dataItems1.get(groupItemIdx);
@@ -99,39 +106,95 @@ public class Day15 extends InputParser {
                 int y = sensor.y + yRange;
 
                 // optimization
-                if (y < 0 || y > part2Maximum) {
+                if (y < 0 || y >= part2Maximum) {
                     continue;
                 }
 
                 int horizontalDifference = manhattanDistance - (Math.abs(yRange));
-                for (int xRange = -horizontalDifference; xRange <= horizontalDifference; xRange++) {
-                    int x = sensor.x + xRange;
-                    // optimization
-                    if (x < 0 || x > part2Maximum) {
-                        continue;
-                    }
-
-                    Point point = new Point(x, y);
-                    // do not plot points outside of our existing placement
-                    if (matrix.get(point) == null) {
-                        matrix.put(point, '#');
-                    }
-                }
+                int xStart = Math.max(0, sensor.x - horizontalDifference);
+                int xEnd = Math.min(part2Maximum, sensor.x + horizontalDifference);
+                BlockedRange newRange = new BlockedRange(xStart, xEnd);
+                rows.get(y).add(newRange);
             }
         });
 
-        System.out.println(matrix);
-
-        Point topLeft = matrix.getTopLeft();
-        Point bottomRight = matrix.getBottomRight();
         for (int y = 0; y < part2Maximum; y++) {
-            for (int x = 0; x < part2Maximum; x++) {
-                if (matrix.get(new Point(x, y)) == null) {
-                    return x * 4000000 + y;
-                }
+            if (rows.get(y).size() == 2) {
+                Collections.sort(rows.get(y));
+                System.out.println("row y " + y + " values: " + rows.get(y));
+                return (rows.get(y).get(0).end + 1) * 4000000L + y;
             }
         }
-
         throw new RuntimeException("Got too far");
+    }
+
+    class BlockedRange implements Comparable {
+        int start;
+        int end;
+        BlockedRange(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        boolean touches(BlockedRange other) {
+            return ((other.start <= start && other.end >= start) || (other.start <= end && other.end >= end)
+                    || (end == other.start - 1) || (other.end == start - 1)
+                    || (other.start >= start && other.end <= end)
+                    || (start >= other.start && end <= other.end));
+        }
+
+        @Override
+        public int compareTo(Object o) {
+            BlockedRange other = (BlockedRange) o;
+            if (this.start < other.start) {
+                return -1;
+            }
+            if (this.start > other.start) {
+                return 1;
+            }
+            return 0;
+        }
+
+        @Override
+        public String toString() {
+            return "[" + start + "-" + end + "]";
+        }
+    }
+
+    class BlockedRangeList extends ArrayList<BlockedRange> {
+        void add(int location) {
+            add(new BlockedRange(location, location));
+        }
+
+        @Override
+        public boolean add(BlockedRange range) {
+            super.add(range);
+
+            // Dedupe when overlaps - because could overlap multiple to combine
+            for (int i = size() - 1; i > 0; i--) {
+                for (int j = i - 1; j >= 0; j--) {
+                    if (get(i).touches(get(j))) {
+                        get(j).start = Math.min(get(j).start, get(i).start);
+                        get(j).end = Math.max(get(j).end, get(i).end);
+                        remove(i);
+                        break;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder(64);
+            for (int i = 0; i < size(); i++) {
+                sb.append(get(i));
+                if (i < size() - 1) {
+                    sb.append(", ");
+                }
+            }
+            return sb.toString();
+        }
     }
 }

@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day15.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day15.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day15Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day15Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/SparseMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/SparseMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Advent2022.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Advent2022.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +61,7 @@
       <recent name="com.unhuman.adventofcode" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Day15Test">
+  <component name="RunManager" selected="Application.Advent 2022 (https)">
     <configuration name="Advent 2021 (https) " type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Advent2021" />
       <module name="advent2021" />
@@ -179,8 +179,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Day15Test" />
         <item itemvalue="Application.Advent 2022 (https)" />
+        <item itemvalue="JUnit.Day15Test" />
         <item itemvalue="JUnit.Day14Test" />
         <item itemvalue="JUnit.Day14Test.test1" />
         <item itemvalue="JUnit.Day11Test" />
@@ -309,16 +309,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day15.java</url>
-          <line>47</line>
+          <line>46</line>
           <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
+          <condition expression="y == 5" language="JAVA" />
           <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day15.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="104" />
+          <line>116</line>
+          <option name="timeStamp" value="112" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="xStart" language="JAVA" />
+        <watch expression="xEnd" language="JAVA" />
+        <watch expression="rows.get(11)" language="JAVA" />
+        <watch expression="rows.get(0)" language="JAVA" />
+        <watch expression="this" language="JAVA" custom="com.sun.tools.jdi.JDWP" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
