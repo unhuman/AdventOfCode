@@ -12,6 +12,6 @@ public class Day17Test {
         ConfigGroup[] groups = day.parseFiles();
 
         Assertions.assertEquals(3068L, day.processInput1(groups[0], groups[1]));
-//        Assertions.assertEquals(1514285714288L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(1514285714288L, day.processInput2(groups[0], groups[1]));
     }
 }

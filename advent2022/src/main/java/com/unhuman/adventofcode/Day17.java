@@ -8,6 +8,7 @@ import com.unhuman.adventofcode.aoc_framework.utility.SparseMatrix;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -71,16 +72,63 @@ public class Day17 extends InputParser {
         long pieces = 0L;
         int instructionIndex = 0;
         Shape currentShape;
+
+        // Tracking data for optimizations
+        HashSet<String> tracker = new HashSet<>();
+        int trackerRound = 0;
+        String trackerItem = null;
+        Integer trackerStartHeight = null;
+        Integer trackerEndHeight = null;
+        long optimizationHeights = 0;
+        Integer trackerPieces = 0;
+
         while (pieces < turns) {
             // get the next shape
             Shape shape = Shape.values()[(rotator++) % Shape.values().length];
+
+            // This is an optimization to find extra data
+            String trackerText = shape.toString() + instructionIndex;
+            switch(trackerRound) {
+                case 0:
+                    if (!tracker.contains(trackerText)) {
+                        tracker.add(trackerText);
+                    } else {
+                        ++trackerRound;
+                    }
+                    break;
+                case 1:
+                    if (tracker.contains(trackerText)) {
+                        trackerItem = trackerText;
+                        trackerStartHeight = sparseMatrix.getTopLeft().y;
+                        ++trackerRound;
+                    }
+                    break;
+                case 2:
+                    ++trackerPieces;
+                    if (trackerItem.equals(trackerText)) {
+                        trackerEndHeight = sparseMatrix.getTopLeft().y;
+                        ++trackerRound;
+
+                        // calculate how many rounds are left
+                        long roundsLeft = (turns - pieces) / trackerPieces;
+                        pieces += trackerPieces * roundsLeft;
+                        optimizationHeights = Math.abs(trackerEndHeight - trackerStartHeight) * roundsLeft;
+
+// loop to process many items
+//                        while (pieces + trackerPieces < turns) {
+//                            pieces += trackerPieces;
+//                            optimizationHeights += Math.abs(trackerEndHeight - trackerStartHeight);
+//                        }
+                    }
+                    break;
+            }
+
             ++pieces;
 
             int x = X_START_OFFSET;
             int y = sparseMatrix.getTopLeft().y - Y_START_OFFSET - 1; // bad instructions?
 
             while (true) {
-                // Get the next instruction
                 char instruction = instructions.charAt(instructionIndex++);
                 if (instructionIndex >= instructions.length()) {
                     instructionIndex = 0;
@@ -115,56 +163,56 @@ public class Day17 extends InputParser {
 
             // rebase the structure (find any contiguous horizontal piece
             // will need to keep everything above it
-            if (pieces % 1000 == 0) {
-                int checkLineY = sparseMatrix.getTopLeft().y;
-                boolean contiguous = false;
-                for (checkLineY = sparseMatrix.getTopLeft().y; checkLineY <= sparseMatrix.getBottomRight().y; checkLineY++) {
-                    contiguous = true;
-                    if (sparseMatrix.get(0, checkLineY) != null) {
-                        // keep track of the base where we need to reset
-                        int lowest = checkLineY;
-                        int currentHeight = lowest;
-                        for (int checkLineX = 1; checkLineX < 7; checkLineX++) {
-                            if (sparseMatrix.get(checkLineX, currentHeight - 1) != null) {
-                                --currentHeight;
-                                continue;
-                            } else if (sparseMatrix.get(checkLineX, currentHeight) != null) {
-                                continue;
-                            } else if (sparseMatrix.get(checkLineX, currentHeight + 1) != null) {
-                                ++currentHeight;
-                                lowest = Math.max(lowest, currentHeight);
-                                continue;
-                            } else {
-                                contiguous = false;
-                                break;
-                            }
-                        }
-
-                        if (contiguous) {
-                            System.out.println("found contiguous at line " + lowest);
-                            int offset = 0 - lowest;
-
-                            // Keep track of our offset for tower height
-                            towerHeight += offset;
-
-                            // recreate the sparse matrix from this point up
-                            SparseMatrix<Character> newMatrix = new SparseMatrix<>();
-                            int oldTop = sparseMatrix.getTopLeft().y;
-                            for (int copyY = lowest; copyY >= oldTop; copyY--) {
-                                for (int copyX = 0; copyX < 7; copyX++) {
-                                    newMatrix.put(copyX, copyY + offset, sparseMatrix.get(copyX, copyY));
-                                }
-                            }
-
-                            sparseMatrix = newMatrix;
-
-                            break;
-                        }
-                    }
-                }
-            }
+//            if (pieces % 1000 == 0) {
+//                int checkLineY = sparseMatrix.getTopLeft().y;
+//                boolean contiguous = false;
+//                for (checkLineY = sparseMatrix.getTopLeft().y; checkLineY <= sparseMatrix.getBottomRight().y; checkLineY++) {
+//                    contiguous = true;
+//                    if (sparseMatrix.get(0, checkLineY) != null) {
+//                        // keep track of the base where we need to reset
+//                        int lowest = checkLineY;
+//                        int currentHeight = lowest;
+//                        for (int checkLineX = 1; checkLineX < 7; checkLineX++) {
+//                            if (sparseMatrix.get(checkLineX, currentHeight - 1) != null) {
+//                                --currentHeight;
+//                                continue;
+//                            } else if (sparseMatrix.get(checkLineX, currentHeight) != null) {
+//                                continue;
+//                            } else if (sparseMatrix.get(checkLineX, currentHeight + 1) != null) {
+//                                ++currentHeight;
+//                                lowest = Math.max(lowest, currentHeight);
+//                                continue;
+//                            } else {
+//                                contiguous = false;
+//                                break;
+//                            }
+//                        }
+//
+//                        if (contiguous) {
+//                            System.out.println("found contiguous at line " + lowest);
+//                            int offset = 0 - lowest;
+//
+//                            // Keep track of our offset for tower height
+//                            towerHeight += offset;
+//
+//                            // recreate the sparse matrix from this point up
+//                            SparseMatrix<Character> newMatrix = new SparseMatrix<>();
+//                            int oldTop = sparseMatrix.getTopLeft().y;
+//                            for (int copyY = lowest; copyY >= oldTop; copyY--) {
+//                                for (int copyX = 0; copyX < 7; copyX++) {
+//                                    newMatrix.put(copyX, copyY + offset, sparseMatrix.get(copyX, copyY));
+//                                }
+//                            }
+//
+//                            sparseMatrix = newMatrix;
+//
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
         }
-        return towerHeight + -sparseMatrix.getTopLeft().y;
+        return -sparseMatrix.getTopLeft().y + optimizationHeights;
     }
 
 
