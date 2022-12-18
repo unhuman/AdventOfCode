@@ -12,6 +12,8 @@ public class SparseMatrix<T> {
 
     private Map<Point, T> matrix = new HashMap();
     private T defaultValue = null;
+    private Point topLeft = null;
+    private Point bottomRight = null;
 
     private MatrixSystem matrixSystem = MatrixSystem.ROW;
 
@@ -37,6 +39,24 @@ public class SparseMatrix<T> {
         } else {
             priorValue = remove(point);
         }
+
+        if (topLeft == null) {
+            topLeft = new Point(point.x, point.y);
+        } else {
+            topLeft.x = Math.min(point.x, topLeft.x);
+            topLeft.y = (matrixSystem == MatrixSystem.ROW)
+                    ? Math.min(point.y, topLeft.y)
+                    : Math.max(point.y, topLeft.y);
+        }
+
+        if (bottomRight == null) {
+            bottomRight = new Point(point.x, point.y);
+        } else {
+            bottomRight.x = Math.max(point.x, topLeft.x);
+            bottomRight.y = (matrixSystem == MatrixSystem.ROW)
+                    ? Math.max(point.y, bottomRight.y) : Math.min(point.y, bottomRight.y);
+        }
+
         return defaultValueOf(priorValue);
     }
 
@@ -46,6 +66,8 @@ public class SparseMatrix<T> {
      * @return previous value (or default)
      */
     public T remove(Point point) {
+        topLeft = null;
+        bottomRight = null;
         T value = matrix.remove(point);
         return defaultValueOf(value);
     }
@@ -62,7 +84,10 @@ public class SparseMatrix<T> {
     }
 
     public Point getTopLeft() {
-        Point topLeft = null;
+        if (topLeft != null) {
+            return topLeft;
+        }
+
         for (Point checkPoint: matrix.keySet()) {
             if (topLeft == null) {
                 topLeft = new Point(checkPoint);
@@ -79,7 +104,10 @@ public class SparseMatrix<T> {
         return topLeft;
     }
     public Point getBottomRight() {
-        Point bottomRight = null;
+        if (bottomRight != null) {
+            return bottomRight;
+        }
+
         for (Point checkPoint: matrix.keySet()) {
             if (bottomRight == null) {
                 bottomRight = new Point(checkPoint);
