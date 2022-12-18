@@ -91,9 +91,9 @@ public class Advent2022
 //        puzzle.process();
 
         ++i;
-//        argsFixed[0] = generateFile(i);
-//        puzzle = new Day16(argsFixed);
-//        puzzle.process();
+        argsFixed[0] = generateFile(i);
+        puzzle = new Day16(argsFixed);
+        puzzle.process();
 
         ++i;
 //        argsFixed[0] = generateFile(i);
@@ -106,9 +106,9 @@ public class Advent2022
 //        puzzle.process();
 
         ++i;
-        argsFixed[0] = generateFile(i);
-        puzzle = new Day19(argsFixed);
-        puzzle.process();
+//        argsFixed[0] = generateFile(i);
+//        puzzle = new Day19(argsFixed);
+//        puzzle.process();
     }
 
     static String generateFile(int day) {
