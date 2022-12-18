@@ -38,7 +38,6 @@ public class SparseMatrix<T> {
             priorValue =  matrix.put(point, value);
         } else {
             priorValue = remove(point);
-            return priorValue;
         }
 
         if (topLeft == null) {
