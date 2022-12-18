@@ -7,7 +7,6 @@ import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 import com.unhuman.adventofcode.aoc_framework.utility.SparseMatrix;
 
 import java.awt.*;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,15 +40,15 @@ public class Day17 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
-        return processInputInternal(dataItems1, BigInteger.valueOf(TURNS));
+        return processInputInternal(dataItems1, TURNS);
     }
 
     @Override
     public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
-        return processInputInternal(dataItems1, BigInteger.valueOf(1000000000000L));
+        return processInputInternal(dataItems1, 1000000000000L);
     }
 
-    public Object processInputInternal(ConfigGroup dataItems1, BigInteger turns) {
+    public Object processInputInternal(ConfigGroup dataItems1, Long turns) {
         String instructions = "";
         for (int groupItemIdx = 0; groupItemIdx < dataItems1.size(); groupItemIdx++) {
             GroupItem item = dataItems1.get(groupItemIdx);
@@ -67,14 +66,15 @@ public class Day17 extends InputParser {
             sparseMatrix.put(new Point(x, 0), '-');
         }
 
+        long towerHeight = 0L;
         int rotator = 0;
-        BigInteger pieces = BigInteger.valueOf(0L);
+        long pieces = 0L;
         int instructionIndex = 0;
         Shape currentShape;
-        while (pieces.compareTo(turns) < 0) {
+        while (pieces < turns) {
             // get the next shape
             Shape shape = Shape.values()[(rotator++) % Shape.values().length];
-            pieces = pieces.add(BigInteger.ONE);
+            ++pieces;
 
             int x = X_START_OFFSET;
             int y = sparseMatrix.getTopLeft().y - Y_START_OFFSET - 1; // bad instructions?
@@ -112,11 +112,63 @@ public class Day17 extends InputParser {
                 // gravity
                 ++y;
             }
+
+            // rebase the structure (find any contiguous horizontal piece
+            // will need to keep everything above it
+            if (pieces % 1000 == 0) {
+                int checkLineY = sparseMatrix.getTopLeft().y;
+                boolean contiguous = false;
+                for (checkLineY = sparseMatrix.getTopLeft().y; checkLineY <= sparseMatrix.getBottomRight().y; checkLineY++) {
+                    contiguous = true;
+                    if (sparseMatrix.get(0, checkLineY) != null) {
+                        // keep track of the base where we need to reset
+                        int lowest = checkLineY;
+                        int currentHeight = lowest;
+                        for (int checkLineX = 1; checkLineX < 7; checkLineX++) {
+                            if (sparseMatrix.get(checkLineX, currentHeight - 1) != null) {
+                                --currentHeight;
+                                continue;
+                            } else if (sparseMatrix.get(checkLineX, currentHeight) != null) {
+                                continue;
+                            } else if (sparseMatrix.get(checkLineX, currentHeight + 1) != null) {
+                                ++currentHeight;
+                                lowest = Math.max(lowest, currentHeight);
+                                continue;
+                            } else {
+                                contiguous = false;
+                                break;
+                            }
+                        }
+
+                        if (contiguous) {
+                            System.out.println("found contiguous at line " + lowest);
+                            int offset = 0 - lowest;
+
+                            // Keep track of our offset for tower height
+                            towerHeight += offset;
+
+                            // recreate the sparse matrix from this point up
+                            SparseMatrix<Character> newMatrix = new SparseMatrix<>();
+                            int oldTop = sparseMatrix.getTopLeft().y;
+                            for (int copyY = lowest; copyY >= oldTop; copyY--) {
+                                for (int copyX = 0; copyX < 7; copyX++) {
+                                    newMatrix.put(copyX, copyY + offset, sparseMatrix.get(copyX, copyY));
+                                }
+                            }
+
+                            sparseMatrix = newMatrix;
+
+                            break;
+                        }
+                    }
+                }
+            }
         }
-
-        return -sparseMatrix.getTopLeft().y;
-
+        return towerHeight + -sparseMatrix.getTopLeft().y;
     }
+
+
+
 
     boolean canMove(SparseMatrix matrix, int xLocation, int yLocation, Shape shape) {
         List<Point> shapePoints = shapes.get(shape);

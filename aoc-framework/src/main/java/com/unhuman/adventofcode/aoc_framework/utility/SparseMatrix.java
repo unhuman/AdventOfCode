@@ -38,6 +38,7 @@ public class SparseMatrix<T> {
             priorValue =  matrix.put(point, value);
         } else {
             priorValue = remove(point);
+            return priorValue;
         }
 
         if (topLeft == null) {
@@ -60,6 +61,10 @@ public class SparseMatrix<T> {
         return defaultValueOf(priorValue);
     }
 
+    public T put(int x, int y, T value) {
+        return put(new Point(x, y), value);
+    }
+
     /**
      * Removes a value
      * @param point
@@ -72,6 +77,9 @@ public class SparseMatrix<T> {
         return defaultValueOf(value);
     }
 
+    public T remove(int x, int y) {
+        return remove(new Point(x, y));
+    }
 
     /**
      *
@@ -81,6 +89,10 @@ public class SparseMatrix<T> {
     public T get(Point point) {
         T value = matrix.get(point);
         return defaultValueOf(value);
+    }
+
+    public T get(int x, int y) {
+        return get(new Point(x, y));
     }
 
     public Point getTopLeft() {
