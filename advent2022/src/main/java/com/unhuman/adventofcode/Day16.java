@@ -10,6 +10,7 @@ import java.util.*;
 public class Day16 extends InputParser {
     private static final String regex1 = "Valve (\\w+) has flow rate=(\\d+); tunnels? leads? to valves? (.*)";
     private static final String regex2 = null;
+    public HashMap<String, Integer> memoizedDistances = new HashMap<>();
 
     public Day16(String[] filenameAndCookieInfo) {
         super(filenameAndCookieInfo, regex1, regex2);
@@ -34,6 +35,12 @@ public class Day16 extends InputParser {
             }
         }
 
+        long iterations = 1;
+        for (int i = 1; i <= valvesWithFlow.size(); i++) {
+            iterations *= i;
+        }
+        System.out.println("Permutations to process: " + iterations);
+
         // Generate all the permutations of items with flow
         List<List<ValveInfo>> valvesWithFlowPermutations = new ArrayList<>();
         int[] indexes = new int[valvesWithFlow.size()];
@@ -42,7 +49,8 @@ public class Day16 extends InputParser {
         }
         // Plant first occurrence in permutations
         List<ValveInfo> permutation = new ArrayList<>(valvesWithFlow);
-        valvesWithFlowPermutations.add(permutation);
+        int mostFlow = processPermutation(valves, permutation);
+        long permutationsProcessed = 1;
 
         // Generate other permutations
         for (int i = 0; i < valvesWithFlow.size(); /* no increment here */) {
@@ -50,7 +58,17 @@ public class Day16 extends InputParser {
                 swap(valvesWithFlow, i % 2 == 0 ?  0: indexes[i], i);
                 // add a permutation
                 permutation = new ArrayList<>(valvesWithFlow);
-                valvesWithFlowPermutations.add(permutation);
+                int permutationFlow = processPermutation(valves, permutation);
+                ++permutationsProcessed;
+
+                if (permutationsProcessed % 10000000 == 0) {
+                    String status = String.format("Processed: %d of %d permutations (%f%%)",
+                            permutationsProcessed, iterations,
+                            (float) permutationsProcessed / (float) iterations);
+                    System.out.println(status);
+                }
+
+                mostFlow = Math.max(mostFlow, permutationFlow);
 
                 indexes[i]++;
                 i = 0;
@@ -59,17 +77,6 @@ public class Day16 extends InputParser {
                 indexes[i] = 0;
                 i++;
             }
-        }
-
-        System.out.println("There are " + valvesWithFlowPermutations.size() + " permutations");
-
-        int mostFlow = 0;
-        for (int i = 0; i < valvesWithFlowPermutations.size(); i++) {
-            List<ValveInfo> flowPermutation = valvesWithFlowPermutations.get(i);
-
-            int totalFlow = processPermutation(valves, flowPermutation);
-
-            mostFlow = (totalFlow > mostFlow) ? totalFlow : mostFlow;
         }
 
         return mostFlow;
@@ -110,6 +117,12 @@ public class Day16 extends InputParser {
             return 1;
         }
 
+        String cacheKey = from.name + ":" + to.name;
+        Integer cachedDistance = memoizedDistances.get(cacheKey);
+        if (cachedDistance != null) {
+            return cachedDistance;
+        }
+
         if (seenValves.contains(to.name)) {
             return null;
         }
@@ -127,6 +140,8 @@ public class Day16 extends InputParser {
                 minNavigate = navigationExpense + 1;
             }
         }
+
+        memoizedDistances.put(cacheKey, minNavigate);
 
         return minNavigate;
     }
