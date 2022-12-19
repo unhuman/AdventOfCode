@@ -24,10 +24,10 @@ public class Day19Test {
 
         System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 *** ");
         time = System.nanoTime();
-        result = day.processInput2(groups[0], groups[1]);
+        Object result2 = day.processInput2(groups[0], groups[1]);
         time = System.nanoTime() - time;
         timeMs = (float) time / 1000000;
         System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms ***");
-        Assertions.assertEquals(2, result);
+        Assertions.assertEquals(62, result2);
     }
 }

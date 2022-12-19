@@ -5,7 +5,9 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 public class Day19 extends InputParser {
     // Blueprint 13: Each ore robot costs 2 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 18 clay. Each geode robot costs 2 ore and 11 obsidian.
@@ -45,19 +47,48 @@ public class Day19 extends InputParser {
             maxFound = 0;
             State state = new State(blueprints.get(i));
             System.out.println("Processing blueprint " + state.blueprint.number);
-            score += state.blueprint.number * process(state);
-            System.out.println("Blueprint " + state.blueprint.number + " score: " + state.blueprint.number * process(state));
+            int iterationScore = state.blueprint.number * process(state, 24);
+            score += iterationScore;
+            System.out.println("Blueprint " + state.blueprint.number + " score: " + iterationScore);
         }
         return score;
     }
 
     @Override
     public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
-        return 2;
+        List<Blueprint> blueprints = new ArrayList<>();
+        for (int groupItemIdx = 0; groupItemIdx < dataItems1.size(); groupItemIdx++) {
+            GroupItem item = dataItems1.get(groupItemIdx);
+            for (int lineIdx = 0; lineIdx < item.size(); lineIdx++) {
+                ItemLine line = item.get(lineIdx);
+                Integer number = Integer.parseInt(line.get(0));
+                Robot oreRobotRecipe = new Robot(Integer.parseInt(line.get(1)), 0, 0);
+                Robot clayRobotRecipe = new Robot(Integer.parseInt(line.get(2)), 0, 0);
+                Robot obsidianRobotRecipe = new Robot(Integer.parseInt(line.get(3)), Integer.parseInt(line.get(4)), 0);
+                Robot geodeRobotRecipe = new Robot(Integer.parseInt(line.get(5)), 0, Integer.parseInt(line.get(6)));
+                Blueprint blueprint = new Blueprint(number, oreRobotRecipe, clayRobotRecipe, obsidianRobotRecipe, geodeRobotRecipe);
+                assert(blueprints.size() == number - 1);
+                blueprints.add(blueprint);
+            }
+            if (blueprints.size() == 3) { // part 2 rule
+                break;
+            }
+        }
+
+        int score = 0;
+        for (int i = 0; i < blueprints.size(); i++) {
+            maxFound = 0;
+            State state = new State(blueprints.get(i));
+            System.out.println("Processing blueprint " + state.blueprint.number);
+            int iterationScore = state.blueprint.number * process(state, 32);
+            score += iterationScore;
+            System.out.println("Blueprint " + state.blueprint.number + " score: " + iterationScore);
+        }
+        return score;
     }
 
-    public int process(State state) {
-        if (state.time == 24) {
+    public int process(State state, int totalTime) {
+        if (state.time == totalTime) {
             if (state.geodes > maxFound) {
                 System.out.println("Blueprint " + state.blueprint.number + " could have: " + state.geodes);
                 maxFound = state.geodes;
@@ -72,28 +103,28 @@ public class Day19 extends InputParser {
             stateTry.payForOreRobot();
             stateTry.processTime();
             stateTry.createOreRobot();
-            returnedValues.put(process(stateTry), stateTry);
+            returnedValues.put(process(stateTry, totalTime), stateTry);
         }
         if (state.canCreateClayRobot() && state.canTolerateClayRobot()) {
             State stateTry = new State(state);
             stateTry.payForClayRobot();
             stateTry.processTime();
             stateTry.createClayRobot();
-            returnedValues.put(process(stateTry), stateTry);
+            returnedValues.put(process(stateTry, totalTime), stateTry);
         }
         if (state.canCreateObsidianRobot() && state.canTolerateObsidianRobot()) {
             State stateTry = new State(state);
             stateTry.payForObsidianRobot();
             stateTry.processTime();
             stateTry.createObsidianRobot();
-            returnedValues.put(process(stateTry), stateTry);
+            returnedValues.put(process(stateTry, totalTime), stateTry);
         }
         if (state.canCreateGeodeRobot()) {
             State stateTry = new State(state);
             stateTry.payForGeodeRobot();
             stateTry.processTime();
             stateTry.createGeodeRobot();
-            returnedValues.put(process(stateTry), stateTry);
+            returnedValues.put(process(stateTry, totalTime), stateTry);
         }
 
         // always do this one - keep processing
@@ -101,7 +132,7 @@ public class Day19 extends InputParser {
             State stateTry = new State(state);
             // no creation here
             stateTry.processTime();
-            returnedValues.put(process(stateTry), stateTry);
+            returnedValues.put(process(stateTry, totalTime), stateTry);
         }
 
         // find the best value and use that
