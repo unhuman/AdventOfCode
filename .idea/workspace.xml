@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day19.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day19.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022/src/test/resources/Day19Case.txt" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/resources/Day19Case.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +61,7 @@
       <recent name="com.unhuman.adventofcode.aoc_framework.utility" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Day16Test">
+  <component name="RunManager" selected="JUnit.Day19Test">
     <configuration name="Advent 2021 (https) " type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Advent2021" />
       <module name="advent2021" />
@@ -175,8 +173,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Day16Test" />
         <item itemvalue="JUnit.Day19Test" />
+        <item itemvalue="JUnit.Day16Test" />
         <item itemvalue="Application.Advent 2022 (https)" />
         <item itemvalue="JUnit.Day15Test" />
         <item itemvalue="JUnit.adventofcode in advent2022" />

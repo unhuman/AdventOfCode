@@ -46,7 +46,7 @@ public class Day19 extends InputParser {
             State state = new State(blueprints.get(i));
             System.out.println("Processing blueprint " + state.blueprint.number);
             score += state.blueprint.number * process(state);
-            System.out.println("Blueprint " + state.blueprint.number + " score: " + score);
+            System.out.println("Blueprint " + state.blueprint.number + " score: " + state.blueprint.number * process(state));
         }
         return score;
     }
@@ -67,21 +67,21 @@ public class Day19 extends InputParser {
 
         // decide on what to do
         TreeMap<Integer, State> returnedValues = new TreeMap<>();
-        if (state.canCreateOreRobot()) {
+        if (state.canCreateOreRobot() && state.canTolerateOreRobot()) {
             State stateTry = new State(state);
             stateTry.payForOreRobot();
             stateTry.processTime();
             stateTry.createOreRobot();
             returnedValues.put(process(stateTry), stateTry);
         }
-        if (state.canCreateClayRobot()) {
+        if (state.canCreateClayRobot() && state.canTolerateClayRobot()) {
             State stateTry = new State(state);
             stateTry.payForClayRobot();
             stateTry.processTime();
             stateTry.createClayRobot();
             returnedValues.put(process(stateTry), stateTry);
         }
-        if (state.canCreateObsidianRobot()) {
+        if (state.canCreateObsidianRobot() && state.canTolerateObsidianRobot()) {
             State stateTry = new State(state);
             stateTry.payForObsidianRobot();
             stateTry.processTime();
@@ -162,6 +162,12 @@ public class Day19 extends InputParser {
             return (ore >= blueprint.oreRobotRecipe.oreCost);
         }
 
+        boolean canTolerateOreRobot() {
+            return (oreRobots < blueprint.clayRobotRecipe.oreCost
+                    || (oreRobots < blueprint.geodeRobotRecipe.oreCost)
+                    || (oreRobots < blueprint.obsidianRobotRecipe.oreCost));
+        }
+
         void payForOreRobot() {
             ore -= blueprint.oreRobotRecipe.oreCost;
         }
@@ -173,6 +179,11 @@ public class Day19 extends InputParser {
         boolean canCreateClayRobot() {
             // require exact match as decision point
             return (ore >= blueprint.clayRobotRecipe.oreCost);
+        }
+
+        boolean canTolerateClayRobot() {
+            return (clayRobots < blueprint.geodeRobotRecipe.clayCost
+                    || clayRobots < blueprint.obsidianRobotRecipe.clayCost);
         }
 
         void payForClayRobot() {
@@ -189,6 +200,10 @@ public class Day19 extends InputParser {
                     && clay >= blueprint.obsidianRobotRecipe.clayCost) ||
                     (ore >= blueprint.obsidianRobotRecipe.oreCost
                             && clay >= blueprint.obsidianRobotRecipe.clayCost));
+        }
+
+        boolean canTolerateObsidianRobot() {
+            return (obsidianRobots < blueprint.geodeRobotRecipe.obsidianCost);
         }
 
         void payForObsidianRobot() {
