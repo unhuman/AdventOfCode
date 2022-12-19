@@ -16,15 +16,17 @@ public class Day19Test {
 
         System.out.println("*** Start " + getClass().getSimpleName() + " Task 1 *** ");
         time = System.nanoTime();
-        timeMs = (float) time / 1000000;
         Object result = day.processInput1(groups[0], groups[1]);
+        time = System.nanoTime() - time;
+        timeMs = (float) time / 1000000;
         System.out.println("*** End " + getClass().getSimpleName() + " Task 1 - time: " + time / 1000 + "us, " + timeMs + "ms ***");
         Assertions.assertEquals(33, result);
 
         System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 *** ");
         time = System.nanoTime();
-        timeMs = (float) time / 1000000;
         result = day.processInput2(groups[0], groups[1]);
+        time = System.nanoTime() - time;
+        timeMs = (float) time / 1000000;
         System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms ***");
         Assertions.assertEquals(2, result);
     }

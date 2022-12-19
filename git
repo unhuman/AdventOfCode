@@ -1,0 +1,179 @@
+warning: in the working copy of '.idea/workspace.xml', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/.idea/workspace.xml b/.idea/workspace.xml[m
+[1mindex eb0e3d2..4968824 100644[m
+[1m--- a/.idea/workspace.xml[m
+[1m+++ b/.idea/workspace.xml[m
+[36m@@ -6,7 +6,10 @@[m
+   <component name="ChangeListManager">[m
+     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">[m
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />[m
+[31m-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day19.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day19.java" afterDir="false" />[m
+[32m+[m[32m      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java" afterDir="false" />[m
+[32m+[m[32m      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java" afterDir="false" />[m
+[32m+[m[32m      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java" afterDir="false" />[m
+[32m+[m[32m      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java" afterDir="false" />[m
+     </list>[m
+     <option name="SHOW_DIALOG" value="false" />[m
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />[m
+[36m@@ -60,7 +63,7 @@[m
+       <recent name="com.unhuman.adventofcode.aoc_framework.utility" />[m
+     </key>[m
+   </component>[m
+[31m-  <component name="RunManager" selected="Application.Advent 2022 (https)">[m
+[32m+[m[32m  <component name="RunManager" selected="JUnit.Day16Test">[m
+     <configuration name="Advent 2021 (https) " type="Application" factoryName="Application">[m
+       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Advent2021" />[m
+       <module name="advent2021" />[m
+[36m@@ -172,9 +175,9 @@[m
+     </list>[m
+     <recent_temporary>[m
+       <list>[m
+[32m+[m[32m        <item itemvalue="JUnit.Day16Test" />[m
+         <item itemvalue="JUnit.Day19Test" />[m
+         <item itemvalue="Application.Advent 2022 (https)" />[m
+[31m-        <item itemvalue="JUnit.Day16Test" />[m
+         <item itemvalue="JUnit.Day15Test" />[m
+         <item itemvalue="JUnit.adventofcode in advent2022" />[m
+       </list>[m
+[36m@@ -326,16 +329,6 @@[m
+           <line>47</line>[m
+           <option name="timeStamp" value="169" />[m
+         </line-breakpoint>[m
+[31m-        <line-breakpoint enabled="true" type="java-line">[m
+[31m-          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>[m
+[31m-          <line>81</line>[m
+[31m-          <option name="timeStamp" value="186" />[m
+[31m-        </line-breakpoint>[m
+[31m-        <line-breakpoint enabled="true" type="java-line">[m
+[31m-          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>[m
+[31m-          <line>55</line>[m
+[31m-          <option name="timeStamp" value="190" />[m
+[31m-        </line-breakpoint>[m
+       </breakpoints>[m
+     </breakpoint-manager>[m
+     <watches-manager>[m
+[1mdiff --git a/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java b/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java[m
+[1mindex 6456c5e..4e6fd4a 100644[m
+[1m--- a/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java[m
+[1m+++ b/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java[m
+[36m@@ -35,6 +35,9 @@[m [mpublic class Day16 extends InputParser {[m
+             }[m
+         }[m
+ [m
+[32m+[m[32m        // prepopulate distances between valves[m
+[32m+[m[32m        cacheDistances(valves);[m
+[32m+[m
+         long iterations = 1;[m
+         for (int i = 1; i <= valvesWithFlow.size(); i++) {[m
+             iterations *= i;[m
+[36m@@ -113,6 +116,10 @@[m [mpublic class Day16 extends InputParser {[m
+     }[m
+ [m
+     Integer navigate(Map<String, ValveInfo> valves, ValveInfo from, ValveInfo to, List<String> seenValves) {[m
+[32m+[m[32m        if (from == to) {[m
+[32m+[m[32m            return null;[m
+[32m+[m[32m        }[m
+[32m+[m
+         if (from.destinations.contains(to.name)) {[m
+             return 1;[m
+         }[m
+[36m@@ -143,9 +150,21 @@[m [mpublic class Day16 extends InputParser {[m
+ [m
+         memoizedDistances.put(cacheKey, minNavigate);[m
+ [m
+[32m+[m[32m        // cache it the other way, too[m
+[32m+[m[32m        cacheKey = to.name + ":" + from.name;[m
+[32m+[m[32m        memoizedDistances.put(cacheKey, minNavigate);[m
+[32m+[m
+         return minNavigate;[m
+     }[m
+ [m
+[32m+[m[32m    public void cacheDistances(Map<String, ValveInfo> valves) {[m
+[32m+[m[32m        for (ValveInfo valve: valves.values()) {[m
+[32m+[m[32m            for (ValveInfo valve2: valves.values()) {[m
+[32m+[m[32m                navigate(valves, valve, valve2, new ArrayList<>());[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+     private static void swap(List<ValveInfo> elements, int a, int b) {[m
+         ValveInfo tmp = elements.get(a);[m
+         elements.set(a, elements.get(b));[m
+[1mdiff --git a/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java b/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java[m
+[1mindex 808c963..da1dd43 100644[m
+[1m--- a/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java[m
+[1m+++ b/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java[m
+[36m@@ -16,15 +16,17 @@[m [mpublic class Day0Test {[m
+ [m
+         System.out.println("*** Start " + getClass().getSimpleName() + " Task 1 *** ");[m
+         time = System.nanoTime();[m
+[31m-        timeMs = (float) time / 1000000;[m
+         Object result = day.processInput1(groups[0], groups[1]);[m
+[32m+[m[32m        time = System.nanoTime() - time;[m
+[32m+[m[32m        timeMs = (float) time / 1000000;[m
+         System.out.println("*** End " + getClass().getSimpleName() + " Task 1 - time: " + time / 1000 + "us, " + timeMs + "ms ***");[m
+         Assertions.assertEquals(1, result);[m
+ [m
+         System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 *** ");[m
+         time = System.nanoTime();[m
+[31m-        timeMs = (float) time / 1000000;[m
+         result = day.processInput2(groups[0], groups[1]);[m
+[32m+[m[32m        time = System.nanoTime() - time;[m
+[32m+[m[32m        timeMs = (float) time / 1000000;[m
+         System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms ***");[m
+         Assertions.assertEquals(2, result);[m
+     }[m
+[1mdiff --git a/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java b/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java[m
+[1mindex 0cdb6c5..4118541 100644[m
+[1m--- a/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java[m
+[1m+++ b/advent2022/src/test/java/com/unhuman/adventofcode/Day16Test.java[m
+[36m@@ -11,7 +11,23 @@[m [mpublic class Day16Test {[m
+         Day16 day = new Day16(test1);[m
+         ConfigGroup[] groups = day.parseFiles();[m
+ [m
+[31m-        Assertions.assertEquals(1651, day.processInput1(groups[0], groups[1]));[m
+[31m-        Assertions.assertEquals(2, day.processInput2(groups[0], groups[1]));[m
+[32m+[m[32m        long time;[m
+[32m+[m[32m        float timeMs;[m
+[32m+[m
+[32m+[m[32m        System.out.println("*** Start " + getClass().getSimpleName() + " Task 1 *** ");[m
+[32m+[m[32m        time = System.nanoTime();[m
+[32m+[m[32m        Object result = day.processInput1(groups[0], groups[1]);[m
+[32m+[m[32m        time = System.nanoTime() - time;[m
+[32m+[m[32m        timeMs = (float) time / 1000000;[m
+[32m+[m[32m        System.out.println("*** End " + getClass().getSimpleName() + " Task 1 - time: " + time / 1000 + "us, " + timeMs + "ms ***");[m
+[32m+[m[32m        Assertions.assertEquals(1651, result);[m
+[32m+[m
+[32m+[m[32m        System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 *** ");[m
+[32m+[m[32m        time = System.nanoTime();[m
+[32m+[m[32m        result = day.processInput2(groups[0], groups[1]);[m
+[32m+[m[32m        time = System.nanoTime() - time;[m
+[32m+[m[32m        timeMs = (float) time / 1000000;[m
+[32m+[m[32m        System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms ***");[m
+[32m+[m[32m        Assertions.assertEquals(2, result);[m
+     }[m
+ }[m
+[1mdiff --git a/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java b/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java[m
+[1mindex 675f60a..c9b26e4 100644[m
+[1m--- a/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java[m
+[1m+++ b/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java[m
+[36m@@ -16,15 +16,17 @@[m [mpublic class Day19Test {[m
+ [m
+         System.out.println("*** Start " + getClass().getSimpleName() + " Task 1 *** ");[m
+         time = System.nanoTime();[m
+[31m-        timeMs = (float) time / 1000000;[m
+         Object result = day.processInput1(groups[0], groups[1]);[m
+[32m+[m[32m        time = System.nanoTime() - time;[m
+[32m+[m[32m        timeMs = (float) time / 1000000;[m
+         System.out.println("*** End " + getClass().getSimpleName() + " Task 1 - time: " + time / 1000 + "us, " + timeMs + "ms ***");[m
+         Assertions.assertEquals(33, result);[m
+ [m
+         System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 *** ");[m
+         time = System.nanoTime();[m
+[31m-        timeMs = (float) time / 1000000;[m
+         result = day.processInput2(groups[0], groups[1]);[m
+[32m+[m[32m        time = System.nanoTime() - time;[m
+[32m+[m[32m        timeMs = (float) time / 1000000;[m
+         System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms ***");[m
+         Assertions.assertEquals(2, result);[m
+     }[m

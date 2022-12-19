@@ -35,6 +35,9 @@ public class Day16 extends InputParser {
             }
         }
 
+        // prepopulate distances between valves
+        cacheDistances(valves);
+
         long iterations = 1;
         for (int i = 1; i <= valvesWithFlow.size(); i++) {
             iterations *= i;
@@ -113,6 +116,10 @@ public class Day16 extends InputParser {
     }
 
     Integer navigate(Map<String, ValveInfo> valves, ValveInfo from, ValveInfo to, List<String> seenValves) {
+        if (from == to) {
+            return null;
+        }
+
         if (from.destinations.contains(to.name)) {
             return 1;
         }
@@ -143,7 +150,19 @@ public class Day16 extends InputParser {
 
         memoizedDistances.put(cacheKey, minNavigate);
 
+        // cache it the other way, too
+        cacheKey = to.name + ":" + from.name;
+        memoizedDistances.put(cacheKey, minNavigate);
+
         return minNavigate;
+    }
+
+    public void cacheDistances(Map<String, ValveInfo> valves) {
+        for (ValveInfo valve: valves.values()) {
+            for (ValveInfo valve2: valves.values()) {
+                navigate(valves, valve, valve2, new ArrayList<>());
+            }
+        }
     }
 
     private static void swap(List<ValveInfo> elements, int a, int b) {
