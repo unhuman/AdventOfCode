@@ -46,6 +46,7 @@ public class Day19 extends InputParser {
             State state = new State(blueprints.get(i));
             System.out.println("Processing blueprint " + state.blueprint.number);
             score += state.blueprint.number * process(state);
+            System.out.println("Blueprint " + state.blueprint.number + " score: " + score);
         }
         return score;
     }
