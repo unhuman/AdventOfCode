@@ -11,7 +11,19 @@ public class Day0Test {
         Day0 day = new Day0(test1);
         ConfigGroup[] groups = day.parseFiles();
 
+        long time;
+        float timeMs;
+        
+        System.out.println("*** Start " + getClass().getSimpleName() + " Task 1 *** ");
+        time = System.nanoTime();
+        timeMs = (float) time / 1000000;
+        System.out.println("*** End " + getClass().getSimpleName() + " Task 1 - time: " + time / 1000 + "us, " + timeMs + "ms ***");
         Assertions.assertEquals(1, day.processInput1(groups[0], groups[1]));
+
+        System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 *** ");
+        time = System.nanoTime();
+        timeMs = (float) time / 1000000;
+        System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms ***");
         Assertions.assertEquals(2, day.processInput2(groups[0], groups[1]));
     }
 }
