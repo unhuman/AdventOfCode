@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Advent2022.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Advent2022.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day19.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day19.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day0Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day19Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2022/src/test/resources/Day19Case.txt" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/resources/Day19Case.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +128,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day18Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day19Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2022" />
       <extension name="coverage">
         <pattern>
@@ -133,8 +137,10 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Day18Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Day19Test" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea -Xss4m" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -163,18 +169,18 @@
     <list>
       <item itemvalue="Application.Advent 2021 (https) " />
       <item itemvalue="Application.Advent 2022 (https)" />
+      <item itemvalue="JUnit.Day19Test" />
       <item itemvalue="JUnit.Day15Test" />
       <item itemvalue="JUnit.Day16Test" />
-      <item itemvalue="JUnit.Day18Test" />
       <item itemvalue="JUnit.adventofcode in advent2022" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Day19Test" />
         <item itemvalue="Application.Advent 2022 (https)" />
         <item itemvalue="JUnit.Day16Test" />
         <item itemvalue="JUnit.Day15Test" />
         <item itemvalue="JUnit.adventofcode in advent2022" />
-        <item itemvalue="JUnit.Day18Test" />
       </list>
     </recent_temporary>
   </component>
