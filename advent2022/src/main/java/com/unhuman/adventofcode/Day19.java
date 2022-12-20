@@ -45,9 +45,9 @@ public class Day19 extends InputParser {
         int score = 0;
         for (int i = 0; i < blueprints.size(); i++) {
             maxFound = 0;
-            State state = new State(blueprints.get(i));
+            State state = new State(blueprints.get(i), 24);
             System.out.println("Processing blueprint " + state.blueprint.number);
-            int iterationScore = state.blueprint.number * process(state, 24);
+            int iterationScore = state.blueprint.number * process(state);
             score += iterationScore;
             System.out.println("Blueprint " + state.blueprint.number + " score: " + iterationScore);
         }
@@ -69,26 +69,26 @@ public class Day19 extends InputParser {
                 Blueprint blueprint = new Blueprint(number, oreRobotRecipe, clayRobotRecipe, obsidianRobotRecipe, geodeRobotRecipe);
                 assert(blueprints.size() == number - 1);
                 blueprints.add(blueprint);
-            }
-            if (blueprints.size() == 3) { // part 2 rule
-                break;
+                if (blueprints.size() == 3) { // part 2 rule
+                    break;
+                }
             }
         }
 
-        int score = 0;
+        int score = 1;
         for (int i = 0; i < blueprints.size(); i++) {
             maxFound = 0;
-            State state = new State(blueprints.get(i));
+            State state = new State(blueprints.get(i), 32);
             System.out.println("Processing blueprint " + state.blueprint.number);
-            int iterationScore = state.blueprint.number * process(state, 32);
-            score += iterationScore;
+            int iterationScore = process(state);
+            score *= iterationScore;
             System.out.println("Blueprint " + state.blueprint.number + " score: " + iterationScore);
         }
         return score;
     }
 
-    public int process(State state, int totalTime) {
-        if (state.time == totalTime) {
+    public int process(State state) {
+        if (state.time == state.totalTime) {
             if (state.geodes > maxFound) {
                 System.out.println("Blueprint " + state.blueprint.number + " could have: " + state.geodes);
                 maxFound = state.geodes;
@@ -98,41 +98,65 @@ public class Day19 extends InputParser {
 
         // decide on what to do
         TreeMap<Integer, State> returnedValues = new TreeMap<>();
-        if (state.canCreateOreRobot() && state.canTolerateOreRobot()) {
+
+        boolean couldCreateOre = (state.canCreateOreRobot() && state.canTolerateOreRobot());
+        boolean couldCreateClay = (state.canCreateClayRobot() && state.canTolerateClayRobot());
+        boolean couldCreateObsidian = state.canCreateObsidianRobot() && state.canTolerateObsidianRobot();
+        boolean couldCreateGeode = state.canCreateGeodeRobot(); // we can always tolerate geode!
+
+        if (couldCreateOre) {
             State stateTry = new State(state);
+            stateTry.blockCreateClay = false;
+            stateTry.blockCreateObsidian = false;
+            stateTry.blockCreateGeode = false;
             stateTry.payForOreRobot();
             stateTry.processTime();
             stateTry.createOreRobot();
-            returnedValues.put(process(stateTry, totalTime), stateTry);
+            returnedValues.put(process(stateTry), stateTry);
         }
-        if (state.canCreateClayRobot() && state.canTolerateClayRobot()) {
+        if (couldCreateClay) {
             State stateTry = new State(state);
+            stateTry.blockCreateOre = false;
+            stateTry.blockCreateObsidian = false;
+            stateTry.blockCreateGeode = false;
             stateTry.payForClayRobot();
             stateTry.processTime();
             stateTry.createClayRobot();
-            returnedValues.put(process(stateTry, totalTime), stateTry);
+            returnedValues.put(process(stateTry), stateTry);
         }
-        if (state.canCreateObsidianRobot() && state.canTolerateObsidianRobot()) {
+        if (couldCreateObsidian) {
             State stateTry = new State(state);
+            stateTry.blockCreateOre = false;
+            stateTry.blockCreateClay = false;
+            stateTry.blockCreateGeode = false;
             stateTry.payForObsidianRobot();
             stateTry.processTime();
             stateTry.createObsidianRobot();
-            returnedValues.put(process(stateTry, totalTime), stateTry);
+            returnedValues.put(process(stateTry), stateTry);
         }
-        if (state.canCreateGeodeRobot()) {
+        if (couldCreateGeode) {
             State stateTry = new State(state);
+            stateTry.blockCreateOre = false;
+            stateTry.blockCreateClay = false;
+            stateTry.blockCreateObsidian = false;
             stateTry.payForGeodeRobot();
             stateTry.processTime();
             stateTry.createGeodeRobot();
-            returnedValues.put(process(stateTry, totalTime), stateTry);
+            returnedValues.put(process(stateTry), stateTry);
         }
 
         // always do this one - keep processing
         {
             State stateTry = new State(state);
+
+            stateTry.blockCreateOre = couldCreateOre;
+            stateTry.blockCreateClay = couldCreateClay;
+            stateTry.blockCreateObsidian = couldCreateObsidian;
+            stateTry.blockCreateGeode = false;
+
             // no creation here
             stateTry.processTime();
-            returnedValues.put(process(stateTry, totalTime), stateTry);
+            returnedValues.put(process(stateTry), stateTry);
         }
 
         // find the best value and use that
@@ -144,6 +168,7 @@ public class Day19 extends InputParser {
 
     class State {
         Blueprint blueprint;
+        int totalTime;
 
         int time = 0;
 
@@ -157,11 +182,18 @@ public class Day19 extends InputParser {
         int obsidian = 0;
         int geodes = 0;
 
-        public State(Blueprint blueprint) {
+        boolean blockCreateOre;
+        boolean blockCreateClay;
+        boolean blockCreateObsidian;
+        boolean blockCreateGeode;
+
+        public State(Blueprint blueprint, int totalTime) {
+            this.totalTime = totalTime;
             this.blueprint = blueprint;
         }
 
         public State(State state) {
+            this.totalTime = state.totalTime;
             this.time = state.time;
 
             this.blueprint = state.blueprint;
@@ -190,13 +222,20 @@ public class Day19 extends InputParser {
 
         boolean canCreateOreRobot() {
             // require exact match as decision point
-            return (ore >= blueprint.oreRobotRecipe.oreCost);
+            return (ore >= blueprint.oreRobotRecipe.oreCost) && !blockCreateOre;
         }
 
         boolean canTolerateOreRobot() {
-            return (oreRobots < blueprint.clayRobotRecipe.oreCost
-                    || (oreRobots < blueprint.geodeRobotRecipe.oreCost)
-                    || (oreRobots < blueprint.obsidianRobotRecipe.oreCost));
+            int timeLeft = totalTime - time;
+            int maxRobotNeedingOre = Math.max(blueprint.oreRobotRecipe.oreCost, blueprint.clayRobotRecipe.oreCost);
+            maxRobotNeedingOre = Math.max(maxRobotNeedingOre, blueprint.obsidianRobotRecipe.oreCost);
+            maxRobotNeedingOre = Math.max(maxRobotNeedingOre, blueprint.geodeRobotRecipe.oreCost);
+
+            return ore + timeLeft * oreRobots < timeLeft * maxRobotNeedingOre;
+
+//            return (oreRobots < blueprint.clayRobotRecipe.oreCost
+//                    || (oreRobots < blueprint.geodeRobotRecipe.oreCost)
+//                    || (oreRobots < blueprint.obsidianRobotRecipe.oreCost));
         }
 
         void payForOreRobot() {
@@ -209,12 +248,15 @@ public class Day19 extends InputParser {
 
         boolean canCreateClayRobot() {
             // require exact match as decision point
-            return (ore >= blueprint.clayRobotRecipe.oreCost);
+            return (ore >= blueprint.clayRobotRecipe.oreCost) && !blockCreateClay;
         }
 
         boolean canTolerateClayRobot() {
-            return (clayRobots < blueprint.geodeRobotRecipe.clayCost
-                    || clayRobots < blueprint.obsidianRobotRecipe.clayCost);
+            int timeLeft = totalTime - time;
+            int maxRobotNeedingClay = blueprint.obsidianRobotRecipe.clayCost;
+
+            return clay + timeLeft * clayRobots < timeLeft * maxRobotNeedingClay;
+//            return (clayRobots < blueprint.obsidianRobotRecipe.clayCost);
         }
 
         void payForClayRobot() {
@@ -228,13 +270,19 @@ public class Day19 extends InputParser {
         boolean canCreateObsidianRobot() {
             // require at least one exact match as decision point
             return ((ore >= blueprint.obsidianRobotRecipe.oreCost
-                    && clay >= blueprint.obsidianRobotRecipe.clayCost) ||
-                    (ore >= blueprint.obsidianRobotRecipe.oreCost
-                            && clay >= blueprint.obsidianRobotRecipe.clayCost));
+                    && clay >= blueprint.obsidianRobotRecipe.clayCost)
+                    || (ore >= blueprint.obsidianRobotRecipe.oreCost
+                            && clay >= blueprint.obsidianRobotRecipe.clayCost))
+                    && !blockCreateObsidian;
         }
 
         boolean canTolerateObsidianRobot() {
-            return (obsidianRobots < blueprint.geodeRobotRecipe.obsidianCost);
+            int timeLeft = totalTime - time;
+            int maxRobotNeedingObsidian = blueprint.geodeRobotRecipe.obsidianCost;
+
+            return obsidian + (timeLeft * obsidianRobots) < timeLeft * maxRobotNeedingObsidian;
+
+//            return (obsidianRobots < blueprint.geodeRobotRecipe.obsidianCost);
         }
 
         void payForObsidianRobot() {
@@ -251,7 +299,8 @@ public class Day19 extends InputParser {
             return ((ore >= blueprint.geodeRobotRecipe.oreCost
                     && obsidian >= blueprint.geodeRobotRecipe.obsidianCost) ||
                     (ore >= blueprint.geodeRobotRecipe.oreCost
-                            && obsidian >= blueprint.geodeRobotRecipe.obsidianCost));
+                            && obsidian >= blueprint.geodeRobotRecipe.obsidianCost))
+                    && !blockCreateGeode;
         }
 
         void payForGeodeRobot() {
