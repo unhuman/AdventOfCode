@@ -110,7 +110,11 @@ public class Day21 extends InputParser {
                 ItemLine line = item.get(lineIdx);
                 Data dataItem;
                 String name = line.get(0);
-                if (line.get(2) == null) {
+
+                // Special case for humn
+                if (name.equals("humn")) {
+                    dataItem = new Data(name, null, null, null);
+                } else if (line.get(2) == null) {
                     dataItem = new Data(name, Long.parseLong(line.get(1)));
                 } else {
                     char operation = line.get(2).charAt(1);
@@ -130,14 +134,11 @@ public class Day21 extends InputParser {
             }
         });
 
-        while (true) {
+        boolean dataResolved;
+        do {
+            dataResolved = false;
             for (Data data: allData.values()) {
                 if (data.operation == null) {
-                    // monkey yells the number human says
-                    if (data.name.equals("root")) {
-                        return allData.get("humn").value1;
-                    }
-
                     // process subscriptions
                     List<String> subs = subscriptions.get(data.name);
                     if (subs == null) {
@@ -156,6 +157,7 @@ public class Day21 extends InputParser {
                         }
                     }
                     subscriptions.remove(data.name);
+                    dataResolved = true;
 
                     continue;
                 }
@@ -189,10 +191,73 @@ public class Day21 extends InputParser {
                         break;
 
                 }
+                dataResolved = true;
                 data.operation = null;
                 data.value2 = null;
             }
+        } while (dataResolved);
+
+        // try to resolve
+        Data root = allData.get("root");
+        long matchingValue = (root.value1 != null) ? root.value1 : root.value2;
+        String matchingData = (root.reference1 != null) ? root.reference1 : root.reference2;
+
+        long result = SolveFor(allData, matchingValue, matchingData);
+
+        return result;
+    }
+
+    long SolveFor(Map<String, Data> allData, long desiredValue, String valueResolve) {
+        Data element = allData.get(valueResolve);
+        Character operation = element.operation;
+        boolean valueIsLeft = (element.value1 != null);
+        long value = (valueIsLeft) ? element.value1 : element.value2;
+        String otherResolve = (valueIsLeft) ? element.reference2 : element.reference1;
+
+        // this is it!!!
+        if (otherResolve == null) {
+            switch (operation) {
+                case '+':
+                    return desiredValue - value;
+                case '-':
+                    if (valueIsLeft) {
+                        return -1 * (desiredValue - value);
+                    } else { // value is on the right
+                        return desiredValue + value;
+                    }
+                case '*':
+                    return desiredValue / value;
+                case '/':
+                    if (valueIsLeft) {
+                        return value / desiredValue;
+                    } else { // value is on the right
+                        return desiredValue * value;
+                    }
+            }
         }
+
+        switch (operation) {
+            case '+':
+                return SolveFor(allData, desiredValue - value, otherResolve);
+            case '-':
+                if (valueIsLeft) {
+                    return SolveFor(allData, -1 * (desiredValue - value), otherResolve);
+                } else { // value is on the right
+                    return SolveFor(allData, desiredValue + value, otherResolve);
+                }
+            case '*':
+                return SolveFor(allData, desiredValue / value, otherResolve);
+            case '/':
+                if (valueIsLeft) {
+                    return SolveFor(allData, value / desiredValue, otherResolve);
+                } else { // value is on the right
+                    return SolveFor(allData, desiredValue * value, otherResolve);
+                }
+        }
+        throw new RuntimeException("You don't get to be here");
+    }
+
+    record Equation(Character operation, String lhs, String rhs) {
     }
 
     class Data {

@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day21.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day21.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day21Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode/Day21Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +59,7 @@
       <recent name="com.unhuman.adventofcode.aoc_framework.utility" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Day21Test.test1">
+  <component name="RunManager" selected="Application.Advent 2022 (https)">
     <configuration name="Advent 2021 (https) " type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode.Advent2021" />
       <module name="advent2021" />
@@ -181,9 +179,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Advent 2022 (https)" />
         <item itemvalue="JUnit.Day21Test.test1" />
         <item itemvalue="JUnit.Day20Test" />
-        <item itemvalue="Application.Advent 2022 (https)" />
         <item itemvalue="JUnit.Day16Test" />
         <item itemvalue="JUnit.Day19Test" />
       </list>
@@ -216,25 +214,36 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day21.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="304" />
+          <line>194</line>
+          <option name="timeStamp" value="323" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="data.name.equals(&quot;sjmn&quot;)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day21.java</url>
+          <line>140</line>
+          <option name="timeStamp" value="329" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day21.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="305" />
+          <line>182</line>
+          <option name="timeStamp" value="330" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day21.java</url>
-          <line>137</line>
-          <option name="timeStamp" value="306" />
+          <line>211</line>
+          <option name="timeStamp" value="331" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day21.java</url>
+          <line>204</line>
+          <option name="timeStamp" value="332" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
-        <watch expression="data" language="JAVA" />
-        <watch expression="line" language="JAVA" />
+        <watch expression="allData" language="JAVA" />
+        <watch expression="((HashMap)allData).entrySet().toArray()[3]" custom="java.util.HashMap" />
       </configuration>
       <configuration name="Application">
         <watch expression="line" language="JAVA" />
