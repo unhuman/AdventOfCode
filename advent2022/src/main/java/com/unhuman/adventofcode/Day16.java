@@ -12,12 +12,16 @@ public class Day16 extends InputParser {
     private static final String regex2 = null;
     public HashMap<String, Integer> memoizedDistances = new HashMap<>();
 
+    int timeLeft;
+
     public Day16(String[] filenameAndCookieInfo) {
         super(filenameAndCookieInfo, regex1, regex2);
     }
 
     @Override
     public Object processInput1(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+        timeLeft = 30;
+
         Map<String, ValveInfo> valves = new HashMap<>(); // all valves
         List<ValveInfo> valvesWithFlow = new ArrayList<>();
         for (int groupItemIdx = 0; groupItemIdx < dataItems1.size(); groupItemIdx++) {
@@ -38,51 +42,60 @@ public class Day16 extends InputParser {
         // prepopulate distances between valves
         cacheDistances(valves);
 
-        long iterations = 1;
-        for (int i = 1; i <= valvesWithFlow.size(); i++) {
-            iterations *= i;
-        }
-        System.out.println("Permutations to process: " + iterations);
+        int flow = prioritizedProcessing(valvesWithFlow, "AA", timeLeft, 0, "");
 
-        // Generate all the permutations of items with flow
-        List<List<ValveInfo>> valvesWithFlowPermutations = new ArrayList<>();
-        int[] indexes = new int[valvesWithFlow.size()];
+        return flow;
+    }
+
+    int prioritizedProcessing(List<ValveInfo> valvesWithFlow, String currentValve, int timeLeft, int currentFlow, String path) {
+        if (valvesWithFlow.size() <= 0) {
+            // we're done - we need to return the flow.
+            return timeLeft * currentFlow;
+        }
+
+        valvesWithFlow.sort(new Comparator<ValveInfo>() {
+            @Override
+            public int compare(ValveInfo v1, ValveInfo v2) {
+                int score1 = assignValveScore(v1, currentValve, timeLeft);
+                int score2 = assignValveScore(v2, currentValve, timeLeft);
+
+                // TODO: Do we need to recurse to resolve ties?
+
+                return score2 - score1; // we want highest first
+            }
+        });
+
+        int maxValue = 0;
         for (int i = 0; i < valvesWithFlow.size(); i++) {
-            indexes[i] = 0;
-        }
-        // Plant first occurrence in permutations
-        List<ValveInfo> permutation = new ArrayList<>(valvesWithFlow);
-        int mostFlow = processPermutation(valves, permutation);
-        long permutationsProcessed = 1;
-
-        // Generate other permutations
-        for (int i = 0; i < valvesWithFlow.size(); /* no increment here */) {
-            if (indexes[i] < i) {
-                swap(valvesWithFlow, i % 2 == 0 ?  0: indexes[i], i);
-                // add a permutation
-                permutation = new ArrayList<>(valvesWithFlow);
-                int permutationFlow = processPermutation(valves, permutation);
-                ++permutationsProcessed;
-
-                if (permutationsProcessed % 10000000 == 0) {
-                    String status = String.format("Processed: %d of %d permutations (%f%%)",
-                            permutationsProcessed, iterations,
-                            (float) permutationsProcessed / (float) iterations);
-                    System.out.println(status);
+            List<ValveInfo> nestedValveData = new ArrayList<>(valvesWithFlow);
+            ValveInfo chosenValve = nestedValveData.remove(i);
+            if (assignValveScore(chosenValve, currentValve, timeLeft) > 0) {
+                int distance = memoizedDistances.get(chosenValve.name + ':' + currentValve);
+                int moveAndOpenTime = distance + 1;
+                String usepath = path + ':' + chosenValve.name;
+                int value = (currentFlow * moveAndOpenTime) + prioritizedProcessing(nestedValveData, chosenValve.name, timeLeft - moveAndOpenTime,
+                        currentFlow + chosenValve.flow, usepath);
+                if (timeLeft == 30) {
+                    System.out.println("Potential score: " + value);
                 }
-
-                mostFlow = Math.max(mostFlow, permutationFlow);
-
-                indexes[i]++;
-                i = 0;
-            }
-            else {
-                indexes[i] = 0;
-                i++;
+                maxValue = Math.max(maxValue, value);
             }
         }
 
-        return mostFlow;
+        if (maxValue == 0) {
+            return timeLeft * currentFlow;
+        }
+
+        return maxValue;
+    }
+
+    int assignValveScore(ValveInfo valveInfo, String currentValve, int timeLeft) {
+        if (valveInfo.name.equals(currentValve)) {
+            return 0;
+        }
+        int distance = memoizedDistances.get(valveInfo.name + ":" + currentValve);
+        int score = valveInfo.flow * (timeLeft - (distance + 1)); // +1 = open valve time
+        return score > 0 ? score : 0;
     }
 
     private int processPermutation(Map<String, ValveInfo> valves, List<ValveInfo> flowPermutation) {
@@ -120,11 +133,17 @@ public class Day16 extends InputParser {
             return null;
         }
 
+        String cacheKey = from.name + ":" + to.name;
+
         if (from.destinations.contains(to.name)) {
+            memoizedDistances.put(cacheKey, 1);
+
+            // cache it the other way, too
+            cacheKey = to.name + ":" + from.name;
+            memoizedDistances.put(cacheKey, 1);
             return 1;
         }
 
-        String cacheKey = from.name + ":" + to.name;
         Integer cachedDistance = memoizedDistances.get(cacheKey);
         if (cachedDistance != null) {
             return cachedDistance;
@@ -175,7 +194,15 @@ public class Day16 extends InputParser {
         return 2;
     }
 
-    record ValveInfo(String name, int flow, List<String> destinations) {
+    public class ValveList extends ArrayList<ValveInfo> {
 
+    }
+
+    public record ValveInfo(String name, int flow, List<String> destinations) implements Comparable {
+        @Override
+        public int compareTo(Object o) {
+            ValveInfo other = (ValveInfo) o;
+            return other.flow - this.flow;
+        }
     }
 }
