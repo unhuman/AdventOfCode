@@ -47,6 +47,37 @@ public class Day16 extends InputParser {
         return flow;
     }
 
+    @Override
+    public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
+        timeLeft = 26;
+
+        Map<String, ValveInfo> valves = new HashMap<>(); // all valves
+        List<ValveInfo> valvesWithFlow = new ArrayList<>();
+        for (int groupItemIdx = 0; groupItemIdx < dataItems1.size(); groupItemIdx++) {
+            GroupItem item = dataItems1.get(groupItemIdx);
+            for (int lineIdx = 0; lineIdx < item.size(); lineIdx++) {
+                ItemLine line = item.get(lineIdx);
+                String name = line.get(0);
+                int flow = Integer.parseInt(line.get(1));
+                List<String> connections = Arrays.stream(line.get(2).split(", ")).toList();
+                ValveInfo valveInfo = new ValveInfo(name, flow, connections);
+                valves.put(name, valveInfo);
+                if (flow > 0) {
+                    valvesWithFlow.add(valveInfo);
+                }
+            }
+        }
+
+        // prepopulate distances between valves
+        cacheDistances(valves);
+
+        WorkerStates workerStates = new WorkerStates(2, valves.get("AA"));
+
+        int flow = prioritizedProcessingPart2(valvesWithFlow, workerStates, timeLeft, 0);
+
+        return flow;
+    }
+
     int prioritizedProcessing(List<ValveInfo> valvesWithFlow, String currentValve, int timeLeft, int currentFlow, String path) {
         if (valvesWithFlow.size() <= 0) {
             // we're done - we need to return the flow.
@@ -58,9 +89,6 @@ public class Day16 extends InputParser {
             public int compare(ValveInfo v1, ValveInfo v2) {
                 int score1 = assignValveScore(v1, currentValve, timeLeft);
                 int score2 = assignValveScore(v2, currentValve, timeLeft);
-
-                // TODO: Do we need to recurse to resolve ties?
-
                 return score2 - score1; // we want highest first
             }
         });
@@ -89,43 +117,181 @@ public class Day16 extends InputParser {
         return maxValue;
     }
 
-    int assignValveScore(ValveInfo valveInfo, String currentValve, int timeLeft) {
-        if (valveInfo.name.equals(currentValve)) {
+    int assignValveScore(ValveInfo destinationValveInfo, String currentValve, int timeLeft) {
+        if (destinationValveInfo.name.equals(currentValve)) {
             return 0;
         }
-        int distance = memoizedDistances.get(valveInfo.name + ":" + currentValve);
-        int score = valveInfo.flow * (timeLeft - (distance + 1)); // +1 = open valve time
+        int distance = memoizedDistances.get(destinationValveInfo.name + ":" + currentValve);
+        int score = destinationValveInfo.flow * (timeLeft - (distance + 1)); // +1 = open valve time
         return score > 0 ? score : 0;
     }
 
-    private int processPermutation(Map<String, ValveInfo> valves, List<ValveInfo> flowPermutation) {
-        ValveInfo startingPoint = valves.get("AA");
-        int timer = 0;
-        int totalFlow = 0;
-        int flowTurnedOn = 0;
-        int destinationIndex = 0;
+    int assignValveScore(ValveInfo destinationValveInfo, ValveInfo currentValve, int timeLeft) {
+        return assignValveScore(destinationValveInfo, currentValve.name, timeLeft);
+    }
 
-        do {
-            if (destinationIndex < flowPermutation.size()) {
-                ValveInfo destination = flowPermutation.get(destinationIndex++);
-                int navigationTime = navigate(valves, startingPoint, destination, new ArrayList<>());
-                startingPoint = destination;
-                // cap the navigation time so we can't go too far
-                navigationTime = Math.min(navigationTime, 30 - timer);
-                timer += navigationTime;
 
-                totalFlow += flowTurnedOn * navigationTime;
+    int prioritizedProcessingPart2(List<ValveInfo> valvesWithFlow, WorkerStates workers, int timeLeft, int currentFlow) {
+        // All workers do their work (if any)
+        for (WorkerState worker : workers) {
+            currentFlow += worker.consumeFlow();
+            worker.performWork();
+        }
 
-                // open the valve - if it's too late, who cares
-                if (timer <= 29) {
-                    totalFlow += flowTurnedOn;
-                    flowTurnedOn += destination.flow();
+        // If no valves left, we can just calculate what's left
+        if (valvesWithFlow.size() <= 0) {
+            // we're done - we need to return the flow.
+            return timeLeft * currentFlow;
+        }
+
+        // for safety, clone what we had coming in
+        workers = new WorkerStates(workers);
+
+        List<WorkerState> availableWorkers = workers.findAvailableWorkers();
+
+        // if no available workers or no valves left, keep it simple, and just process next day
+        if ((availableWorkers.size() == 0) || (valvesWithFlow.size() == 0)) {
+            valvesWithFlow = new ArrayList<>(valvesWithFlow);
+            return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow);
+        }
+
+        // if there's only one valve left, find the worker with the shortest distance to it
+        if (valvesWithFlow.size() == 1) {
+            // choose the best available worker to go forward with this work
+            WorkerState chosenWorker = availableWorkers.get(0);
+            int distance = memoizedDistances.get(chosenWorker.startingValve.name() + ':' + valvesWithFlow.get(0).name());
+            for (int i = 1; i < availableWorkers.size(); i++) {
+                WorkerState checkWorker = availableWorkers.get(i);
+                int checkDistance = memoizedDistances.get(checkWorker.startingValve.name() + ':' + valvesWithFlow.get(0).name());
+                if (checkDistance < distance) {
+                    chosenWorker = checkWorker;
+                    distance = checkDistance;
+                }
+            }
+
+            chosenWorker.assignWork(valvesWithFlow.get(0), distance);
+            valvesWithFlow = new ArrayList<>(valvesWithFlow);
+            return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow);
+        }
+
+        // we have work to do and at least one available worker, so let's cater the work for that one
+        // and if there's another, we'll cater the alternatives for that one.
+        WorkerState firstWorker = availableWorkers.get(0);
+        valvesWithFlow = new ArrayList<>(valvesWithFlow);
+        valvesWithFlow.sort(new Comparator<ValveInfo>() {
+            @Override
+            public int compare(ValveInfo v1, ValveInfo v2) {
+                int score1 = assignValveScore(v1, firstWorker.startingValve, timeLeft);
+                int score2 = assignValveScore(v2, firstWorker.startingValve, timeLeft);
+                return score2 - score1; // we want highest first
+            }
+        });
+
+        int bestValue = 0;
+        WorkerStates workersCopy = new WorkerStates(workers);
+        List<WorkerState> availableWorkersCopy = workersCopy.findAvailableWorkers();
+
+        for (ValveInfo testValve1: valvesWithFlow) {
+            WorkerState worker1 = availableWorkersCopy.get(0);
+            int valve1Distance = memoizedDistances.get(worker1.startingValve.name() + ':' + testValve1.name());
+            workersCopy.get(0).assignWork(testValve1, valve1Distance);
+
+            // If there's another available worker, let's get them hooked up with work
+            if (availableWorkersCopy.size() > 1) {
+                WorkerState worker2 = availableWorkersCopy.get(1);
+            }
+
+            bestValue = prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow);
+        }
+
+        if (maxValue == 0) {
+            return timeLeft * currentFlow;
+        }
+
+        return maxValue;
+    }
+
+    class WorkerState {
+        enum WorkState { AVAILABLE, PROCESSING, NEXT_ADD_FLOW }
+        WorkState workState;
+        ValveInfo startingValve;
+        ValveInfo destinationValve;
+        int timeToDestinationValve = 0;
+
+        WorkerState(ValveInfo startingValve) {
+            this.startingValve = startingValve;
+            this.destinationValve = startingValve;
+            this.timeToDestinationValve = 0;
+            this.workState = WorkState.AVAILABLE;
+        }
+
+        WorkerState(WorkerState other) {
+            this.startingValve = other.startingValve;
+            this.destinationValve = other.destinationValve;
+            this.timeToDestinationValve = other.timeToDestinationValve;
+            this.workState = other.workState;
+        }
+
+        void assignWork(ValveInfo destinationValve, int timeToDestinationValve) {
+            assert(destinationValve == null);
+            assert(timeToDestinationValve == 0);
+
+            this.destinationValve = destinationValve;
+            this.timeToDestinationValve = timeToDestinationValve + 1; // include time to open valve
+        }
+
+        int consumeFlow() {
+            if (workState == WorkState.NEXT_ADD_FLOW) {
+                try {
+                    this.workState = WorkState.AVAILABLE;
+                    return destinationValve.flow();
+                } finally {
+                    startingValve = destinationValve;
+                    destinationValve = null;
+                }
+            }
+        }
+
+        /**
+         * perform work
+         * @return true if the work is completed
+         */
+        WorkState performWork() {
+            if (workState == WorkState.PROCESSING) {
+                assert(timeToDestinationValve > 0);
+                if (--timeToDestinationValve == 0) {
+                    workState = WorkState.NEXT_ADD_FLOW;
                 }
             } else {
-                totalFlow += flowTurnedOn;
+                workState = WorkState.AVAILABLE;
             }
-        } while (++timer < 30);
-        return totalFlow;
+            return workState;
+        }
+    }
+
+    class WorkerStates extends ArrayList<WorkerState> {
+        WorkerStates(int count, ValveInfo startingValve) {
+            for (int i = 0; i < count; i++) {
+                WorkerState workerState = new WorkerState(startingValve);
+                this.add(workerState);
+            }
+        }
+
+        WorkerStates(WorkerStates other) {
+            for (int i = 0; i < other.size(); i++) {
+                add(new WorkerState(other.get(i)));
+            }
+        }
+
+        List<WorkerState> findAvailableWorkers() {
+            List<WorkerState> availableWorkers = new ArrayList<>();
+            for (WorkerState worker: this) {
+                if (worker.timeToDestinationValve == 0) {
+                    availableWorkers.add(worker);
+                }
+            }
+            return availableWorkers;
+        }
     }
 
     Integer navigate(Map<String, ValveInfo> valves, ValveInfo from, ValveInfo to, List<String> seenValves) {
@@ -182,20 +348,6 @@ public class Day16 extends InputParser {
                 navigate(valves, valve, valve2, new ArrayList<>());
             }
         }
-    }
-
-    private static void swap(List<ValveInfo> elements, int a, int b) {
-        ValveInfo tmp = elements.get(a);
-        elements.set(a, elements.get(b));
-        elements.set(b, tmp);
-    }
-    @Override
-    public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
-        return 2;
-    }
-
-    public class ValveList extends ArrayList<ValveInfo> {
-
     }
 
     public record ValveInfo(String name, int flow, List<String> destinations) implements Comparable {
