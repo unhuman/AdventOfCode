@@ -73,7 +73,7 @@ public class Day16 extends InputParser {
 
         WorkerStates workerStates = new WorkerStates(2, valves.get("AA"));
 
-        int flow = prioritizedProcessingPart2(valvesWithFlow, workerStates, timeLeft, 0);
+        int flow = prioritizedProcessingPart2(valvesWithFlow, workerStates, timeLeft, 0, 0);
 
         return flow;
     }
@@ -131,31 +131,48 @@ public class Day16 extends InputParser {
     }
 
 
-    int prioritizedProcessingPart2(List<ValveInfo> valvesWithFlow, WorkerStates workers, int timeLeft, int currentFlow) {
-        // All workers do their work (if any)
-        for (WorkerState worker : workers) {
-            currentFlow += worker.consumeFlow();
-            worker.performWork();
-        }
+    int prioritizedProcessingPart2(List<ValveInfo> valvesWithFlow, WorkerStates workers, int timeLeft, int currentFlow,
+                                   int nextCycleStartingFlow) {
+
+        currentFlow += nextCycleStartingFlow;
 
         if (timeLeft <= 0) {
             return currentFlow;
         }
 
+        // All workers do their work (if any)
+        nextCycleStartingFlow = 0;
+        int[] openedValveFlow = new int[2];
+        int valveCounter = 0;
+        for (WorkerState worker : workers) {
+            worker.performWork();
+            int newFlow = worker.consumeFlow();
+            openedValveFlow[valveCounter++] = newFlow;
+            nextCycleStartingFlow += newFlow;
+        }
+
+        System.out.println("Timeleft: " + timeLeft + " / Minute " + (26 - timeLeft) + " currentFlow: " + currentFlow);
+        System.out.println("     Human Worker 1: " + workers.get(0) + (openedValveFlow[0] != 0 ? " and opened valve " + openedValveFlow[0] : ""));
+        System.out.println("     Eleph Worker 2: " + workers.get(1) + (openedValveFlow[1] != 0 ? " and opened valve " + openedValveFlow[1]: ""));
+
+
         // If no valves left and both workers are available, we can just calculate what's left
         if (valvesWithFlow.size() <= 0) {
+            // TODO: the following conditions below function the same after all workers done
             if (workers.findAvailableWorkers().size() == 2) {
                 // we're done - we need to return the flow.
-                return timeLeft * currentFlow;
+                return (timeLeft + 1) * currentFlow + timeLeft * nextCycleStartingFlow;
             } else {
                 // we just need to let the workers finish their job
-                return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow);
+                return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1,
+                        currentFlow, nextCycleStartingFlow);
             }
         }
 
         // if no available workers, keep it simple, and just process next day
         if (workers.findAvailableWorkers().size() == 0) {
-            return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow);
+            return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow,
+                    nextCycleStartingFlow);
         }
 
         // if there's only one valve left, find the worker with the shortest distance to it
@@ -174,7 +191,8 @@ public class Day16 extends InputParser {
                 }
             }
             chosenWorker.assignWork(lastValve, distance, false);
-            return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow);
+            return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1,
+                    currentFlow, nextCycleStartingFlow);
         }
 
         // TODO: State getting lost when picking workers (copies are bad)
@@ -220,12 +238,25 @@ public class Day16 extends InputParser {
                     Integer valve2Distance = memoizedDistances.get(worker2.startingValve.name() + ':' + testValve2.name());
                     worker2.assignWork(testValve2, valve2Distance, true); // force
 
-                    int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy, workersCopy, timeLeft - 1, currentFlow);
+                    // See if flipping the destinations is faster
+                    Integer worker1ToValve2Distance =
+                            memoizedDistances.get(worker1.startingValve.name() + ':' + testValve2.name());
+                    Integer worker2ToValve1Distance =
+                            memoizedDistances.get(worker2.startingValve.name() + ':' + testValve1.name());
+                    if (worker1.timeToDestinationValve + worker2.timeToDestinationValve
+                            > worker1ToValve2Distance + worker2ToValve1Distance) {
+                        worker1.assignWork(testValve2, worker1ToValve2Distance, true); // force
+                        worker2.assignWork(testValve1, worker2ToValve1Distance, true); // force
+                    }
+
+                    int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy, workersCopy, timeLeft - 1,
+                            currentFlow, nextCycleStartingFlow);
                     maxValue = Math.max(maxValue, checkValue);
                 }
             } else {
                 // this is just single worker by themselves
-                int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy, workersCopy, timeLeft - 1, currentFlow);
+                int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy, workersCopy, timeLeft - 1,
+                        currentFlow, nextCycleStartingFlow);
                 maxValue = Math.max(maxValue, checkValue);
             }
         }
@@ -297,6 +328,11 @@ public class Day16 extends InputParser {
                 workState = WorkState.AVAILABLE;
             }
             return workState;
+        }
+
+        @Override
+        public String toString() {
+            return "from: " + startingValve.name + " to: " + ((destinationValve != null) ? destinationValve.name : "none") + " timeLeft: " + this.timeToDestinationValve;
         }
     }
 
