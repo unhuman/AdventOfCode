@@ -151,10 +151,9 @@ public class Day16 extends InputParser {
             nextCycleStartingFlow += newFlow;
         }
 
-        System.out.println("Timeleft: " + timeLeft + " / Minute " + (26 - timeLeft) + " currentFlow: " + currentFlow);
-        System.out.println("     Human Worker 1: " + workers.get(0) + (openedValveFlow[0] != 0 ? " and opened valve " + openedValveFlow[0] : ""));
-        System.out.println("     Eleph Worker 2: " + workers.get(1) + (openedValveFlow[1] != 0 ? " and opened valve " + openedValveFlow[1]: ""));
-
+//        System.out.println("Timeleft: " + timeLeft + " / Minute " + (26 - timeLeft) + " currentFlow: " + currentFlow);
+//        System.out.println("     Human Worker 1: " + workers.get(0) + (openedValveFlow[0] != 0 ? " and opened valve " + openedValveFlow[0] : ""));
+//        System.out.println("     Eleph Worker 2: " + workers.get(1) + (openedValveFlow[1] != 0 ? " and opened valve " + openedValveFlow[1] : ""));
 
         // If no valves left and both workers are available, we can just calculate what's left
         if (valvesWithFlow.size() <= 0) {
@@ -200,8 +199,9 @@ public class Day16 extends InputParser {
         // and if there's another, we'll cater the alternatives for that one.
 
         int maxValue = 0;
+        int depthCheckLimit = 8;
         // we use the list ^ as indexes because we will be adjusting the data for a second worker
-        for (int i = 0; i < valvesWithFlow.size(); i++) {
+        for (int i = 0; i < valvesWithFlow.size() && i < depthCheckLimit; i++) {
             ArrayList<ValveInfo> valvesWithFlowCopy = new ArrayList<>(valvesWithFlow); // copy; already sorted
 
             WorkerStates workersCopy = new WorkerStates(workers);
@@ -233,7 +233,7 @@ public class Day16 extends InputParser {
                         return score2 - score1; // we want highest first
                     }
                 });
-                for (int j = 0; j < valvesWithFlowCopy.size(); j++) {
+                for (int j = 0; j < valvesWithFlowCopy.size() && j < depthCheckLimit; j++) {
                     ValveInfo testValve2 = valvesWithFlowCopy.remove(0); // pull off valve from the copy
                     Integer valve2Distance = memoizedDistances.get(worker2.startingValve.name() + ':' + testValve2.name());
                     worker2.assignWork(testValve2, valve2Distance, true); // force
@@ -243,19 +243,27 @@ public class Day16 extends InputParser {
                             memoizedDistances.get(worker1.startingValve.name() + ':' + testValve2.name());
                     Integer worker2ToValve1Distance =
                             memoizedDistances.get(worker2.startingValve.name() + ':' + testValve1.name());
+
                     if (worker1.timeToDestinationValve + worker2.timeToDestinationValve
-                            > worker1ToValve2Distance + worker2ToValve1Distance) {
+                            > worker1ToValve2Distance + 1 + worker2ToValve1Distance + 1) { // account for open valve time
+//                        System.out.println("     -- Swapping destinations!");
                         worker1.assignWork(testValve2, worker1ToValve2Distance, true); // force
                         worker2.assignWork(testValve1, worker2ToValve1Distance, true); // force
                     }
 
-                    int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy, workersCopy, timeLeft - 1,
+                    WorkerStates workersCopy2 = new WorkerStates(workersCopy);
+                    List<ValveInfo> valvesWithFlowCopy2 = new ArrayList<>(valvesWithFlowCopy);
+
+                    int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy2, workersCopy2, timeLeft - 1,
                             currentFlow, nextCycleStartingFlow);
                     maxValue = Math.max(maxValue, checkValue);
                 }
             } else {
                 // this is just single worker by themselves
-                int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy, workersCopy, timeLeft - 1,
+                WorkerStates workersCopy2 = new WorkerStates(workersCopy);
+                List<ValveInfo> valvesWithFlowCopy2 = new ArrayList<>(valvesWithFlowCopy);
+
+                int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy2, workersCopy2, timeLeft - 1,
                         currentFlow, nextCycleStartingFlow);
                 maxValue = Math.max(maxValue, checkValue);
             }
@@ -263,7 +271,7 @@ public class Day16 extends InputParser {
 
         int result = currentFlow + ((maxValue != 0) ? maxValue : timeLeft * currentFlow);
 
-        if (timeLeft == 30) {
+        if (timeLeft == 26) {
             System.out.println(result);
         }
 

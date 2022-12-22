@@ -216,19 +216,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="352" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>
-          <line>193</line>
-          <option name="timeStamp" value="358" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition expression="timeLeft == 13 &amp;&amp; openedValveFlow[1] == 2" language="JAVA" />
-          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>
-          <line>155</line>
-          <option name="timeStamp" value="362" />
+          <line>153</line>
+          <option name="timeStamp" value="370" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
