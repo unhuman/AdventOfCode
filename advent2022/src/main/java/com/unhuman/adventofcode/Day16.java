@@ -153,65 +153,60 @@ public class Day16 extends InputParser {
             }
         }
 
-        // for safety, clone what we had coming in
-        workers = new WorkerStates(workers);
-
-        List<WorkerState> availableWorkers = workers.findAvailableWorkers();
-
         // if no available workers, keep it simple, and just process next day
-        if (availableWorkers.size() == 0) {
-            valvesWithFlow = new ArrayList<>(valvesWithFlow);
+        if (workers.findAvailableWorkers().size() == 0) {
             return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow);
         }
 
         // if there's only one valve left, find the worker with the shortest distance to it
         if (valvesWithFlow.size() == 1) {
-            // choose the best available worker to go forward with this work
+            ValveInfo lastValve = valvesWithFlow.remove(0);
+
+            List<WorkerState> availableWorkers = workers.findAvailableWorkers();
             WorkerState chosenWorker = availableWorkers.get(0);
-            Integer distance = memoizedDistances.get(chosenWorker.startingValve.name() + ':' + valvesWithFlow.get(0).name());
+            Integer distance = memoizedDistances.get(chosenWorker.startingValve.name() + ':' + lastValve.name());
             for (int i = 1; i < availableWorkers.size(); i++) {
                 WorkerState checkWorker = availableWorkers.get(i);
-                int checkDistance = memoizedDistances.get(checkWorker.startingValve.name() + ':' + valvesWithFlow.get(0).name());
+                int checkDistance = memoizedDistances.get(checkWorker.startingValve.name() + ':' + lastValve.name());
                 if (checkDistance < distance) {
                     chosenWorker = checkWorker;
                     distance = checkDistance;
                 }
             }
-
-            chosenWorker.assignWork(valvesWithFlow.get(0), distance, false);
-            valvesWithFlow = new ArrayList<>(valvesWithFlow);
+            chosenWorker.assignWork(lastValve, distance, false);
             return currentFlow + prioritizedProcessingPart2(valvesWithFlow, workers, timeLeft - 1, currentFlow);
         }
 
+        // TODO: State getting lost when picking workers (copies are bad)
         // we have work to do and at least one available worker, so let's cater the work for that one
         // and if there's another, we'll cater the alternatives for that one.
-        WorkerState firstWorker = availableWorkers.get(0);
-        valvesWithFlow = new ArrayList<>(valvesWithFlow);
-        valvesWithFlow.sort(new Comparator<ValveInfo>() {
-            @Override
-            public int compare(ValveInfo v1, ValveInfo v2) {
-                int score1 = assignValveScore(v1, firstWorker.startingValve, timeLeft);
-                int score2 = assignValveScore(v2, firstWorker.startingValve, timeLeft);
-                return score2 - score1; // we want highest first
-            }
-        });
 
         int maxValue = 0;
         // we use the list ^ as indexes because we will be adjusting the data for a second worker
-        for (int i = 0; i < valvesWithFlow.size(); ) {
+        for (int i = 0; i < valvesWithFlow.size(); i++) {
             ArrayList<ValveInfo> valvesWithFlowCopy = new ArrayList<>(valvesWithFlow); // copy; already sorted
-            ValveInfo testValve1 = valvesWithFlowCopy.remove(0); // pull off valve from the copy (always 0)
 
             WorkerStates workersCopy = new WorkerStates(workers);
-            List<WorkerState> availableWorkersCopy = workersCopy.findAvailableWorkers();
+            List<WorkerState> availableWorkers = workersCopy.findAvailableWorkers();
+            WorkerState firstWorker = availableWorkers.get(0);
+            valvesWithFlowCopy.sort(new Comparator<ValveInfo>() {
+                @Override
+                public int compare(ValveInfo v1, ValveInfo v2) {
+                    int score1 = assignValveScore(v1, firstWorker.startingValve, timeLeft);
+                    int score2 = assignValveScore(v2, firstWorker.startingValve, timeLeft);
+                    return score2 - score1; // we want highest first
+                }
+            });
 
-            WorkerState worker1 = availableWorkersCopy.get(0);
+            ValveInfo testValve1 = valvesWithFlowCopy.remove(0); // pull off valve from the copy (always 0)
+
+            WorkerState worker1 = availableWorkers.get(0);
             int valve1Distance = memoizedDistances.get(worker1.startingValve.name() + ':' + testValve1.name());
-            workersCopy.get(0).assignWork(testValve1, valve1Distance, true); // we force to not use more memory
+            worker1.assignWork(testValve1, valve1Distance, true); // we force to not use more memory
 
             // If there's another available worker, let's get them hooked up with work
-            if (availableWorkersCopy.size() > 1) {
-                WorkerState worker2 = availableWorkersCopy.get(1);
+            if (availableWorkers.size() > 1) {
+                WorkerState worker2 = availableWorkers.get(1);
                 valvesWithFlowCopy.sort(new Comparator<ValveInfo>() {
                     @Override
                     public int compare(ValveInfo v1, ValveInfo v2) {
@@ -220,10 +215,10 @@ public class Day16 extends InputParser {
                         return score2 - score1; // we want highest first
                     }
                 });
-                for (int j = 0; j < valvesWithFlowCopy.size();) {
+                for (int j = 0; j < valvesWithFlowCopy.size(); j++) {
                     ValveInfo testValve2 = valvesWithFlowCopy.remove(0); // pull off valve from the copy
                     Integer valve2Distance = memoizedDistances.get(worker2.startingValve.name() + ':' + testValve2.name());
-                    workersCopy.get(1).assignWork(testValve2, valve2Distance, true); // force
+                    worker2.assignWork(testValve2, valve2Distance, true); // force
 
                     int checkValue = prioritizedProcessingPart2(valvesWithFlowCopy, workersCopy, timeLeft - 1, currentFlow);
                     maxValue = Math.max(maxValue, checkValue);
@@ -235,7 +230,13 @@ public class Day16 extends InputParser {
             }
         }
 
-        return currentFlow + ((maxValue != 0) ? maxValue : timeLeft * currentFlow);
+        int result = currentFlow + ((maxValue != 0) ? maxValue : timeLeft * currentFlow);
+
+        if (timeLeft == 30) {
+            System.out.println(result);
+        }
+
+        return result;
     }
 
     class WorkerState {

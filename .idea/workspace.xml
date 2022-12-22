@@ -215,28 +215,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>
-          <line>148</line>
-          <option name="timeStamp" value="342" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition expression="valve2Distance == null" language="JAVA" />
-          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>
-          <line>225</line>
-          <option name="timeStamp" value="344" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>
           <line>75</line>
-          <option name="timeStamp" value="346" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode/Day16.java</url>
-          <line>135</line>
-          <option name="timeStamp" value="347" />
+          <option name="timeStamp" value="352" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="valvesWithFlow" language="JAVA" />
+        <watch expression="valvesWithFlowCopy" language="JAVA" />
+        <watch expression="workers" language="JAVA" />
+      </configuration>
       <configuration name="Application">
         <watch expression="line" language="JAVA" />
       </configuration>
