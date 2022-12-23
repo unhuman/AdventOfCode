@@ -21,9 +21,9 @@ public class Advent2022
 //        puzzle.process();
 
         ++i;
-        argsFixed[0] = generateFileBasePath(i);
-        puzzle = new Day2(argsFixed);
-        puzzle.process();
+//        argsFixed[0] = generateFileBasePath(i);
+//        puzzle = new Day2(argsFixed);
+//        puzzle.process();
 
         ++i;
 //        argsFixed[0] = generateFileBasePath(i);
@@ -126,9 +126,15 @@ public class Advent2022
         puzzle.process();
 
         ++i;
+//        argsFixed[0] = generateFileBasePath(i);
+//        puzzle = new Day23(argsFixed);
+//        puzzle.process();
+
+        ++i;
         argsFixed[0] = generateFileBasePath(i);
-        puzzle = new Day23(argsFixed);
+        puzzle = new Day24(argsFixed);
         puzzle.process();
+
     }
 
     static String generateFileBasePath(int day) {

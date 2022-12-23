@@ -96,8 +96,9 @@ public abstract class InputParser {
         File file = null;
         InputStream inputStream = null;
         if (filename.startsWith("https://")) {
+            String inputFilename = filename + "/input";
             try {
-                URL url = new URL(filename + "/input");
+                URL url = new URL(inputFilename);
                 URLConnection connection = url.openConnection();
                 if (cookieOrCookieFile == null) {
                     System.err.println("No cookie provided");
@@ -116,7 +117,7 @@ public abstract class InputParser {
                 inputStream = connection.getInputStream();
                 scanner = new Scanner(inputStream, StandardCharsets.UTF_8.toString());
             } catch (IOException e) {
-                System.err.println("Could not process url: " + filename + " message: " + e.getMessage());
+                System.err.println("Could not process url: " + inputFilename + " message: " + e.getMessage());
                 System.exit(-1);
             }
         } else {
