@@ -135,18 +135,21 @@ public class Day22 extends InputParser {
     public Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2) {
         GroupItem item = dataItems1.get(0);
 
-        int maxLineSize = 0;
+        int mapWidth = 0;
         for (int lineIdx = 0; lineIdx < item.size(); lineIdx++) {
             ItemLine line = item.get(lineIdx);
-            maxLineSize = (line.size() > maxLineSize) ? line.size() : maxLineSize;
+            mapWidth = (line.size() > mapWidth) ? line.size() : mapWidth;
         }
 
         Point currentLocation = null;
 
-        char map[][] = new char[item.size()][maxLineSize];
-        for (int lineIdx = 0; lineIdx < item.size(); lineIdx++) {
+        // Save off the size
+        int mapHeight = item.size();
+        char map[][] = new char[mapHeight][mapWidth];
+
+        for (int lineIdx = 0; lineIdx < mapHeight; lineIdx++) {
             ItemLine line = item.get(lineIdx);
-            for (int elementIdx = 0; elementIdx < maxLineSize; elementIdx++) {
+            for (int elementIdx = 0; elementIdx < mapWidth; elementIdx++) {
                 // fill up array, and put spaces where missing data
                 char character = (elementIdx < line.size()) ? line.get(elementIdx).charAt(0) : ' ';
                 map[lineIdx][elementIdx] = character;
@@ -169,7 +172,6 @@ public class Day22 extends InputParser {
                     }
                 }
 
-                // Figure out the next way we are going to face
                 Facing nextFacing = facing.get();
                 if (line.get(elementIdx + 1) != null) {
                     Character rotation = line.get(elementIdx + 1).charAt(0);
@@ -187,7 +189,6 @@ public class Day22 extends InputParser {
             }
         }
 
-
         // rows and columns
         return 1000 * (currentLocation.y + 1) + 4 * (currentLocation.x + 1) + facing.get().ordinal();
     }
@@ -200,6 +201,10 @@ public class Day22 extends InputParser {
      * @return
      */
     boolean advance2(char[][] map, Point currentLocation, AtomicReference<Facing> facing) {
+        // Both the example and the real data have a 3/4 arrangement of cubes.
+        // So, we can use that to figure out the size of each side
+        int cubeSize = Math.abs(map.length - map[0].length);
+
         int xIncrement = 0;
         int yIncrement = 0;
         switch(facing.get()) {
@@ -234,6 +239,11 @@ public class Day22 extends InputParser {
             }
             if (checkPoint.y == map.length) {
                 checkPoint.y = 0;
+            }
+
+            // Check if we are out of bounds and teleport to another place
+            if (map[checkPoint.y][checkPoint.x] == ' ') {
+
             }
 
             if (map[checkPoint.y][checkPoint.x] == '.') {

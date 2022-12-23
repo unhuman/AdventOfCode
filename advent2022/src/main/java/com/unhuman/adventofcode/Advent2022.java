@@ -121,12 +121,17 @@ public class Advent2022
 //        puzzle.process();
 
         ++i;
-        argsFixed[0] = generateFile(i);
+        argsFixed[0] = generateFileBasePath(i);
         puzzle = new Day22(argsFixed);
+        puzzle.process();
+
+        ++i;
+        argsFixed[0] = generateFileBasePath(i);
+        puzzle = new Day23(argsFixed);
         puzzle.process();
     }
 
-    static String generateFile(int day) {
-        return "https://adventofcode.com/2022/day/" + day + "/input";
+    static String generateFileBasePath(int day) {
+        return "https://adventofcode.com/2022/day/" + day;
     }
 }
