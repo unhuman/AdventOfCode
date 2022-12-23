@@ -142,12 +142,12 @@ public class Day16 extends InputParser {
 
         // All workers do their work (if any)
         nextCycleStartingFlow = 0;
-        int[] openedValveFlow = new int[2];
+//        int[] openedValveFlow = new int[2];
         int valveCounter = 0;
         for (WorkerState worker : workers) {
             worker.performWork();
             int newFlow = worker.consumeFlow();
-            openedValveFlow[valveCounter++] = newFlow;
+//            openedValveFlow[valveCounter++] = newFlow;
             nextCycleStartingFlow += newFlow;
         }
 
@@ -176,6 +176,8 @@ public class Day16 extends InputParser {
 
         // if there's only one valve left, find the worker with the shortest distance to it
         if (valvesWithFlow.size() == 1) {
+            // TODO: Skip allocating this valve if the distance for the other worker will be shorter
+
             ValveInfo lastValve = valvesWithFlow.remove(0);
 
             List<WorkerState> availableWorkers = workers.findAvailableWorkers();
@@ -199,7 +201,7 @@ public class Day16 extends InputParser {
         // and if there's another, we'll cater the alternatives for that one.
 
         int maxValue = 0;
-        int depthCheckLimit = 8;
+        int depthCheckLimit = 9;
         // we use the list ^ as indexes because we will be adjusting the data for a second worker
         for (int i = 0; i < valvesWithFlow.size() && i < depthCheckLimit; i++) {
             ArrayList<ValveInfo> valvesWithFlowCopy = new ArrayList<>(valvesWithFlow); // copy; already sorted
@@ -216,7 +218,7 @@ public class Day16 extends InputParser {
                 }
             });
 
-            ValveInfo testValve1 = valvesWithFlowCopy.remove(0); // pull off valve from the copy (always 0)
+            ValveInfo testValve1 = valvesWithFlowCopy.remove(i);
 
             WorkerState worker1 = availableWorkers.get(0);
             int valve1Distance = memoizedDistances.get(worker1.startingValve.name() + ':' + testValve1.name());
@@ -234,7 +236,7 @@ public class Day16 extends InputParser {
                     }
                 });
                 for (int j = 0; j < valvesWithFlowCopy.size() && j < depthCheckLimit; j++) {
-                    ValveInfo testValve2 = valvesWithFlowCopy.remove(0); // pull off valve from the copy
+                    ValveInfo testValve2 = valvesWithFlowCopy.remove(j);
                     Integer valve2Distance = memoizedDistances.get(worker2.startingValve.name() + ':' + testValve2.name());
                     worker2.assignWork(testValve2, valve2Distance, true); // force
 
