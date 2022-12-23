@@ -28,6 +28,6 @@ public class Day16Test {
         time = System.nanoTime() - time;
         timeMs = (float) time / 1000000;
         System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms ***");
-        Assertions.assertEquals(2, result);
+        Assertions.assertEquals(1707, result);
     }
 }

@@ -97,7 +97,7 @@ public abstract class InputParser {
         InputStream inputStream = null;
         if (filename.startsWith("https://")) {
             try {
-                URL url = new URL(filename);
+                URL url = new URL(filename + "/input");
                 URLConnection connection = url.openConnection();
                 if (cookieOrCookieFile == null) {
                     System.err.println("No cookie provided");
