@@ -116,8 +116,13 @@ public class Advent2022
 //        puzzle.process();
 
         ++i;
+//        argsFixed[0] = generateFile(i);
+//        puzzle = new Day21(argsFixed);
+//        puzzle.process();
+
+        ++i;
         argsFixed[0] = generateFile(i);
-        puzzle = new Day21(argsFixed);
+        puzzle = new Day22(argsFixed);
         puzzle.process();
     }
 
