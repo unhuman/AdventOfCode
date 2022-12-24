@@ -8,8 +8,8 @@ public class Day24Test {
     @Test
     public void test1() {
         String[] test1 = new String[] { "src/test/resources/Day24Case.txt" };
-        Object expectedResult1 = 1;
-        Object expectedResult2 = 2;
+        Object expectedResult1 = 18;
+        Object expectedResult2 = 54;
 
         Day24 day = new Day24(test1);
         ConfigGroup[] groups = day.parseFiles();
