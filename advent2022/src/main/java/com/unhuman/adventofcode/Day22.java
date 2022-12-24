@@ -353,5 +353,95 @@ public class Day22 extends InputParser {
     }
 
     void handleTeleportForProblem(int cubeSize, Point checkPoint, AtomicReference<Facing> facing) {
+        // Cube 2 (top) - up to 10
+        if (checkPoint.x >= cubeSize && checkPoint.x < cubeSize * 2 && checkPoint.y == -1 && facing.get() == Facing.UP) {
+            facing.set(Facing.RIGHT);
+            checkPoint.y = cubeSize * 2 + checkPoint.x;
+            checkPoint.x = 0;
+        }
+        // Cube 2 (top) - move left to 7
+        if (checkPoint.x == cubeSize - 1 && checkPoint.y < cubeSize && facing.get() == Facing.LEFT) {
+            facing.set(Facing.RIGHT);
+            checkPoint.y = cubeSize * 3 - 1 - checkPoint.y;
+            checkPoint.x = 0;
+        }
+
+        // Cube 3 - up to 10
+        if (checkPoint.x >= cubeSize * 2 && checkPoint.x < cubeSize * 3 && checkPoint.y == -1 && facing.get() == Facing.UP) {
+            // facing.set(Facing.UP);
+            checkPoint.y = cubeSize * 4 - 1;
+            checkPoint.x = checkPoint.x - cubeSize * 2;
+        }
+        // Cube 3 - right to 8
+        if (checkPoint.x == cubeSize * 3 && checkPoint.y < cubeSize && facing.get() == Facing.RIGHT) {
+            facing.set(Facing.LEFT);
+            checkPoint.y = cubeSize * 3 - 1 - checkPoint.y;
+            checkPoint.x = cubeSize * 2 - 1;
+        }
+        // Cube 3 - down to 5
+        if (checkPoint.x >= cubeSize * 2 && checkPoint.y == cubeSize && facing.get() == Facing.DOWN) {
+            facing.set(Facing.LEFT);
+            checkPoint.y = checkPoint.x - cubeSize;
+            checkPoint.x = cubeSize * 2 - 1;
+        }
+
+        // Cube 5 - move left to 7
+        if (checkPoint.x == cubeSize - 1 && checkPoint.y >= cubeSize && checkPoint.y < cubeSize * 2 && facing.get() == Facing.LEFT) {
+            facing.set(Facing.DOWN);
+            checkPoint.x = checkPoint.y - cubeSize;
+            checkPoint.y = cubeSize * 2;
+        }
+
+        // Cube 5 - move right to 3
+        if (checkPoint.x == cubeSize * 2 && checkPoint.y >= cubeSize && checkPoint.y < cubeSize * 2 && facing.get() == Facing.RIGHT) {
+            facing.set(Facing.UP);
+            checkPoint.x = cubeSize + checkPoint.y;
+            checkPoint.y = cubeSize - 1;
+        }
+
+        // Cube 7 - up to 5
+        if (checkPoint.x < cubeSize * 3 && checkPoint.y == cubeSize * 2 - 1 && facing.get() == Facing.UP) {
+            facing.set(Facing.RIGHT);
+            checkPoint.y = cubeSize + checkPoint.x;
+            checkPoint.x = cubeSize;
+        }
+        // Cube 7 - left to 2
+        if (checkPoint.x == -1  && checkPoint.y >= cubeSize * 2 && checkPoint.y < cubeSize * 3 && facing.get() == Facing.LEFT) {
+            facing.set(Facing.RIGHT);
+            checkPoint.y = cubeSize * 3 - 1 - checkPoint.y;
+            checkPoint.x = cubeSize;
+        }
+
+        // Cube 8 - move right to 3
+        if (checkPoint.x == cubeSize * 2 && checkPoint.y >= cubeSize * 2 && checkPoint.y < cubeSize * 3 && facing.get() == Facing.RIGHT) {
+            facing.set(Facing.LEFT);
+            checkPoint.y = cubeSize * 3 - 1 - checkPoint.y;
+            checkPoint.x = cubeSize * 3 - 1;
+        }
+        // Cube 8 - move down to 10
+        if (checkPoint.x >= cubeSize && checkPoint.x < cubeSize * 2 && checkPoint.y == cubeSize * 3 && facing.get() == Facing.DOWN) {
+            facing.set(Facing.LEFT);
+            checkPoint.y = checkPoint.x + cubeSize * 2;
+            checkPoint.x = cubeSize - 1;
+        }
+
+        // Cube 10 - left to 2
+        if (checkPoint.x == -1  && checkPoint.y >= cubeSize * 3 && facing.get() == Facing.LEFT) {
+            facing.set(Facing.DOWN);
+            checkPoint.x = checkPoint.y - cubeSize * 2;
+            checkPoint.y = 0;
+        }
+        // Cube 10 - down to 3
+        if (checkPoint.x < cubeSize && checkPoint.y == cubeSize * 4 && facing.get() == Facing.DOWN) {
+            facing.set(Facing.DOWN);
+            checkPoint.x = checkPoint.x + cubeSize * 2;
+            checkPoint.y = 0;
+        }
+        // Cube 10 - right to 8
+        if (checkPoint.x == cubeSize  && checkPoint.y >= cubeSize * 3 && facing.get() == Facing.RIGHT) {
+            facing.set(Facing.UP);
+            checkPoint.x = checkPoint.y - cubeSize * 2;
+            checkPoint.y = cubeSize * 3 - 1;
+        }
     }
 }

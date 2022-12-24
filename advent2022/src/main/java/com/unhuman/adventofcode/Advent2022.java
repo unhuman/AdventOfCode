@@ -121,9 +121,9 @@ public class Advent2022
 //        puzzle.process();
 
         ++i;
-        argsFixed[0] = generateFileBasePath(i);
-        puzzle = new Day22(argsFixed);
-        puzzle.process();
+//        argsFixed[0] = generateFileBasePath(i);
+//        puzzle = new Day22(argsFixed);
+//        puzzle.process();
 
         ++i;
 //        argsFixed[0] = generateFileBasePath(i);
