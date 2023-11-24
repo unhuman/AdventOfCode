@@ -5,10 +5,7 @@ import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 import com.unhuman.adventofcode.aoc_framework.helper.LineInput;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -21,7 +18,10 @@ import java.util.regex.Pattern;
 import static java.lang.System.exit;
 
 public abstract class InputParser {
-    private final String filename;
+    private static final String ADVENT_OF_CODE_HTTPS_PREFIX = "https://adventofcode.com/";
+    private static final String CACHE_DIRECTORY = "cache/";
+
+    private String filename;
     private String aocSession;
     private final String lineItemRegex1;
     private final String lineItemRegex2;
@@ -51,7 +51,7 @@ public abstract class InputParser {
     }
 
     static String generateUrlPath(int year, int day) {
-        return String.format("https://adventofcode.com/%d/day/%d", year, day);
+        return String.format("%s%d/day/%d", ADVENT_OF_CODE_HTTPS_PREFIX, year, day);
     }
 
     static String determineAOCSession() {
@@ -121,7 +121,20 @@ public abstract class InputParser {
         Scanner scanner = null;
         File file = null;
         InputStream inputStream = null;
-        if (filename.startsWith("https://")) {
+
+        String cacheFilename = null;
+        if (filename.startsWith(ADVENT_OF_CODE_HTTPS_PREFIX)) {
+            String checkCacheFilename = CACHE_DIRECTORY + filename.substring(ADVENT_OF_CODE_HTTPS_PREFIX.length()).replace('/', '-') + ".txt";
+            if (new File(checkCacheFilename).exists()) {
+                // switch to reading in this file
+                filename = checkCacheFilename;
+            } else {
+                // We will need to cache after read
+                cacheFilename = checkCacheFilename;
+            }
+        }
+
+        if (filename.startsWith(ADVENT_OF_CODE_HTTPS_PREFIX)) {
             String inputFilename = filename + "/input";
             try {
                 URL url = new URL(inputFilename);
@@ -158,6 +171,21 @@ public abstract class InputParser {
             System.err.println("Error processing file: " + filename + " message: " + e.getMessage());
             exit(-1);
         }
+
+        // If there's information to cache, we store it
+        if (cacheFilename != null) {
+            new File(CACHE_DIRECTORY).mkdir();
+            try {
+                FileWriter writer = new FileWriter(cacheFilename);
+                for (String line: lines) {
+                    writer.write(line + "\r\n");
+                }
+                writer.close();
+            } catch (IOException ioe) {
+                System.err.println("Error writing cache file: " + cacheFilename);
+            }
+        }
+
         return new LineInput(lines);
     }
 
