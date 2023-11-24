@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="advent2022" />
+        <module name="advent2023" />
         <module name="aoc-framework" />
         <module name="advent2021" />
       </profile>
