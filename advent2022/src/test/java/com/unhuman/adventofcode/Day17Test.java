@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 public class Day17Test {
     @Test
     public void test1() {
-        String[] test1 = new String[] { "src/test/resources/Day17Case.txt" };
-        Day17 day = new Day17(test1);
+        String filename = "src/test/resources/Day17Case.txt";
+        Day17 day = new Day17(filename);
         ConfigGroup[] groups = day.parseFiles();
 
         Assertions.assertEquals(3068L, day.processInput1(groups[0], groups[1]));

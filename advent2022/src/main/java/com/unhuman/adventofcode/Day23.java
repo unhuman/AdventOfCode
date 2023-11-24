@@ -15,8 +15,12 @@ public class Day23 extends InputParser {
 
     enum Directions { ALL, NORTH, SOUTH, WEST, EAST }
 
-    public Day23(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day23() {
+        super(2022, 23, regex1, regex2);
+    }
+
+    public Day23(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

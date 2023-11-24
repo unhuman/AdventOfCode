@@ -11,137 +11,82 @@ public class Advent2022
     public static void main( String[] args )
     {
         InputParser puzzle;
-        String[] argsFixed = new String[2];
-        argsFixed[1] = args[0];
 
-        int i = 0;
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day1(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day2(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day3(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day4(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day5(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day6(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day7(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day8(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day9(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day10(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day11(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day12(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day13(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day14(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day15(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day16(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day17(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day18(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day19(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day20(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day21(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day22(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day23(argsFixed);
-//        puzzle.process();
-
-        ++i;
-//        argsFixed[0] = generateFileBasePath(i);
-//        puzzle = new Day24(argsFixed);
-//        puzzle.process();
-
-        ++i;
-        argsFixed[0] = generateFileBasePath(i);
-        puzzle = new Day25(argsFixed);
+        puzzle = new Day1();
         puzzle.process();
-    }
 
-    static String generateFileBasePath(int day) {
-        return "https://adventofcode.com/2022/day/" + day;
+        puzzle = new Day2();
+        puzzle.process();
+
+        puzzle = new Day3();
+        puzzle.process();
+
+        puzzle = new Day4();
+        puzzle.process();
+
+        puzzle = new Day5();
+        puzzle.process();
+
+        puzzle = new Day6();
+        puzzle.process();
+
+        puzzle = new Day7();
+        puzzle.process();
+
+        puzzle = new Day8();
+        puzzle.process();
+
+        puzzle = new Day9();
+        puzzle.process();
+
+        puzzle = new Day10();
+        puzzle.process();
+
+        puzzle = new Day11();
+        puzzle.process();
+
+        puzzle = new Day12();
+        puzzle.process();
+
+        puzzle = new Day13();
+        puzzle.process();
+
+        puzzle = new Day14();
+        puzzle.process();
+
+        puzzle = new Day15();
+        puzzle.process();
+
+        puzzle = new Day16();
+        puzzle.process();
+
+        puzzle = new Day17();
+        puzzle.process();
+
+        puzzle = new Day18();
+        puzzle.process();
+
+        // commented out - takes long time
+//        puzzle = new Day19();
+//        puzzle.process();
+
+        puzzle = new Day20();
+        puzzle.process();
+
+        puzzle = new Day21();
+        puzzle.process();
+
+        puzzle = new Day22();
+        puzzle.process();
+
+        // commented out - takes long time
+//        puzzle = new Day23();
+//        puzzle.process();
+
+        puzzle = new Day24();
+        puzzle.process();
+
+        puzzle = new Day25();
+        puzzle.process();
     }
 }

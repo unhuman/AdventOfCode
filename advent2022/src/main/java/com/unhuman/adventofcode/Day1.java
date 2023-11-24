@@ -13,10 +13,13 @@ public class Day1 extends InputParser {
 
     /**
      * Creates an InputParser that will process line-by-line
-     * @param filenameAndCookieInfo
      */
-    public Day1(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day1() {
+        super(2022, 1, regex1, regex2);
+    }
+
+    public Day1(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

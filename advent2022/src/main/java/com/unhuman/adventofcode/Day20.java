@@ -12,8 +12,12 @@ public class Day20 extends InputParser {
     private static final String regex1 = "(-?\\d+)";
     private static final String regex2 = null;
 
-    public Day20(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day20() {
+        super(2022, 20, regex1, regex2);
+    }
+
+    public Day20(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

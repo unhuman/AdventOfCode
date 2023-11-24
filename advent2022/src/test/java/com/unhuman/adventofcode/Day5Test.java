@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 public class Day5Test {
     @Test
     public void test1() {
-        String[] test1 = new String[] { "src/test/resources/Day5Case.txt" };
-        Day5 day = new Day5(test1);
+        Day5 day = new Day5("src/test/resources/Day5Case.txt");
         ConfigGroup[] groups = day.parseFiles();
 
         Assertions.assertEquals("CMZ", day.processInput1(groups[0], groups[1]));

@@ -9,8 +9,12 @@ public class Day10 extends InputParser {
     private static final String regex1 = "(\\w+)(\\s+\\-?\\d+)?";
     private static final String regex2 = null;
 
-    public Day10(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day10() {
+        super(2022, 10, regex1, regex2);
+    }
+
+    public Day10(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

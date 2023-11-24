@@ -14,8 +14,12 @@ public class Day7 extends InputParser {
     private static final int FILE_SYSTEM_SIZE = 70000000;
     private static final int UPDATE_NEED_FREE_SIZE = 30000000;
 
-    public Day7(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day7() {
+        super(2022, 7, regex1, regex2);
+    }
+
+    public Day7(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

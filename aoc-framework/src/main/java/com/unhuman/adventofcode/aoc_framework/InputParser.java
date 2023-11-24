@@ -18,30 +18,56 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.System.exit;
+
 public abstract class InputParser {
     private final String filename;
-    private String cookieOrCookieFile;
+    private String aocSession;
     private final String lineItemRegex1;
     private final String lineItemRegex2;
 
     /**
      * Creates an InputParser that will process line-by-line
-     * @param filenameAndCookieInfo
+     * @param year
+     * @param day
      * @param lineItemRegex1
      * @param lineItemRegex2
      */
-    public InputParser(String[] filenameAndCookieInfo, String lineItemRegex1, String lineItemRegex2) {
-        if (filenameAndCookieInfo.length < 1 || filenameAndCookieInfo.length > 2) {
-            throw new RuntimeException("Must provide filename (or url) and cookie");
-        }
-        this.filename = filenameAndCookieInfo[0];
-        this.cookieOrCookieFile = (filenameAndCookieInfo.length >= 2) ? filenameAndCookieInfo[1] : null;
+    public InputParser(int year, int day, String lineItemRegex1, String lineItemRegex2) {
+        this(generateUrlPath(year, day), lineItemRegex1, lineItemRegex2);
+    }
+
+    /**
+     * Creates an InputParser that will process line-by-line
+     * @param filename
+     * @param lineItemRegex1
+     * @param lineItemRegex2
+     */
+    public InputParser(String filename, String lineItemRegex1, String lineItemRegex2) {
+        this.filename = filename;
+        this.aocSession = determineAOCSession();
         this.lineItemRegex1 = lineItemRegex1;
         this.lineItemRegex2 = lineItemRegex2;
     }
 
-    public void setCookieOrCookieFile(String cookieOrCookieFile) {
-        this.cookieOrCookieFile = cookieOrCookieFile;
+    static String generateUrlPath(int year, int day) {
+        return String.format("https://adventofcode.com/%d/day/%d", year, day);
+    }
+
+    static String determineAOCSession() {
+        File sessionTokenFile = new File("aocSessionTokenFile.txt");
+        try (Scanner scannerCookie = new Scanner(sessionTokenFile)) {
+            return scannerCookie.nextLine();
+        } catch (Exception e) {
+            // ignore this one, we'll try one directory back
+        }
+
+        sessionTokenFile = new File("../aocSessionTokenFile.txt");
+        try (Scanner scannerCookie = new Scanner(sessionTokenFile)) {
+            return scannerCookie.nextLine();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void process() {
@@ -100,25 +126,19 @@ public abstract class InputParser {
             try {
                 URL url = new URL(inputFilename);
                 URLConnection connection = url.openConnection();
-                if (cookieOrCookieFile == null) {
+                if (aocSession == null) {
                     System.err.println("No cookie provided");
-                    System.exit(-1);
+                    exit(-1);
                 }
 
-                if (!cookieOrCookieFile.startsWith("session=")) {
-                    try (Scanner scannerCookie = new Scanner(new File(cookieOrCookieFile))) {
-                        cookieOrCookieFile = scannerCookie.nextLine();
-                    }
-                }
-
-                connection.setRequestProperty("COOKIE", cookieOrCookieFile);
+                connection.setRequestProperty("COOKIE", aocSession);
                 connection.connect();
 
                 inputStream = connection.getInputStream();
                 scanner = new Scanner(inputStream, StandardCharsets.UTF_8.toString());
             } catch (IOException e) {
                 System.err.println("Could not process url: " + inputFilename + " message: " + e.getMessage());
-                System.exit(-1);
+                exit(-1);
             }
         } else {
             try {
@@ -126,7 +146,7 @@ public abstract class InputParser {
                 scanner = new Scanner(file);
             } catch (FileNotFoundException e) {
                 System.err.println("Could not find file: " + filename);
-                System.exit(-1);
+                exit(-1);
             }
         }
 
@@ -136,7 +156,7 @@ public abstract class InputParser {
             }
         } catch (Exception e) {
             System.err.println("Error processing file: " + filename + " message: " + e.getMessage());
-            System.exit(-1);
+            exit(-1);
         }
         return new LineInput(lines);
     }
@@ -248,5 +268,4 @@ public abstract class InputParser {
      * @param dataItems2 (optional/empty) this is a list (items) of rows of items
      */
     public abstract Object processInput2(ConfigGroup dataItems1, ConfigGroup dataItems2);
-
 }

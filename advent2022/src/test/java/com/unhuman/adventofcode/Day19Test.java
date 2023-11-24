@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 public class Day19Test {
     @Test
     public void test1() {
-        String[] test1 = new String[] { "src/test/resources/Day19Case.txt" };
-        Day19 day = new Day19(test1);
+        String filename = "src/test/resources/Day19Case.txt";
+        Day19 day = new Day19(filename);
         ConfigGroup[] groups = day.parseFiles();
 
         long time;

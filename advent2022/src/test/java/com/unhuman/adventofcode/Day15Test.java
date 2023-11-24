@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 public class Day15Test {
     @Test
     public void test1() {
-        String[] test1 = new String[] { "src/test/resources/Day15Case.txt" };
-        Day15 day = new Day15(test1);
+        String filename = "src/test/resources/Day15Case.txt";
+        Day15 day = new Day15(filename);
         day.setPart1CheckRow(10);
         day.setPart2Maximum(20);
         ConfigGroup[] groups = day.parseFiles();

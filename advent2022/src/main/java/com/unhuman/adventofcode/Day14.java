@@ -13,8 +13,12 @@ public class Day14 extends InputParser {
     private static final int WALL = 1;
     private static final int SAND = 2;
 
-    public Day14(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day14() {
+        super(2022, 14, regex1, regex2);
+    }
+
+    public Day14(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

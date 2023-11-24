@@ -25,8 +25,17 @@ public class Day17 extends InputParser {
     private final long TURNS = 2022;
 
 
-    public Day17(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day17() {
+        super(2022, 17, regex1, regex2);
+        setupStuff();
+    }
+
+    public Day17(String filename) {
+        super(filename, regex1, regex2);
+        setupStuff();
+    }
+
+    private void setupStuff() {
         List<Point> horiz = List.of(new Point(0, 0), new Point(1, 0), new Point(2, 0), new Point(3, 0));
         shapes.put(Shape.HORIZ, horiz);
         List<Point> plus = List.of(new Point(1, -2), new Point(0, -1), new Point(1, -1), new Point(2, -1), new Point(1, 0));

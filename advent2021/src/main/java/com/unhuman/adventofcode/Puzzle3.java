@@ -9,8 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Puzzle3 extends InputParser {
-    public Puzzle3(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, "(\\d)", null);
+    private static final String regex1 = "(\\d)";
+    private static final String regex2 = null;
+
+    public Puzzle3() {
+        super(2021, 3, regex1, regex2);
+    }
+
+    public Puzzle3(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

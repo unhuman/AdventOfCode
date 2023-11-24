@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 public class Day0Test {
     @Test
     public void test1() {
-        String[] test1 = new String[] { "src/test/resources/Day0Case.txt" };
+        String filename = "src/test/resources/Day0Case.txt";
         Object expectedResult1 = 1;
         Object expectedResult2 = 2;
 
-        Day0 day = new Day0(test1);
+        Day0 day = new Day0(filename);
         ConfigGroup[] groups = day.parseFiles();
 
         long time;

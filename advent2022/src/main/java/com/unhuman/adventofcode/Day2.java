@@ -47,11 +47,13 @@ public class Day2 extends InputParser {
     private static final String regex2 = null;
     /**
      * Creates an InputParser that will process line-by-line
-     *
-     * @param args
      */
-    public Day2(String[] args) {
-        super(args, regex1, regex2);
+    public Day2() {
+        super(2022, 2, regex1, regex2);
+    }
+
+    public Day2(String filename) {
+        super(filename, regex1, regex2);
     }
 
     private RPS convert(String item) {

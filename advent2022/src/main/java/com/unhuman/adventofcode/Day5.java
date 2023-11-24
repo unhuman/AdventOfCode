@@ -14,8 +14,12 @@ public class Day5 extends InputParser {
     private static final String regex1 = "^(\\[[\\w]\\]|\\s\\s\\s)\\s?";
     private static final String regex2 = "move (\\d+) from (\\d+) to (\\d+)";
 
-    public Day5(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day5() {
+        super(2022, 5, regex1, regex2);
+    }
+
+    public Day5(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

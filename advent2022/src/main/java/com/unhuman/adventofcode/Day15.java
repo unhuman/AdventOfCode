@@ -16,8 +16,12 @@ public class Day15 extends InputParser {
     private int part1CheckRow = 2000000;
     private int part2Maximum = 4000000;
 
-    public Day15(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day15() {
+        super(2022, 15, regex1, regex2);
+    }
+
+    public Day15(String filename) {
+        super(filename, regex1, regex2);
     }
 
     public void setPart1CheckRow(int row) {

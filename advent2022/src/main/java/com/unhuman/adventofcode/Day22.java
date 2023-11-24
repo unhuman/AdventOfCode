@@ -14,8 +14,12 @@ public class Day22 extends InputParser {
 
     enum Facing {RIGHT, DOWN, LEFT, UP}
 
-    public Day22(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day22() {
+        super(2022, 22, regex1, regex2);
+    }
+
+    public Day22(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

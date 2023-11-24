@@ -6,8 +6,15 @@ import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 public class Puzzle0 extends InputParser {
-    public Puzzle0(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, "(\\d)", null);
+    private static final String regex1 = null;
+    private static final String regex2 = null;
+
+    public Puzzle0() {
+        super(2021, 0, regex1, regex2);
+    }
+
+    public Puzzle0(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

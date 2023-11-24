@@ -14,8 +14,12 @@ public class Day16 extends InputParser {
 
     int timeLeft;
 
-    public Day16(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day16() {
+        super(2022, 16, regex1, regex2);
+    }
+
+    public Day16(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

@@ -17,8 +17,12 @@ public class Day13 extends InputParser {
 
     private static final Pattern numberFinder = Pattern.compile("(\\d+)(.*)");
 
-    public Day13(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day13() {
+        super(2022, 13, regex1, regex2);
+    }
+
+    public Day13(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override

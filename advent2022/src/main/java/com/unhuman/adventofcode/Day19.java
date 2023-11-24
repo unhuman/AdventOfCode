@@ -20,8 +20,12 @@ public class Day19 extends InputParser {
 
     private static int maxFound = 0;
 
-    public Day19(String[] filenameAndCookieInfo) {
-        super(filenameAndCookieInfo, regex1, regex2);
+    public Day19() {
+        super(2022, 19, regex1, regex2);
+    }
+
+    public Day19(String filename) {
+        super(filename, regex1, regex2);
     }
 
     @Override
