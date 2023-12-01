@@ -73,20 +73,7 @@
       <visibility group="Run configurations" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="Application.Advent2023">
-    <configuration name="Advent2022" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2022.Advent2022" />
-      <module name="advent2022" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2022.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.adventofcode2022 in advent2022">
     <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
       <module name="advent2023" />
@@ -147,6 +134,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="adventofcode2022 in advent2022" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2022" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/advent2022/src/test/java/com/unhuman/adventofcode2022" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="adventofcode" />
       <method v="2">
@@ -161,19 +156,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Advent2022" />
       <item itemvalue="Application.Advent2023" />
       <item itemvalue="JUnit.Day1Test" />
       <item itemvalue="JUnit.Day1Test.test1" />
       <item itemvalue="JUnit.Day1Test.test2" />
+      <item itemvalue="JUnit.adventofcode2022 in advent2022" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Advent2023" />
+        <item itemvalue="JUnit.adventofcode2022 in advent2022" />
         <item itemvalue="JUnit.Day1Test" />
-        <item itemvalue="JUnit.Day1Test.test2" />
+        <item itemvalue="Application.Advent2023" />
         <item itemvalue="JUnit.Day1Test.test1" />
-        <item itemvalue="Application.Advent2022" />
+        <item itemvalue="JUnit.Day1Test.test2" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +204,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/adventofcode2023/Day1Test.java</url>
-          <line>23</line>
+          <line>26</line>
           <option name="timeStamp" value="504" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

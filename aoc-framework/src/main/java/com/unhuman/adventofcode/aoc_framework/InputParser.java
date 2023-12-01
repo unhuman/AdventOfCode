@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -21,8 +22,8 @@ public abstract class InputParser {
     private static final String ADVENT_OF_CODE_HTTPS_PREFIX = "https://adventofcode.com/";
     private static final String CACHE_DIRECTORY = "cache/";
 
-    private String filename;
-    private String aocSession;
+    private String filenameOrData;
+    private final String aocSession;
     private final String lineItemRegex1;
     private final String lineItemRegex2;
 
@@ -39,12 +40,12 @@ public abstract class InputParser {
 
     /**
      * Creates an InputParser that will process line-by-line
-     * @param filename
+     * @param filenameOrData (filename or data (if multi-line))
      * @param lineItemRegex1
      * @param lineItemRegex2
      */
-    public InputParser(String filename, String lineItemRegex1, String lineItemRegex2) {
-        this.filename = filename;
+    public InputParser(String filenameOrData, String lineItemRegex1, String lineItemRegex2) {
+        this.filenameOrData = filenameOrData;
         this.aocSession = determineAOCSession();
         this.lineItemRegex1 = lineItemRegex1;
         this.lineItemRegex2 = lineItemRegex2;
@@ -118,24 +119,30 @@ public abstract class InputParser {
     protected LineInput readFile() {
         List<String> lines = new ArrayList<>();
 
+        // If we get data directly, just use it.
+        if (filenameOrData.contains("\n")) {
+            lines = Arrays.stream(filenameOrData.split("\\r?\\n")).toList();
+            return new LineInput(lines);
+        }
+
         Scanner scanner = null;
         File file = null;
         InputStream inputStream = null;
 
         String cacheFilename = null;
-        if (filename.startsWith(ADVENT_OF_CODE_HTTPS_PREFIX)) {
-            String checkCacheFilename = CACHE_DIRECTORY + filename.substring(ADVENT_OF_CODE_HTTPS_PREFIX.length()).replace('/', '-') + ".txt";
+        if (filenameOrData.startsWith(ADVENT_OF_CODE_HTTPS_PREFIX)) {
+            String checkCacheFilename = CACHE_DIRECTORY + filenameOrData.substring(ADVENT_OF_CODE_HTTPS_PREFIX.length()).replace('/', '-') + ".txt";
             if (new File(checkCacheFilename).exists()) {
                 // switch to reading in this file
-                filename = checkCacheFilename;
+                filenameOrData = checkCacheFilename;
             } else {
                 // We will need to cache after read
                 cacheFilename = checkCacheFilename;
             }
         }
 
-        if (filename.startsWith(ADVENT_OF_CODE_HTTPS_PREFIX)) {
-            String inputFilename = filename + "/input";
+        if (filenameOrData.startsWith(ADVENT_OF_CODE_HTTPS_PREFIX)) {
+            String inputFilename = filenameOrData + "/input";
             try {
                 URL url = new URL(inputFilename);
                 URLConnection connection = url.openConnection();
@@ -155,10 +162,10 @@ public abstract class InputParser {
             }
         } else {
             try {
-                file = new File(filename);
+                file = new File(filenameOrData);
                 scanner = new Scanner(file);
             } catch (FileNotFoundException e) {
-                System.err.println("Could not find file: " + filename);
+                System.err.println("Could not find file: " + filenameOrData);
                 exit(-1);
             }
         }
@@ -168,7 +175,7 @@ public abstract class InputParser {
                 lines.add(scanner.nextLine());
             }
         } catch (Exception e) {
-            System.err.println("Error processing file: " + filename + " message: " + e.getMessage());
+            System.err.println("Error processing file: " + filenameOrData + " message: " + e.getMessage());
             exit(-1);
         }
 
