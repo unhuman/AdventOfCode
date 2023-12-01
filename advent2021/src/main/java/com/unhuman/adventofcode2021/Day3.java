@@ -12,6 +12,8 @@ public class Day3 extends InputParser {
     private static final String regex1 = "(\\d)";
     private static final String regex2 = null;
 
+    private enum CommonType { MOST, LEAST }
+
     public Day3() {
         super(2021, 3, regex1, regex2);
     }
@@ -33,7 +35,7 @@ public class Day3 extends InputParser {
                         zeroBits.add(0);
                         oneBits.add(0);
                     }
-                    switch(bit) {
+                    switch (bit) {
                         case 0:
                             zeroBits.set(i, zeroBits.get(i) + 1);
                             break;
@@ -74,8 +76,50 @@ public class Day3 extends InputParser {
         return value;
     }
 
+
+
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return null;
+        GroupItem lines = configGroup.get(0);
+
+        GroupItem oxygen = processLines(lines, 0, CommonType.MOST);
+        GroupItem co2 = processLines(lines, 0, CommonType.LEAST);
+
+        return Long.parseLong(oxygen.get(0).toString(), 2) * Long.parseLong(co2.get(0).toString(), 2);
+    }
+
+    GroupItem processLines(GroupItem lines, int index, CommonType commonType) {
+        if (lines.size() == 1) {
+            return lines;
+        }
+
+        GroupItem zeroLines = new GroupItem();
+        GroupItem oneLines = new GroupItem();
+        for (ItemLine line : lines) {
+            int bit = Integer.parseInt(line.get(index));
+            switch (bit) {
+                case 0:
+                    zeroLines.add(line);
+                    break;
+                case 1:
+                    oneLines.add(line);
+                    break;
+            }
+        }
+
+        GroupItem recurseData;
+        switch (commonType) {
+            case MOST:
+                recurseData = oneLines.size() >= zeroLines.size() ? oneLines : zeroLines;
+                break;
+            default: // LEAST
+                recurseData = zeroLines.size() <= oneLines.size() ? zeroLines : oneLines;
+        }
+
+        if (recurseData.size() == 1) {
+            return recurseData;
+        }
+
+        return processLines(recurseData, ++index, commonType);
     }
 }
