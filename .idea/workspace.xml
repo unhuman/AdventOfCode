@@ -74,7 +74,7 @@
       <visibility group="Run configurations" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="Application.Advent2021">
+  <component name="RunManager" selected="JUnit.Day5Test.test0">
     <configuration name="Advent2021" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Advent2021" />
       <module name="advent2021" />
@@ -88,12 +88,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
-      <module name="advent2023" />
+    <configuration name="Advent2022" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2022.Advent2022" />
+      <module name="advent2022" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
+          <option name="PATTERN" value="com.unhuman.adventofcode2022.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -101,7 +101,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day3Test.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day4Test.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2021" />
       <extension name="coverage">
         <pattern>
@@ -110,24 +110,39 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day3Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day4Test" />
       <option name="METHOD_NAME" value="test1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day3Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2021" />
+    <configuration name="Day5Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2022" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2021.*" />
+          <option name="PATTERN" value="com.unhuman.adventofcode2022.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day3Test" />
-      <option name="METHOD_NAME" value="test2" />
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2022" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2022.Day5Test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day5Test.test0" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2022" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2022.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2022" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2022.Day5Test" />
+      <option name="METHOD_NAME" value="test0" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -147,17 +162,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Advent2022" />
       <item itemvalue="Application.Advent2021" />
-      <item itemvalue="Application.Advent2023" />
-      <item itemvalue="JUnit.Day3Test.test1" />
-      <item itemvalue="JUnit.Day3Test.test2" />
+      <item itemvalue="JUnit.Day4Test.test1" />
+      <item itemvalue="JUnit.Day5Test" />
+      <item itemvalue="JUnit.Day5Test.test0" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Day5Test.test0" />
+        <item itemvalue="Application.Advent2022" />
+        <item itemvalue="JUnit.Day5Test" />
         <item itemvalue="Application.Advent2021" />
-        <item itemvalue="JUnit.Day3Test.test2" />
-        <item itemvalue="JUnit.Day3Test.test1" />
-        <item itemvalue="Application.Advent2023" />
+        <item itemvalue="JUnit.Day4Test.test1" />
       </list>
     </recent_temporary>
   </component>
@@ -206,9 +223,23 @@
           <line>91</line>
           <option name="timeStamp" value="510" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode2022/Day5.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="525" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day4.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="534" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="matcher.group(0)" language="JAVA" />
+        <watch expression="matcher.group(1)" language="JAVA" />
+      </configuration>
       <configuration name="Application">
         <watch expression="line" language="JAVA" />
       </configuration>
@@ -224,6 +255,9 @@
     </SUITE>
     <SUITE FILE_PATH="coverage/adventofcode$Day8Test_test1.ic" NAME="Day8Test.test1 Coverage Results" MODIFIED="1670477879683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.unhuman.adventofcode.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/adventofcode$Day4Test.ic" NAME="Day4Test Coverage Results" MODIFIED="1701466333110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.unhuman.adventofcode2021.*</FILTER>
     </SUITE>
   </component>
 </project>
