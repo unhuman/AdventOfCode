@@ -103,22 +103,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day5Test.test0" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2022" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2022.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2022" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2022.Day5Test" />
-      <option name="METHOD_NAME" value="test0" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Day5Test.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2021" />
       <extension name="coverage">
@@ -150,6 +134,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Day7Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2021" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2021.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day7Test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="adventofcode" />
       <method v="2">
@@ -166,17 +165,17 @@
     <list>
       <item itemvalue="Application.Advent2021" />
       <item itemvalue="JUnit.Day5Test (1)" />
-      <item itemvalue="JUnit.Day5Test.test0" />
       <item itemvalue="JUnit.Day5Test.test1" />
       <item itemvalue="JUnit.Day6Test" />
+      <item itemvalue="JUnit.Day7Test" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Advent2021" />
+        <item itemvalue="JUnit.Day7Test" />
         <item itemvalue="JUnit.Day6Test" />
         <item itemvalue="JUnit.Day5Test.test1" />
         <item itemvalue="JUnit.Day5Test (1)" />
-        <item itemvalue="JUnit.Day5Test.test0" />
       </list>
     </recent_temporary>
   </component>
@@ -255,6 +254,11 @@
           <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day6.java</url>
           <line>58</line>
           <option name="timeStamp" value="556" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day7.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="564" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
