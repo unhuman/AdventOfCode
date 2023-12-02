@@ -1,17 +1,17 @@
-package com.unhuman.adventofcode2023.adventofcode2023;
+package com.unhuman.adventofcode2023;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class Day0Test {
+public class Day3Test {
     // data must be at least 2 lines - add \n for single line data
     private static final String data = "";
 
     static InputParser day;
     static {
-//        day = new DayX(data);
+        day = new Day3(data);
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.unhuman.adventofcode2023.adventofcode2023;
+package com.unhuman.adventofcode2023;
 
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode2023.Day1;

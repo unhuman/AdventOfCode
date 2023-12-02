@@ -23,6 +23,13 @@ public class Day8Test {
         ConfigGroup[] groups = day.parseFiles();
 
         Assertions.assertEquals(26, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2() {
+        InputParser day = new Day8(DATA);
+        ConfigGroup[] groups = day.parseFiles();
+
         Assertions.assertEquals(26, day.processInput2(groups[0], groups[1]));
     }
 }
