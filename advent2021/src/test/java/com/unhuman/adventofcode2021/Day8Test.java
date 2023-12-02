@@ -17,6 +17,7 @@ public class Day8Test {
                     "bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbgef\n" +
                     "egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb\n" +
                     "gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce";
+    static final String DATA2 = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf\n";
     @Test
     public void test1() {
         InputParser day = new Day8(DATA);
@@ -27,9 +28,26 @@ public class Day8Test {
 
     @Test
     public void test2() {
+        InputParser day = new Day8(DATA2);
+        ConfigGroup[] groups = day.parseFiles();
+
+        Assertions.assertEquals(5353, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2a() {
+        InputParser day = new Day8("edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec |" +
+                " fcgedb cgb dgebacf gc\n");
+        ConfigGroup[] groups = day.parseFiles();
+
+        Assertions.assertEquals(9781, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test3() {
         InputParser day = new Day8(DATA);
         ConfigGroup[] groups = day.parseFiles();
 
-        Assertions.assertEquals(26, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(61229, day.processInput2(groups[0], groups[1]));
     }
 }

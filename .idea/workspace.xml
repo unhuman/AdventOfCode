@@ -61,9 +61,9 @@
       <recent name="C:\Users\Howie\github.git\unhuman\AdventOfCode\advent2021\src" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.unhuman.adventofcode2021" />
       <recent name="com.unhuman.adventofcode2023.adventofcode2023" />
       <recent name="com.unhuman.adventofcode2023" />
-      <recent name="com.unhuman.adventofcode2021" />
       <recent name="com.unhuman.adventofcode" />
       <recent name="com.unhuman.adventofcode.aoc_framework.utility" />
     </key>
@@ -76,7 +76,7 @@
       <visibility group="Run configurations" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="Application.Advent2023">
+  <component name="RunManager" selected="Application.Advent2021">
     <configuration name="Advent2021" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Advent2021" />
       <module name="advent2021" />
@@ -103,40 +103,49 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day2Test (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2023" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day2Test" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Day2Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2023" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2023.adventofcode2023.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.adventofcode2023.Day2Test" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="adventofcode2021 in advent2021" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day8Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2021" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/advent2021/src/test/java/com/unhuman/adventofcode2021" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2021.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day8Test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day8Test.test2a" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2021" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2021.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day8Test" />
+      <option name="METHOD_NAME" value="test2a" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day8Test.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2021" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2021.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day8Test" />
+      <option name="METHOD_NAME" value="test3" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -157,17 +166,17 @@
     <list>
       <item itemvalue="Application.Advent2021" />
       <item itemvalue="Application.Advent2023" />
-      <item itemvalue="JUnit.Day2Test" />
-      <item itemvalue="JUnit.Day2Test (1)" />
-      <item itemvalue="JUnit.adventofcode2021 in advent2021" />
+      <item itemvalue="JUnit.Day8Test" />
+      <item itemvalue="JUnit.Day8Test.test2a" />
+      <item itemvalue="JUnit.Day8Test.test3" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Advent2023" />
-        <item itemvalue="JUnit.Day2Test (1)" />
-        <item itemvalue="JUnit.Day2Test" />
-        <item itemvalue="JUnit.adventofcode2021 in advent2021" />
         <item itemvalue="Application.Advent2021" />
+        <item itemvalue="JUnit.Day8Test" />
+        <item itemvalue="JUnit.Day8Test.test2a" />
+        <item itemvalue="JUnit.Day8Test.test3" />
+        <item itemvalue="Application.Advent2023" />
       </list>
     </recent_temporary>
   </component>
@@ -253,16 +262,6 @@
           <option name="timeStamp" value="564" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="567" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="568" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <condition expression="game == 3" language="JAVA" />
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day2.java</url>
           <line>39</line>
@@ -272,6 +271,26 @@
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day2.java</url>
           <line>44</line>
           <option name="timeStamp" value="574" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="590" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="599" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="600" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
+          <line>134</line>
+          <option name="timeStamp" value="601" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 public class Day0Test {
     // data must be at least 2 lines - add \n for single line data
-    private static final String data = "";
+    private static final String DATA = "";
 
     static InputParser day;
     static {
-//        day = new DayX(data);
+//        day = new DayX(DATA);
     }
 
     @Test
