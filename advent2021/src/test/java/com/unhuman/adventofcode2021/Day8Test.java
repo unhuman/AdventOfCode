@@ -1,5 +1,6 @@
 package com.unhuman.adventofcode2021;
 
+import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class Day8Test {
                     "gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce";
     @Test
     public void test1() {
-        Day8 day = new Day8(DATA);
+        InputParser day = new Day8(DATA);
         ConfigGroup[] groups = day.parseFiles();
 
         Assertions.assertEquals(26, day.processInput1(groups[0], groups[1]));
