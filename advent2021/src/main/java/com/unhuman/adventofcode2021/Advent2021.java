@@ -15,5 +15,7 @@ public class Advent2021
         new Day3().process();
 
         new Day4().process();
+
+        new Day5().process();
     }
 }
