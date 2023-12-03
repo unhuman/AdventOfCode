@@ -10,6 +10,7 @@ public class Advent2023
     {
 //        new Day1().process();
 //        new Day2().process();
-        new Day3().process();
+//        new Day3().process();
+        new Day4().process();
     }
 }
