@@ -2,11 +2,10 @@ package com.unhuman.adventofcode2021;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
-import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
+import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
 
 public class Day11 extends InputParser {
-    private static final String regex1 = null;
+    private static final String regex1 = "(.)";
     private static final String regex2 = null;
 
     public Day11() {
@@ -19,13 +18,7 @@ public class Day11 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        for (GroupItem item : configGroup) {
-            for (ItemLine line : item) {
-                for (String element : line) {
-
-                }
-            }
-        }
+        Matrix<Integer> matrix = new Matrix<>(configGroup, Matrix.SupportedType.INTEGER);
 
         return 1;
     }
