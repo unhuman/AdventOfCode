@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class Day9Test {
-    static final String DATA = "2199943210\n" +
+    static final String DATA = "2199973210\n" +
             "3987894921\n" +
             "9856789892\n" +
             "8767896789\n" +
@@ -26,6 +26,6 @@ public class Day9Test {
     @Test
     public void test2() {
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(1134, day.processInput2(groups[0], groups[1]));
     }
 }

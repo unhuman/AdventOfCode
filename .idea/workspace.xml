@@ -47,6 +47,11 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.sourceCode.Java"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "TEXT"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -76,7 +81,7 @@
       <visibility group="Run configurations" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="Application.Advent2023">
+  <component name="RunManager" selected="Application.Advent2021">
     <configuration name="Advent2021" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Advent2021" />
       <module name="advent2021" />
@@ -118,7 +123,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day8Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day9Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2021" />
       <extension name="coverage">
         <pattern>
@@ -127,13 +132,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day8Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day9Test" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day8Test.test2a" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day9Test.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2021" />
       <extension name="coverage">
         <pattern>
@@ -142,8 +147,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day8Test" />
-      <option name="METHOD_NAME" value="test2a" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day9Test" />
+      <option name="METHOD_NAME" value="test1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -166,16 +171,16 @@
       <item itemvalue="Application.Advent2021" />
       <item itemvalue="Application.Advent2023" />
       <item itemvalue="JUnit.Day3Test" />
-      <item itemvalue="JUnit.Day8Test" />
-      <item itemvalue="JUnit.Day8Test.test2a" />
+      <item itemvalue="JUnit.Day9Test" />
+      <item itemvalue="JUnit.Day9Test.test1" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Advent2021" />
+        <item itemvalue="JUnit.Day9Test" />
+        <item itemvalue="JUnit.Day9Test.test1" />
         <item itemvalue="Application.Advent2023" />
         <item itemvalue="JUnit.Day3Test" />
-        <item itemvalue="Application.Advent2021" />
-        <item itemvalue="JUnit.Day8Test" />
-        <item itemvalue="JUnit.Day8Test.test2a" />
       </list>
     </recent_temporary>
   </component>
@@ -305,6 +310,11 @@
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day3.java</url>
           <line>74</line>
           <option name="timeStamp" value="617" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day9.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="627" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
