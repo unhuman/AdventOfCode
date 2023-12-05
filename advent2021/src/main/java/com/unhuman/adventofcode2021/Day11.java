@@ -2,6 +2,7 @@ package com.unhuman.adventofcode2021;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
+import com.unhuman.adventofcode.aoc_framework.utility.InspectionMatrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
 
 public class Day11 extends InputParser {
@@ -18,7 +19,7 @@ public class Day11 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        Matrix<Integer> matrix = new Matrix<>(configGroup, Matrix.SupportedType.INTEGER);
+        Matrix<Integer> matrix = new Matrix<>(configGroup, InspectionMatrix.SupportedType.INTEGER);
 
         return 1;
     }

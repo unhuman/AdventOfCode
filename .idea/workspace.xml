@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day5.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day5Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/NumberHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Advent2023.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Advent2023.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day4.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day4Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day4Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,12 +39,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "/Users/HUman/github.git/unhuman/AdventOfCode",
+    "last_opened_file_path": "C:/Users/Howie/github.git/unhuman/AdventOfCode/advent2023/src/test/java/com/unhuman/adventofcode2023",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -77,11 +66,11 @@
       <recent name="C:\Users\Howie\github.git\unhuman\AdventOfCode\advent2021\src" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.unhuman.adventofcode2023" />
+      <recent name="com.unhuman.adventofcode.aoc_framework.utility" />
       <recent name="com.unhuman.adventofcode2021" />
+      <recent name="com.unhuman.adventofcode2023" />
       <recent name="com.unhuman.adventofcode2023.adventofcode2023" />
       <recent name="com.unhuman.adventofcode" />
-      <recent name="com.unhuman.adventofcode.aoc_framework.utility" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -92,7 +81,7 @@
       <visibility group="Run configurations" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="Application.Advent2023">
+  <component name="RunManager" selected="JUnit.Day5Test">
     <configuration name="Advent2021" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Advent2021" />
       <module name="advent2021" />
@@ -119,21 +108,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day10Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2021" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2021.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2021" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2021.Day10Test" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Day11Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2021" />
       <extension name="coverage">
@@ -149,7 +123,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day4Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day5Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -158,8 +132,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day4Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day5Test" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day5Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day5Test" />
+      <option name="METHOD_NAME" value="test2" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -178,19 +168,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Advent2023" />
       <item itemvalue="Application.Advent2021" />
-      <item itemvalue="JUnit.Day4Test" />
-      <item itemvalue="JUnit.Day10Test" />
+      <item itemvalue="Application.Advent2023" />
       <item itemvalue="JUnit.Day11Test" />
+      <item itemvalue="JUnit.Day5Test" />
+      <item itemvalue="JUnit.Day5Test.test2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Day5Test" />
         <item itemvalue="Application.Advent2023" />
-        <item itemvalue="JUnit.Day4Test" />
+        <item itemvalue="JUnit.Day5Test.test2" />
         <item itemvalue="JUnit.Day11Test" />
         <item itemvalue="Application.Advent2021" />
-        <item itemvalue="JUnit.Day10Test" />
       </list>
     </recent_temporary>
   </component>
@@ -333,22 +323,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day11.java</url>
-          <line>22</line>
+          <line>23</line>
           <option name="timeStamp" value="639" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day4.java</url>
-          <line>76</line>
-          <option name="timeStamp" value="642" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
-      <configuration name="JUnit">
-        <watch expression="currentPoint" language="JAVA" />
-        <watch expression="x" language="JAVA" />
-        <watch expression="y" language="JAVA" />
-      </configuration>
       <configuration name="Application">
         <watch expression="line" language="JAVA" />
       </configuration>
@@ -359,14 +339,14 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/adventofcode$Day4Test.ic" NAME="Day4Test Coverage Results" MODIFIED="1701466333110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.unhuman.adventofcode2021.*</FILTER>
+    <SUITE FILE_PATH="coverage/adventofcode$Day24Test_test1.ic" NAME="Day24Test.test1 Coverage Results" MODIFIED="1671902938065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.unhuman.adventofcode.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/adventofcode$Day8Test_test1.ic" NAME="Day8Test.test1 Coverage Results" MODIFIED="1670477879683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.unhuman.adventofcode.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/adventofcode$Day24Test_test1.ic" NAME="Day24Test.test1 Coverage Results" MODIFIED="1671902938065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.unhuman.adventofcode.*</FILTER>
+    <SUITE FILE_PATH="coverage/adventofcode$Day4Test.ic" NAME="Day4Test Coverage Results" MODIFIED="1701466333110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.unhuman.adventofcode2021.*</FILTER>
     </SUITE>
   </component>
 </project>
