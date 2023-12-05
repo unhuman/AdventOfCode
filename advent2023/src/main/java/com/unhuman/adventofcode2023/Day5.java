@@ -93,7 +93,7 @@ public class Day5 extends InputParser {
 
         Long smallest = Long.MAX_VALUE;
         for (int i = 0; i < seeds.size(); i += 2) {
-            System.out.println("Processing " + i + " of seed starts " + seeds.size());
+            System.out.println("Processing " + (i / 2 + 1) + " of " + seeds.size() / 2);
             Long startSeed = seeds.get(i);
             Long seedCount = seeds.get(i + 1);
 
@@ -143,7 +143,7 @@ public class Day5 extends InputParser {
 
         Long convert(long value) {
             for (List<Long> conversion: conversions) {
-                if (value >= conversion.get(1) && value <= conversion.get(1) + conversion.get(2)) {
+                if (value >= conversion.get(1) && value < conversion.get(1) + conversion.get(2)) {
                     long diff = value - conversion.get(1);
                     return conversion.get(0) + diff;
                 }

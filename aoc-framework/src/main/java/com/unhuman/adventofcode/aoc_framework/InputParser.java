@@ -268,6 +268,7 @@ public abstract class InputParser {
     protected void processInputWrapper(ConfigGroup[] configGroups) {
         long time;
         float timeMs;
+        float timeS;
         ConfigGroup dataItems1 = configGroups[0];
         ConfigGroup dataItems2 = configGroups[1];
 
@@ -277,7 +278,8 @@ public abstract class InputParser {
         System.out.println(results1);
         time = System.nanoTime() - time;
         timeMs = (float) time / 1000000;
-        System.out.println("*** End " + getClass().getSimpleName() + " Task 1 - time: " + time / 1000 + "us, " + timeMs + "ms ***");
+        timeS = timeMs / 1000;
+        System.out.println("*** End " + getClass().getSimpleName() + " Task 1 - time: " + time / 1000 + "us, " + timeMs + "ms, " + timeS + "s ***");
 
         System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 *** ");
         time = System.nanoTime();
@@ -285,7 +287,8 @@ public abstract class InputParser {
         System.out.println(results2);
         time = System.nanoTime() - time;
         timeMs = (float) time / 1000000;
-        System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms ***");
+        timeS = timeMs / 1000;
+        System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms, " + timeS + "s ***");
 
         System.out.println();
     }
