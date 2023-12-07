@@ -81,7 +81,7 @@
       <visibility group="Run configurations" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="Application.Advent2023">
+  <component name="RunManager" selected="JUnit.Day6Test">
     <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
       <module name="advent2023" />
@@ -178,8 +178,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Advent2023" />
         <item itemvalue="JUnit.Day6Test" />
+        <item itemvalue="Application.Advent2023" />
         <item itemvalue="JUnit.Day5Test" />
         <item itemvalue="JUnit.Day5Test.test2" />
         <item itemvalue="JUnit.Day11Test" />
@@ -335,13 +335,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day6.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="662" />
+          <line>67</line>
+          <option name="timeStamp" value="664" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day6.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="663" />
+          <line>77</line>
+          <option name="timeStamp" value="665" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
