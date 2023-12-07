@@ -5,25 +5,24 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class Day6Test {
+public class Day7Test {
     // data must be at least 2 lines - add \n for single line data
-    private static final String DATA = "Time:      7  15   30\n" +
-                                       "Distance:  9  40  200";
+    private static final String DATA = "";
 
     static InputParser day;
     static {
-        day = new Day6(DATA);
+//        day = new Day7(DATA);
     }
 
     @Test
     public void test1() {
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(288, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(0, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
     public void test2() {
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(71503L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
     }
 }
