@@ -60,7 +60,8 @@ public class Day6 extends InputParser {
         Long record = Long.parseLong(recordStr);
 
         long firstWin = 0;
-        for (long hold = 1; hold < time; hold++) {
+        long minSpeed = record / time;
+        for (long hold = minSpeed; hold < time; hold++) {
             long remainingTime = time - hold;
             long distance = hold * remainingTime;
 
@@ -69,16 +70,7 @@ public class Day6 extends InputParser {
                 break;
             }
         }
-        long lastWin = 0;
-        for (long hold = time - 1; hold > 0; hold--) {
-            long remainingTime = time - hold;
-            long distance = hold * remainingTime;
-
-            if (distance > record) {
-                lastWin = hold;
-                break;
-            }
-        }
+        long lastWin = time - firstWin;
         return lastWin - firstWin + 1;
     }
 }
