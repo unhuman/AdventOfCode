@@ -18,25 +18,18 @@ public class Day6 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        int waysToWinTotal = 0;
+        long waysToWinTotal = 0;
         GroupItem data = configGroup.get(0);
 
         String[] times = data.get(0).get(0).split("\\s+");
         String[] records = data.get(1).get(0).split("\\s+");
 
         for (int i = 0; i < times.length; i++) {
-            int time = Integer.parseInt(times[i]);
-            int record = Integer.parseInt(records[i]);
+            long time = Long.parseLong(times[i]);
+            long record = Long.parseLong(records[i]);
 
-            int wins = 0;
-            for (int hold = 1; hold < time; hold++) {
-                int remainingTime = time - hold;
-                int distance = hold * remainingTime;
+            long wins = findWins(time, record);
 
-                if (distance > record) {
-                    wins += 1;
-                }
-            }
             waysToWinTotal = (waysToWinTotal == 0) ? wins : waysToWinTotal * wins;
         }
 
@@ -59,6 +52,10 @@ public class Day6 extends InputParser {
         Long time = Long.parseLong(timeStr);
         Long record = Long.parseLong(recordStr);
 
+        return findWins(time, record);
+    }
+
+    private static long findWins(Long time, Long record) {
         long firstWin = 0;
         long minSpeed = record / time;
         for (long hold = minSpeed; hold < time; hold++) {
