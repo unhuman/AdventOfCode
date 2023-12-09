@@ -5,14 +5,14 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class Day0Test {
+public class Day10Test {
     // data must be at least 2 lines - add \n for single line data
     private static final String DATA =
             "";
 
     static InputParser day;
     static {
-//        day = new DayX(DATA);
+        day = new Day10(DATA);
     }
 
     @Test
