@@ -15,19 +15,18 @@ import java.util.List;
  *
  * getAdjacentPoints() would be useful to find valid, adjacent points
  */
-public class InspectionMatrix<T> {
-    public enum SupportedType { INTEGER, CHARACTER }
+public class InspectionMatrix {
+    protected List<List<Character>> matrix;
 
-    protected T[][] matrix;
-    protected int width;
-    protected int height;
-    protected SupportedType supportedType;
-
-    protected InspectionMatrix(int width, int height, SupportedType supportedType) {
-        this.width = width;
-        this.height = height;
-        this.matrix = (T[][]) new Object[height][width];
-        this.supportedType = supportedType;
+    protected InspectionMatrix(int width, int height) {
+        this.matrix = new ArrayList<>(height);
+        for (int i = 0; i < height; ++i) {
+            List<Character> line = new ArrayList<>(width);
+            for (int j = 0; j < width; j++) {
+                line.add(null);
+            }
+            this.matrix.add(line);
+        }
     }
 
     /**
@@ -36,28 +35,30 @@ public class InspectionMatrix<T> {
      * The owned matrix should be the one mutated
      * @return
      */
-    public InspectionMatrix<T> getInspectionMatrix() {
-        InspectionMatrix<T> inspectionMatrix = new InspectionMatrix<>(width, height, supportedType);
+    public InspectionMatrix getInspectionMatrix() {
+        int height = getHeight();
+        InspectionMatrix inspectionMatrix = new InspectionMatrix(matrix.get(0).size(), height);
         for (int y = 0; y < height; y++) {
-            inspectionMatrix.matrix[y] = matrix[y].clone();
+            // TODO: this is probably wrong now
+            inspectionMatrix.matrix.add(new ArrayList<>(matrix.get(y)));
         }
         return inspectionMatrix;
     }
 
     public int getWidth() {
-        return width;
+        return matrix.get(0).size();
     }
 
     public int getHeight() {
-        return height;
+        return matrix.size();
     }
 
-    public T getPointValue(Point point) {
-        return (isValid(point)) ? matrix[point.y][point.x] : null;
+    public Character getPointValue(Point point) {
+        return (isValid(point)) ? matrix.get(point.y).get(point.x) : null;
     }
 
     public boolean isValid(Point point) {
-        return (point.x >= 0 && point.x < width && point.y >= 0 && point.y >= height);
+        return (point.x >= 0 && point.x < getWidth() && point.y >= 0 && point.y < getHeight());
     }
 
     List<Point> getAdjacentPoints(Point point, boolean includeDiagonals) {
@@ -91,5 +92,25 @@ public class InspectionMatrix<T> {
             }
         }
         return adjacentPoints;
+    }
+
+    public List<Point> findCharacterLocations(char lookFor) {
+        List<Point> founds = new ArrayList<>();
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                Point check = new Point(x, y);
+                if (getPointValue(check) == lookFor) {
+                    founds.add(check);
+                }
+            }
+        }
+        return founds;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(getHeight() * getWidth());
+        matrix.forEach(line -> { line.forEach(sb::append); sb.append('\n'); });
+        return sb.toString();
     }
 }
