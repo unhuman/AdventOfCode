@@ -5,9 +5,19 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Day12 extends InputParser {
-    private static final String regex1 = null;
+    private static final String regex1 = "((?:[#\\.\\?]+)|(?:\\d+))(?:\\s+|,)?";
     private static final String regex2 = null;
+    Map<String, Pattern> regexCache = new HashMap<>();
+    int cacheHits = 0;
 
     public Day12() {
         super(2023, 12, regex1, regex2);
@@ -19,19 +29,143 @@ public class Day12 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
+        long permutations = 0;
+        cacheHits = 0;
         for (GroupItem item : configGroup) {
             for (ItemLine line : item) {
-                for (String element : line) {
-
+                List<Integer> requirements = new ArrayList<>();
+                String record = line.get(0);
+                int reqTotal = 0;
+                for (int i = 1; i < line.size(); i++) {
+                    int groupSize = Integer.parseInt(line.get(i));
+                    requirements.add(groupSize);
+                    reqTotal += groupSize;
                 }
+
+                permutations += findPermutations(record.toCharArray(), 0, requirements, reqTotal);
             }
         }
 
-        return 1;
+        return permutations;
+    }
+
+    long findPermutations(char[] record, int starting, List<Integer> requirements, int reqTotal) {
+        long permutations = 0;
+        Integer top = requirements.get(0);
+        List<Integer> next = requirements.subList(1, requirements.size());
+
+        int canStopPoint = record.length;
+        String matchFun = new String(record);
+        for (int i = next.size() - 1; i >= 0; --i) {
+            Integer item = next.get(i);
+            String regex = "";
+            regex += "^(.*)(?:[\\.\\?]+?)(?:.*?)(?:[#\\?]{" + item + "})(?:[\\.\\?]*)$";
+            Pattern pattern = null;
+            if (regexCache.containsKey(regex)) {
+                pattern = regexCache.get(regex);
+                ++cacheHits;
+            } else {
+                pattern = Pattern.compile(regex);
+                regexCache.put(regex, pattern);
+            }
+            Matcher matcher = pattern.matcher(matchFun);
+            if (matcher.matches()) {
+                matchFun = matcher.group(1);
+                canStopPoint = matchFun.length();
+            }
+        }
+        for (int i = starting; i < record.length - top + 1 && i < canStopPoint; i++) {
+            // We can't place on top of something
+            // we can't place in the middle if it's on top of something
+            // later if we place something here, we need to ensure that the previous char set to .
+            if ((record[i] == '.') || (i > 0 && record[i - 1] == '#')) {
+                continue;
+            }
+
+            boolean canPlace = true;
+            for (int j = 0; j < top; j++) {
+                if (record[i + j] == '.') {
+                    canPlace = false;
+                    break;
+                }
+            }
+
+            if (canPlace) {
+                char[] clone = record.clone();
+
+                // If we can place a character before us, do it.
+                if (i > 0) {
+                    clone[i - 1] = '.';
+                }
+
+                // Determine if we are valid after our work - and place a spacer
+                if (i + top < record.length) {
+                    char afterCheck = record[i + top];
+                    switch (afterCheck) {
+                        case '.':
+                            break;
+                        case '?':
+                            clone[i + top] = '.';
+                            break;
+                        case '#':
+                            continue;
+                    }
+                }
+
+                for (int j = 0; j < top; j++) {
+                    clone[i + j] = '#';
+                }
+
+                if (next.size() == 0) {
+                    int poundTotal = 0;
+                    for (int counter = 0; counter < clone.length; counter++) {
+                        poundTotal += (clone[counter] == '#') ? 1 : 0;
+                    }
+                    if (poundTotal == reqTotal) {
+                        String permutationValue = new String(Arrays.toString(clone));
+                        permutationValue = permutationValue.replace('?', '.');
+                        ++permutations;
+                    }
+                } else {
+                    permutations += findPermutations(clone, i + top, next, reqTotal);
+                }
+            }
+        }
+        return permutations;
     }
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        long permutations = 0;
+        cacheHits = 0;
+        for (GroupItem item : configGroup) {
+            for (int lineCounter = 0; lineCounter < item.size(); lineCounter++) {
+                ItemLine line = item.get(lineCounter);
+
+                System.out.println("Processing " + lineCounter + ": " + line);
+
+                List<Integer> requirements = new ArrayList<>();
+                String record = line.get(0);
+                int groupReqTotal = 0;
+                for (int i = 1; i < line.size(); i++) {
+                    int groupSize = Integer.parseInt(line.get(i));
+                    requirements.add(groupSize);
+                    groupReqTotal += groupSize;
+                }
+
+                int reqTotal = groupReqTotal;
+                String useRecord = record;
+                List<Integer> useRequirements = new ArrayList<>(requirements);
+                for (int i = 0; i < 4; i++) {
+                    useRecord += '?' + record;
+                    useRequirements.addAll(requirements);
+                    reqTotal += groupReqTotal;
+                }
+
+                permutations += findPermutations(useRecord.toCharArray(), 0, useRequirements, reqTotal);
+            }
+        }
+
+        return permutations;
     }
 }
