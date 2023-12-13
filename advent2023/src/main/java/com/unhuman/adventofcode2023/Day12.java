@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 public class Day12 extends InputParser {
     private static final String regex1 = "((?:[#\\.\\?]+)|(?:\\d+))(?:\\s+|,)?";
     private static final String regex2 = null;
-    Map<String, Pattern> regexCache = new HashMap<>();
     int cacheHits = 0;
 
     public Day12() {
@@ -35,45 +34,57 @@ public class Day12 extends InputParser {
             for (ItemLine line : item) {
                 List<Integer> requirements = new ArrayList<>();
                 String record = line.get(0);
-                int reqTotal = 0;
+                int poundsRequired = 0;
                 for (int i = 1; i < line.size(); i++) {
                     int groupSize = Integer.parseInt(line.get(i));
                     requirements.add(groupSize);
-                    reqTotal += groupSize;
+                    poundsRequired += groupSize;
                 }
 
-                permutations += findPermutations(record.toCharArray(), 0, requirements, reqTotal);
+                permutations += findPermutations(record.toCharArray(), 0, requirements, requirements.size(), poundsRequired);
             }
         }
 
         return permutations;
     }
 
-    long findPermutations(char[] record, int starting, List<Integer> requirements, int reqTotal) {
-        long permutations = 0;
-        Integer top = requirements.get(0);
+    long findPermutations(char[] record, int starting, List<Integer> requirements, int reqCount, int poundsRequired) {
         List<Integer> next = requirements.subList(1, requirements.size());
-
         int canStopPoint = record.length;
         String matchFun = new String(record);
+        Map<String, Integer> knownStopPoints = new HashMap<>();
         for (int i = next.size() - 1; i >= 0; --i) {
             Integer item = next.get(i);
             String regex = "";
             regex += "^(.*)(?:[\\.\\?]+?)(?:.*?)(?:[#\\?]{" + item + "})(?:[\\.\\?]*)$";
-            Pattern pattern = null;
-            if (regexCache.containsKey(regex)) {
-                pattern = regexCache.get(regex);
+            String cacheKey =  "group:i:" + i;
+            if (knownStopPoints.containsKey(cacheKey)) {
+                canStopPoint = knownStopPoints.get(cacheKey);
                 ++cacheHits;
             } else {
-                pattern = Pattern.compile(regex);
-                regexCache.put(regex, pattern);
-            }
-            Matcher matcher = pattern.matcher(matchFun);
-            if (matcher.matches()) {
-                matchFun = matcher.group(1);
-                canStopPoint = matchFun.length();
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(matchFun);
+                if (matcher.matches()) {
+                    matchFun = matcher.group(1);
+                    canStopPoint = matchFun.length();
+                    knownStopPoints.put(cacheKey, canStopPoint);
+                } else {
+                    System.out.println("No match - using entire string");
+                    knownStopPoints.put(cacheKey, record.length);
+                }
             }
         }
+        return findPermutationsInternal(record, starting, knownStopPoints, requirements, reqCount, poundsRequired);
+    }
+
+    long findPermutationsInternal(char[] record, int starting, Map<String, Integer> knownStopPoints,
+                                  List<Integer> requirements, int reqCount, int poundsRequired) {
+        long permutations = 0;
+        Integer top = requirements.get(0);
+        List<Integer> next = requirements.subList(1, requirements.size());
+
+        String cacheKey = "group:i:" + (reqCount - requirements.size());
+        int canStopPoint = knownStopPoints.containsKey(cacheKey) ? knownStopPoints.get(cacheKey) : record.length;
         for (int i = starting; i < record.length - top + 1 && i < canStopPoint; i++) {
             // We can't place on top of something
             // we can't place in the middle if it's on top of something
@@ -121,13 +132,13 @@ public class Day12 extends InputParser {
                     for (int counter = 0; counter < clone.length; counter++) {
                         poundTotal += (clone[counter] == '#') ? 1 : 0;
                     }
-                    if (poundTotal == reqTotal) {
+                    if (poundTotal == poundsRequired) {
                         String permutationValue = new String(Arrays.toString(clone));
                         permutationValue = permutationValue.replace('?', '.');
                         ++permutations;
                     }
                 } else {
-                    permutations += findPermutations(clone, i + top, next, reqTotal);
+                    permutations += findPermutationsInternal(clone, i + top, knownStopPoints, next, reqCount, poundsRequired);
                 }
             }
         }
@@ -153,16 +164,16 @@ public class Day12 extends InputParser {
                     groupReqTotal += groupSize;
                 }
 
-                int reqTotal = groupReqTotal;
+                int pointsRequired = groupReqTotal;
                 String useRecord = record;
                 List<Integer> useRequirements = new ArrayList<>(requirements);
                 for (int i = 0; i < 4; i++) {
                     useRecord += '?' + record;
                     useRequirements.addAll(requirements);
-                    reqTotal += groupReqTotal;
+                    pointsRequired += groupReqTotal;
                 }
 
-                permutations += findPermutations(useRecord.toCharArray(), 0, useRequirements, reqTotal);
+                permutations += findPermutations(useRecord.toCharArray(), 0, useRequirements, useRequirements.size(), pointsRequired);
             }
         }
 
