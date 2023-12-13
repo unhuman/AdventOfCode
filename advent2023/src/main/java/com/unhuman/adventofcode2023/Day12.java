@@ -6,7 +6,6 @@ import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,11 +85,15 @@ public class Day12 extends InputParser {
         String cacheKey = "group:i:" + (reqCount - requirements.size());
         int canStopPoint = knownStopPoints.containsKey(cacheKey) ? knownStopPoints.get(cacheKey) : record.length;
         for (int i = starting; i < record.length - top + 1 && i < canStopPoint; i++) {
-            // We can't place on top of something
+            // We can't place on top of a dot
+            if (record[i] == '.') {
+                continue;
+            }
+
             // we can't place in the middle if it's on top of something
             // later if we place something here, we need to ensure that the previous char set to .
-            if ((record[i] == '.') || (i > 0 && record[i - 1] == '#')) {
-                continue;
+            if (i > 0 && record[i - 1] == '#') {
+                break;
             }
 
             boolean canPlace = true;
@@ -133,8 +136,6 @@ public class Day12 extends InputParser {
                         poundTotal += (clone[counter] == '#') ? 1 : 0;
                     }
                     if (poundTotal == poundsRequired) {
-                        String permutationValue = new String(Arrays.toString(clone));
-                        permutationValue = permutationValue.replace('?', '.');
                         ++permutations;
                     }
                 } else {

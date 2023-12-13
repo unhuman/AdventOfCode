@@ -114,4 +114,11 @@ public class Day12Test {
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(506250L, day.processInput2(groups[0], groups[1]));
     }
+
+    @Test
+    public void test2f2() {
+        day = new Day12("?###?????????###???????? 3,2,1,3,2,1\n");
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(100L, day.processInput1(groups[0], groups[1]));
+    }
 }
