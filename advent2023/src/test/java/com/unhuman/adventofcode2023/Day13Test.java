@@ -25,19 +25,62 @@ public class Day13Test {
             "#....#..#";
 
     static InputParser day;
-    static {
-        day = new Day13(DATA);
-    }
 
     @Test
     public void test1() {
+        day = new Day13(DATA);
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(405L, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
     public void test2() {
+        day = new Day13(DATA);
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(400L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void testCustomFinalData() {
+        String data =
+                "###...#...#\n" +
+                "###..#..#.#\n" +
+                ".#.##.#..##\n" +
+                ".#.#..##.##\n" +
+                "#...##.#..#\n" +
+                ".##.....#..\n" +
+                "..#..######\n" +
+                ".....#.##.#\n" +
+                ".#..#.###.#\n" +
+                "#.#.#.#.#..\n" +
+                "#.#.###.#..\n" +
+                "#.#.###.#..\n" +
+                "#.#.#.#.#..";
+        day = new Day13(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(1200L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void testCustomFinalData18() {
+        String data =
+                "#..####.##.##\n" +
+                ".##.##.####.#\n" +
+                "#######.##.##\n" +
+                "####.........\n" +
+                "#..##..####..\n" +
+                "....##.#..#.#\n" +
+                ".##..#.####.#\n" +
+                "....#.#....#.\n" +
+                ".....##....##\n" +
+                ".##.##.#..#.#\n" +
+                "#..##..#..#..\n" +
+                "####.######.#\n" +
+                ".....#.####.#\n" +
+                ".##.##......#\n" +
+                "#..##........";
+        day = new Day13(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(1200L, day.processInput2(groups[0], groups[1]));
     }
 }

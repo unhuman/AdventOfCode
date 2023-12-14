@@ -77,8 +77,9 @@ public class Day13 extends InputParser {
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         long total = 0;
+        int testNumber = 0;
         for (GroupItem item : configGroup) {
-
+            ++testNumber;
             List<String> rows = new ArrayList<>();
             List<String> columns = new ArrayList<>();
 
@@ -99,12 +100,26 @@ public class Day13 extends InputParser {
                 rows.add(rowData);
             }
 
+            int priorRowScore = findMirrorString(rows) * 100;
+            int priorColumnScore = findMirrorString(columns);
+
             Point flipped = swapCharacter(rows);
             if (flipped != null) {
+                for (String score: rows) {
+                    System.out.println("Before Row: " + score);
+                }
+                System.out.println();
+
+                System.out.println(testNumber + " Swap of rows - " + flipped + " ");
                 String rowData = rows.get(flipped.y);
                 char flipChar = (rowData.charAt(flipped.x) == '.') ? '#' : '.';
                 rowData = rowData.substring(0, flipped.x) + flipChar + rowData.substring(flipped.x + 1);
                 rows.set(flipped.y, rowData);
+
+                for (String score: rows) {
+                    System.out.println("After Row: " + score);
+                }
+                System.out.println();
 
                 String columnData = columns.get(flipped.x);
                 columnData = columnData.substring(0, flipped.y) + flipChar + columnData.substring(flipped.y + 1);
@@ -112,21 +127,46 @@ public class Day13 extends InputParser {
             } else {
                 flipped = swapCharacter(columns);
                 if (flipped != null) {
-                    String rowData = rows.get(flipped.x);
-                    char flipChar = (rowData.charAt(flipped.y) == '.') ? '#' : '.';
-                    rowData = rowData.substring(0, flipped.y) + flipChar + rowData.substring(flipped.y + 1);
-                    rows.set(flipped.x, rowData);
+                    for (String score: columns) {
+                        System.out.println("Before Column: " + score);
+                    }
+                    System.out.println();
 
+                    System.out.println(testNumber + " Swap of columns - " + flipped + " ");
                     String columnData = columns.get(flipped.y);
+                    char flipChar = (columnData.charAt(flipped.x) == '.') ? '#' : '.';
                     columnData = columnData.substring(0, flipped.x) + flipChar + columnData.substring(flipped.x + 1);
                     columns.set(flipped.y, columnData);
+
+                    for (String score: columns) {
+                        System.out.println("After Column: " + score);
+                    }
+                    System.out.println();
+
+
+                    String rowData = rows.get(flipped.x);
+                    rowData = rowData.substring(0, flipped.y) + flipChar + rowData.substring(flipped.y + 1);
+                    rows.set(flipped.x, rowData);
                 }
             }
 
+
             int rowScore = findMirrorString(rows) * 100;
-            total += rowScore;
             int columnScore = findMirrorString(columns);
-            total += columnScore;
+            if (priorRowScore != rowScore) {
+                System.out.print("Row update");
+                total += rowScore;
+            }
+            if (priorColumnScore != columnScore) {
+                System.out.print("Column update");
+                total += columnScore;
+            }
+
+            System.out.println();
+
+            if (total == 0) {
+                System.out.println("need to investigate unexpected 0");
+            }
         }
 
         return total;
@@ -151,9 +191,7 @@ public class Day13 extends InputParser {
     }
 
     Point swapCharacter(List<String> scores) {
-        for (String score: scores) {
-            System.out.println(score);
-        }
+        System.out.println();
 
         Point swapPoint = null;
 
@@ -190,7 +228,7 @@ public class Day13 extends InputParser {
                         }
                         if (diffPoint != null) {
                             swapPoint = new Point(diffPoint, (int)(mirrorPoint - 0.5 - counter));
-                            rightScore = rightScore.substring(0, diffPoint) + leftScore.charAt(diffPoint) + rightScore.substring(diffPoint + 1);
+//                            System.out.println("Swap Point Check: " + swapPoint);
                         } else {
                             mirror = false;
                             break;
@@ -202,7 +240,7 @@ public class Day13 extends InputParser {
                 }
                 counter++;
             }
-            if (mirror) {
+            if (mirror && swapPoint != null) {
                 return swapPoint;
             }
         }

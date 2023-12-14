@@ -1,3 +1,4 @@
 **/target
 aocSessionTokenFile.txt
 cache/*-day-*.txt
+**/*.orig
