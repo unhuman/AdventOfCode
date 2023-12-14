@@ -60,4 +60,27 @@ public class Day13Test {
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(1200L, day.processInput2(groups[0], groups[1]));
     }
+
+    @Test
+    public void testCustomFinalData18() {
+        String data =
+                "#..####.##.##\n" +
+                ".##.##.####.#\n" +
+                "#######.##.##\n" +
+                "####.........\n" +
+                "#..##..####..\n" +
+                "....##.#..#.#\n" +
+                ".##..#.####.#\n" +
+                "....#.#....#.\n" +
+                ".....##....##\n" +
+                ".##.##.#..#.#\n" +
+                "#..##..#..#..\n" +
+                "####.######.#\n" +
+                ".....#.####.#\n" +
+                ".##.##......#\n" +
+                "#..##........";
+        day = new Day13(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(1200L, day.processInput2(groups[0], groups[1]));
+    }
 }
