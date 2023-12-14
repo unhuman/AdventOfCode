@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day13.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day13Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day12.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day12.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day12Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day12Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Advent2023.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Advent2023.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +84,7 @@
       <visibility group="Run configurations" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="JUnit.Day12Test">
+  <component name="RunManager" selected="JUnit.Day13Test">
     <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
       <module name="advent2023" />
@@ -129,7 +130,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day12Test.test2f" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day13Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -138,14 +139,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day12Test" />
-      <option name="METHOD_NAME" value="test2f" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day13Test" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day12Test.test2f2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day13Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -154,8 +154,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day12Test" />
-      <option name="METHOD_NAME" value="test2f2" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day13Test" />
+      <option name="METHOD_NAME" value="test2" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -178,16 +178,16 @@
       <item itemvalue="Application.Advent2023" />
       <item itemvalue="JUnit.Day12Test" />
       <item itemvalue="JUnit.Day12Test.test1f" />
-      <item itemvalue="JUnit.Day12Test.test2f" />
-      <item itemvalue="JUnit.Day12Test.test2f2" />
+      <item itemvalue="JUnit.Day13Test" />
+      <item itemvalue="JUnit.Day13Test.test2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Day13Test" />
+        <item itemvalue="Application.Advent2023" />
+        <item itemvalue="JUnit.Day13Test.test2" />
         <item itemvalue="JUnit.Day12Test" />
         <item itemvalue="JUnit.Day12Test.test1f" />
-        <item itemvalue="Application.Advent2023" />
-        <item itemvalue="JUnit.Day12Test.test2f2" />
-        <item itemvalue="JUnit.Day12Test.test2f" />
       </list>
     </recent_temporary>
   </component>
@@ -398,9 +398,27 @@
           <line>100</line>
           <option name="timeStamp" value="753" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day13.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="803" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day13.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="804" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="scores.get((int)(reflection - 0.5 - counter))" language="JAVA" />
+        <watch expression="scores.get((int)(reflection + 0.5 + counter))" language="JAVA" />
+        <watch expression="reflection" language="JAVA" />
+        <watch expression="counter" language="JAVA" />
+        <watch expression="reflection - 0.5 -counter" language="JAVA" />
+        <watch expression="reflection + 0.5 + counter" language="JAVA" />
+      </configuration>
       <configuration name="Application">
         <watch expression="line" language="JAVA" />
       </configuration>
