@@ -81,6 +81,6 @@ public class Day13Test {
                 "#..##........";
         day = new Day13(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(1200L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(9L, day.processInput2(groups[0], groups[1]));
     }
 }

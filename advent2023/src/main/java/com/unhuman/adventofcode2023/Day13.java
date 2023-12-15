@@ -100,8 +100,8 @@ public class Day13 extends InputParser {
                 rows.add(rowData);
             }
 
-            int priorRowScore = findMirrorString(rows) * 100;
-            int priorColumnScore = findMirrorString(columns);
+            int priorRow = findMirrorString(rows, null) * 100;
+            int priorColumn = findMirrorString(columns, null);
 
             for (String score: rows) {
                 System.out.println("Before Row: " + score);
@@ -151,15 +151,15 @@ public class Day13 extends InputParser {
             }
             System.out.println();
 
-            int rowScore = findMirrorString(rows) * 100;
-            if (priorRowScore != rowScore) {
+            int currentRow = findMirrorString(rows, priorRow);
+            if (priorRow != currentRow) {
                 System.out.print("Row update");
-                total += rowScore;
+                total += currentRow * 100;
             }
-            int columnScore = findMirrorString(columns);
-            if (priorColumnScore != columnScore) {
+            int currentColumn = findMirrorString(columns, priorColumn);
+            if (priorColumn != currentColumn) {
                 System.out.print("Column update");
-                total += columnScore;
+                total += currentColumn;
             }
 
             System.out.println();
@@ -172,7 +172,7 @@ public class Day13 extends InputParser {
         return total;
     }
 
-    int findMirrorString(List<String> scores) {
+    int findMirrorString(List<String> scores, Integer skipMirror) {
         for (double mirrorPoint = 0.5; mirrorPoint < scores.size() - 1; mirrorPoint++) {
             boolean mirror = true;
             int counter = 0;
@@ -184,7 +184,11 @@ public class Day13 extends InputParser {
                 counter++;
             }
             if (mirror) {
-                return (int) Math.floor(mirrorPoint) + 1;
+                int check = (int) Math.floor(mirrorPoint) + 1;
+                if (skipMirror != null && check == skipMirror) {
+                    continue;
+                }
+                return check;
             }
         }
         return 0;
