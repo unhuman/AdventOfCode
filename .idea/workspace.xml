@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day14.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day15.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day14Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day15Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Advent2023.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Advent2023.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day13.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day13.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/InspectionMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/InspectionMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/Matrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day12.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day12.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +83,7 @@
       <visibility group="Run configurations" flag="true" />
     </myKeys>
   </component>
-  <component name="RunManager" selected="Application.Advent2023">
+  <component name="RunManager" selected="JUnit.Day12Test">
     <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
       <module name="advent2023" />
@@ -104,7 +98,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day13Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day12Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -113,13 +107,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day13Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day12Test" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day13Test.testCustomFinalData18" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day12Test.test1e" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -128,8 +122,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day13Test" />
-      <option name="METHOD_NAME" value="testCustomFinalData18" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day12Test" />
+      <option name="METHOD_NAME" value="test1e" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day12Test.test2f" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day12Test" />
+      <option name="METHOD_NAME" value="test2f" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -150,22 +160,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day14Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2023" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day14Test" />
-      <option name="METHOD_NAME" value="test2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="adventofcode" />
       <method v="2">
@@ -181,18 +175,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Advent2023" />
-      <item itemvalue="JUnit.Day13Test.testCustomFinalData18" />
+      <item itemvalue="JUnit.Day12Test.test1e" />
+      <item itemvalue="JUnit.Day12Test.test2f" />
       <item itemvalue="JUnit.Day14Test" />
-      <item itemvalue="JUnit.Day14Test.test2" />
-      <item itemvalue="JUnit.Day13Test" />
+      <item itemvalue="JUnit.Day12Test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Day12Test" />
         <item itemvalue="Application.Advent2023" />
+        <item itemvalue="JUnit.Day12Test.test1e" />
+        <item itemvalue="JUnit.Day12Test.test2f" />
         <item itemvalue="JUnit.Day14Test" />
-        <item itemvalue="JUnit.Day14Test.test2" />
-        <item itemvalue="JUnit.Day13Test.testCustomFinalData18" />
-        <item itemvalue="JUnit.Day13Test" />
       </list>
     </recent_temporary>
   </component>

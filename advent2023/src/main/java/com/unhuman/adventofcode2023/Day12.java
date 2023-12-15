@@ -84,6 +84,26 @@ public class Day12 extends InputParser {
 
         String cacheKey = "group:i:" + (reqCount - requirements.size());
         int canStopPoint = knownStopPoints.containsKey(cacheKey) ? knownStopPoints.get(cacheKey) : record.length;
+
+        // Skip any leading periods
+        while (starting < record.length && record[starting] == '.') {
+            starting++;
+        }
+
+        // find the ending window of the next period
+        // stop for any contiguous '#'s that are > our spec
+        int poundsFound = 0;
+        for (int i = starting; i < record.length - top + 1 && i < canStopPoint; i++) {
+            if (record[i] == '#') {
+                if (++poundsFound > top) {
+                    canStopPoint = i - poundsFound;
+                    break;
+                }
+            } else {
+                poundsFound = 0;
+            }
+        }
+
         for (int i = starting; i < record.length - top + 1 && i < canStopPoint; i++) {
             // We can't place on top of a dot
             if (record[i] == '.') {
