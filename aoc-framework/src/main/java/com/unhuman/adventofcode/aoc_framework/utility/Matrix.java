@@ -34,6 +34,10 @@ public class Matrix extends InspectionMatrix {
         }
     }
 
+    public void setValue(int x, int y, Character character) {
+        setPointValue(new Point(x, y), character);
+    }
+
     public void setPointValue(Point point, Character character) {
         matrix.get(point.y).set(point.x, character);
     }

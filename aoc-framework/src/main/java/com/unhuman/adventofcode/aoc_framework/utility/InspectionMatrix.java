@@ -53,6 +53,10 @@ public class InspectionMatrix {
         return matrix.size();
     }
 
+    public Character getValue(int x, int y) {
+        return getPointValue(new Point(x, y));
+    }
+
     public Character getPointValue(Point point) {
         return (isValid(point)) ? matrix.get(point.y).get(point.x) : null;
     }
@@ -112,5 +116,16 @@ public class InspectionMatrix {
         StringBuilder sb = new StringBuilder(getHeight() * getWidth());
         matrix.forEach(line -> { line.forEach(sb::append); sb.append('\n'); });
         return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        for (int row = 0; row < getHeight(); row++) {
+            for (int col = 0; col < getWidth(); col++) {
+                hash = hash * 7 + matrix.get(row).get(col).hashCode();
+            }
+        }
+        return hash;
     }
 }

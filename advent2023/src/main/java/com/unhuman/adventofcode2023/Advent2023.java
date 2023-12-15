@@ -20,6 +20,8 @@ public class Advent2023
 //        new Day10().process();
 //        new Day11().process();
 //        new Day12().process();
-        new Day13().process();
+//        new Day13().process();
+//        new Day14().process();
+        new Day15().process();
     }
 }
