@@ -20,8 +20,9 @@ import java.util.List;
  * getAdjacentPoints() would be useful to find valid, adjacent points
  */
 public class Matrix extends InspectionMatrix {
-    public Matrix(ConfigGroup configGroup) {
-        super(configGroup.get(0).get(0).size(), configGroup.get(0).size());
+
+    public Matrix(ConfigGroup configGroup, DataType dataType) {
+        super(configGroup.get(0).get(0).size(), configGroup.get(0).size(), dataType);
         if (configGroup.size() != 1) {
             throw new RuntimeException("Can't create matrix - config group size is not 1: " + configGroup.size());
         }
@@ -39,6 +40,7 @@ public class Matrix extends InspectionMatrix {
     }
 
     public void setPointValue(Point point, Character character) {
+        character = (dataType == DataType.DIGIT && (character <= 9)) ? (char) (character + '0') : character;
         matrix.get(point.y).set(point.x, character);
     }
 

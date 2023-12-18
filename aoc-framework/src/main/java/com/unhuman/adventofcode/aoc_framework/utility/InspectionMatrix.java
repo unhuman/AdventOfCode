@@ -16,9 +16,12 @@ import java.util.List;
  * getAdjacentPoints() would be useful to find valid, adjacent points
  */
 public class InspectionMatrix {
+    public enum DataType { CHARACTER, DIGIT}
     protected List<List<Character>> matrix;
+    protected DataType dataType;
 
-    protected InspectionMatrix(int width, int height) {
+    protected InspectionMatrix(int width, int height, DataType dataType) {
+        this.dataType = dataType;
         this.matrix = new ArrayList<>(height);
         for (int i = 0; i < height; ++i) {
             List<Character> line = new ArrayList<>(width);
@@ -37,7 +40,7 @@ public class InspectionMatrix {
      */
     public InspectionMatrix getInspectionMatrix() {
         int height = getHeight();
-        InspectionMatrix inspectionMatrix = new InspectionMatrix(matrix.get(0).size(), height);
+        InspectionMatrix inspectionMatrix = new InspectionMatrix(matrix.get(0).size(), height, dataType);
         for (int y = 0; y < height; y++) {
             // TODO: this is probably wrong now
             inspectionMatrix.matrix.add(new ArrayList<>(matrix.get(y)));
@@ -54,11 +57,12 @@ public class InspectionMatrix {
     }
 
     public Character getValue(int x, int y) {
-        return getPointValue(new Point(x, y));
+        return getValue(new Point(x, y));
     }
 
-    public Character getPointValue(Point point) {
-        return (isValid(point)) ? matrix.get(point.y).get(point.x) : null;
+    public Character getValue(Point point) {
+        Character charValue = (isValid(point)) ? matrix.get(point.y).get(point.x) : null;
+        return (dataType == DataType.DIGIT) ? (char) (charValue - '0') : charValue;
     }
 
     public boolean isValid(Point point) {
@@ -103,7 +107,7 @@ public class InspectionMatrix {
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getWidth(); x++) {
                 Point check = new Point(x, y);
-                if (getPointValue(check) == lookFor) {
+                if (getValue(check) == lookFor) {
                     founds.add(check);
                 }
             }

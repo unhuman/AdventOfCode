@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11659f04-7e23-42c9-b0d8-e0e0974927da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day17.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day17Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Advent2023.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Advent2023.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day11.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day14.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day14.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day16.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day16.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day16Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day16Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day17.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day17.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day0Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day0Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day17Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day17Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/InspectionMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/InspectionMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/Matrix.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +81,7 @@
       <recent name="com.unhuman.adventofcode" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Advent2023">
+  <component name="RunManager" selected="JUnit.Day17Test">
     <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
       <module name="advent2023" />
@@ -92,7 +95,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day12Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day17Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -101,13 +104,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day12Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day17Test" />
+      <option name="METHOD_NAME" value="test1a3" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day13Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day17Test.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -116,14 +120,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day13Test" />
-      <option name="METHOD_NAME" value="testCustomFinalData18" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day17Test" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day16Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day17Test.test1a3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -132,13 +136,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day16Test" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day17Test" />
+      <option name="METHOD_NAME" value="test1a3" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day16Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day17Test.test2a" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -147,8 +152,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day16Test" />
-      <option name="METHOD_NAME" value="test2" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day17Test" />
+      <option name="METHOD_NAME" value="test2a" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -169,18 +174,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Advent2023" />
-      <item itemvalue="JUnit.Day16Test" />
-      <item itemvalue="JUnit.Day16Test.test2" />
-      <item itemvalue="JUnit.Day12Test" />
-      <item itemvalue="JUnit.Day13Test" />
+      <item itemvalue="JUnit.Day17Test" />
+      <item itemvalue="JUnit.Day17Test.test1" />
+      <item itemvalue="JUnit.Day17Test.test1a3" />
+      <item itemvalue="JUnit.Day17Test.test2a" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Day17Test" />
+        <item itemvalue="JUnit.Day17Test.test2a" />
+        <item itemvalue="JUnit.Day17Test.test1a3" />
         <item itemvalue="Application.Advent2023" />
-        <item itemvalue="JUnit.Day16Test.test2" />
-        <item itemvalue="JUnit.Day16Test" />
-        <item itemvalue="JUnit.Day13Test" />
-        <item itemvalue="JUnit.Day12Test" />
+        <item itemvalue="JUnit.Day17Test.test1" />
       </list>
     </recent_temporary>
   </component>
@@ -210,228 +215,36 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day1.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="502" />
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day17.java</url>
+          <line>193</line>
+          <option name="timeStamp" value="903" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day1Test.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="504" />
+          <condition expression="evaluationNode == null" language="JAVA" />
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day17.java</url>
+          <line>367</line>
+          <option name="timeStamp" value="905" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day1.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="507" />
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day17.java</url>
+          <line>453</line>
+          <option name="timeStamp" value="906" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2022/src/main/java/com/unhuman/adventofcode2022/Day5.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="525" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day4.java</url>
-          <line>96</line>
-          <option name="timeStamp" value="534" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition expression="x == 0 &amp;&amp; y == 0" language="JAVA" />
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day5.java</url>
-          <line>97</line>
-          <option name="timeStamp" value="549" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day5.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="550" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day6.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="554" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/test/java/com/unhuman/adventofcode2021/Day6Test.java</url>
-          <line>14</line>
-          <option name="timeStamp" value="555" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day6.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="556" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day7.java</url>
-          <line>82</line>
-          <option name="timeStamp" value="564" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition expression="game == 3" language="JAVA" />
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day2.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="573" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day2.java</url>
-          <line>44</line>
-          <option name="timeStamp" value="574" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
-          <line>91</line>
-          <option name="timeStamp" value="590" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
-          <line>86</line>
-          <option name="timeStamp" value="599" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
-          <line>64</line>
-          <option name="timeStamp" value="600" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day8.java</url>
-          <line>134</line>
-          <option name="timeStamp" value="601" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day3.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="610" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day3.java</url>
-          <line>70</line>
-          <option name="timeStamp" value="616" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day3.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="617" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day9.java</url>
-          <line>104</line>
-          <option name="timeStamp" value="627" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day10.java</url>
-          <line>133</line>
-          <option name="timeStamp" value="637" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2021/src/main/java/com/unhuman/adventofcode2021/Day11.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="639" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day5.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="657" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day7.java</url>
-          <line>112</line>
-          <option name="timeStamp" value="665" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day7.java</url>
-          <line>64</line>
-          <option name="timeStamp" value="666" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day7.java</url>
-          <line>181</line>
-          <option name="timeStamp" value="667" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day7.java</url>
-          <line>80</line>
-          <option name="timeStamp" value="669" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day8.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="683" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day9.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="691" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day9.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="693" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day10.java</url>
-          <line>331</line>
-          <option name="timeStamp" value="720" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day10.java</url>
-          <line>130</line>
-          <option name="timeStamp" value="735" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day10.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="738" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day10.java</url>
-          <line>241</line>
-          <option name="timeStamp" value="742" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day11.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="753" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day13.java</url>
-          <line>112</line>
-          <option name="timeStamp" value="804" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day15.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="824" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day15.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="825" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day15.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="826" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/test/java/com/unhuman/adventofcode2023/Day13Test.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="827" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day12.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="828" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day12.java</url>
-          <line>101</line>
-          <option name="timeStamp" value="829" />
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day17.java</url>
+          <line>571</line>
+          <option name="timeStamp" value="915" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.unhuman.adventofcode2023.Day17$Node" memberName="shortestPath" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="JUnit">
-        <watch expression="beam" language="JAVA" />
-        <watch expression="energized" language="JAVA" />
+        <watch expression="graph.getNode(&quot;Origin&quot;)" language="JAVA" />
       </configuration>
       <configuration name="Application">
         <watch expression="line" language="JAVA" />
