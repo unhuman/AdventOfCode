@@ -193,7 +193,7 @@ public class Day17 extends InputParser {
 
         List<Node> shortestPath = origin.getShortestPath();
 
-        Set<Node> destinationTargets = generateDestinationTargets(graph, matrix);
+        Set<Node> destinationTargets = generateDestinationTargets(graph, matrix, DIRECTION_LIMIT);
 
         long shortestPathCount = Integer.MAX_VALUE;
         for (Node destinationTarget: destinationTargets) {
@@ -214,12 +214,12 @@ public class Day17 extends InputParser {
         return 0;
     }
 
-    Set<Node> generateDestinationTargets(Graph graph, Matrix matrix) {
+    Set<Node> generateDestinationTargets(Graph graph, Matrix matrix, int directionLimit) {
         Set<Node> destinations = new HashSet<>();
         int x = matrix.getWidth() - 1;
         int y = matrix.getHeight() - 1;
         for (Direction dirCheck: Direction.values()) {
-            for (int i = 1; i <= DIRECTION_LIMIT; i++) {
+            for (int i = 1; i <= directionLimit; i++) {
                 String nodeName = generateNodeName(x, y, dirCheck, i);
                 Node destinationNode = graph.getNode(nodeName);
                 if (destinationNode != null) {
@@ -457,7 +457,7 @@ public class Day17 extends InputParser {
 
         List<Node> shortestPath = origin.getShortestPath();
 
-        Set<Node> destinationTargets = generateDestinationTargets(graph, matrix);
+        Set<Node> destinationTargets = generateDestinationTargets(graph, matrix, 10);
 
         long shortestPathCount = Integer.MAX_VALUE;
         for (Node destinationTarget: destinationTargets) {
@@ -482,20 +482,32 @@ public class Day17 extends InputParser {
             for (int x = 0; x < matrix.getWidth(); x++) {
                 for (int i = 1; i <= 10; i++) {
                     if (matrix.isValid(new Point(x - i, y))) {
-                        Node node = new Node(generateNodeName(x, y, Direction.RIGHT, i));
-                        graph.addNode(node);
+                        int minI = (4 - (matrix.getWidth() - 1 - x));
+                        if (i >= minI) {
+                            Node node = new Node(generateNodeName(x, y, Direction.RIGHT, i));
+                            graph.addNode(node);
+                        }
                     }
                     if (matrix.isValid(new Point(x + i, y))) {
-                        Node node = new Node(generateNodeName(x, y, Direction.LEFT, i));
-                        graph.addNode(node);
+                        int minI = 4 - x - 1;
+                        if (i > minI) {
+                            Node node = new Node(generateNodeName(x, y, Direction.LEFT, i));
+                            graph.addNode(node);
+                        }
                     }
                     if (matrix.isValid(new Point(x, y - i))) {
-                        Node node = new Node(generateNodeName(x, y, Direction.DOWN, i));
-                        graph.addNode(node);
+                        int minI = (4 - (matrix.getHeight() - 1 - y));
+                        if (i >= minI) {
+                            Node node = new Node(generateNodeName(x, y, Direction.DOWN, i));
+                            graph.addNode(node);
+                        }
                     }
                     if (matrix.isValid(new Point(x, y + i))) {
-                        Node node = new Node(generateNodeName(x, y, Direction.UP, i));
-                        graph.addNode(node);
+                        int minI = 4 - y - 1;
+                        if (i > minI) {
+                            Node node = new Node(generateNodeName(x, y, Direction.UP, i));
+                            graph.addNode(node);
+                        }
                     }
                 }
             }
@@ -510,19 +522,9 @@ public class Day17 extends InputParser {
             originNode.addDestination(graph.getNode(generateNodeName(0, 1, Direction.DOWN, 1)), matrix.getValue(0, 1));
         }
 
-        for (int x = 0; x <= matrix.getWidth(); x++) {
-            for (int y = 0; y <= matrix.getHeight(); y++) {
+        for (int y = 0; y <= matrix.getHeight(); y++) {
+            for (int x = 0; x <= matrix.getWidth(); x++) {
                 for (Direction dir: Direction.values()) {
-                    switch (dir) {
-                        case UP:
-                            if (y < 4) continue;
-                        case DOWN:
-                            if (y >= matrix.getHeight() - 4) continue;
-                        case LEFT:
-                            if (x < 4) continue;
-                        case RIGHT:
-                            if (y > matrix.getWidth() - 4) continue;
-                    }
                     for (int i = 1; i <= 10; i++) {
                         String sourceName = generateNodeName(x, y, dir, i);
                         Node sourceNode = graph.getNode(sourceName);

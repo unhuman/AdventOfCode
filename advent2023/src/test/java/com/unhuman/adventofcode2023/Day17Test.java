@@ -173,6 +173,6 @@ public class Day17Test {
                 "999999999991\n";
         Day17 testDay = new Day17(data);
         ConfigGroup[] groups = testDay.parseFiles();
-        Assertions.assertEquals(94L, testDay.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(71L, testDay.processInput2(groups[0], groups[1]));
     }
 }
