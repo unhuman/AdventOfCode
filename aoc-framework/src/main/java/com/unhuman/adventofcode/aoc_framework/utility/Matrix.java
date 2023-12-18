@@ -29,8 +29,18 @@ public class Matrix extends InspectionMatrix {
 
         for (int y = 0; y < getHeight(); y++) {
             List<String> line = configGroup.get(0).get(y);
-            for (int x = 0; x < getWidth(); x++) {;
+            for (int x = 0; x < getWidth(); x++) {
                 matrix.get(y).set(x, line.get(x).charAt(0));
+            }
+        }
+    }
+
+    public Matrix(int width, int height, DataType dataType) {
+        super(width, height, dataType);
+
+        for (int x = 0; x < getWidth(); x++) {
+            for (int y = 0; y < getHeight(); y++) {
+                matrix.get(y).set(x, ' ');
             }
         }
     }
@@ -46,5 +56,27 @@ public class Matrix extends InspectionMatrix {
 
     public List<List<Character>> getDirectAccess() {
         return matrix;
+    }
+
+    public int floodFill(Point point, char match, char fillPattern) {
+        return floodFill(point.x, point.y, match, fillPattern);
+    }
+
+    public int floodFill(int x, int y, char match, char fillPattern) {
+        if (x < 0 || y < 0 || x >= getWidth() || y >= getHeight()) {
+            return 0;
+        }
+        if (matrix.get(y).get(x) != match) {
+            return 0;
+        }
+
+        matrix.get(y).set(x, fillPattern);
+
+        int count = 1
+                + floodFill(x - 1, y, match, fillPattern)
+                + floodFill(x + 1, y, match, fillPattern)
+                + floodFill(x, y - 1, match, fillPattern)
+                + floodFill(x, y + 1, match, fillPattern);
+        return count;
     }
 }

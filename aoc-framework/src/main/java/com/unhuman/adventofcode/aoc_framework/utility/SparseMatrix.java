@@ -52,9 +52,10 @@ public class SparseMatrix<T> {
         if (bottomRight == null) {
             bottomRight = new Point(point.x, point.y);
         } else {
-            bottomRight.x = Math.max(point.x, topLeft.x);
+            bottomRight.x = Math.max(point.x, bottomRight.x);
             bottomRight.y = (matrixSystem == MatrixSystem.ROW)
-                    ? Math.max(point.y, bottomRight.y) : Math.min(point.y, bottomRight.y);
+                    ? Math.max(point.y, bottomRight.y)
+                    : Math.min(point.y, bottomRight.y);
         }
 
         return defaultValueOf(priorValue);
@@ -171,11 +172,15 @@ public class SparseMatrix<T> {
         for (int y = startRow; (y >= startRow && y <= endRow) || (y <= startRow && y >= endRow); y += increment) {
             for (int x = startCol; x <= endCol; x++) {
                 T ch = matrix.get(new Point(x, y));
-                sb.append(ch != null ? ch : '.');
+                sb.append(ch != null ? ((ch instanceof Character) ? ch : '#') : '.');
             }
             sb.append("  " + y);
             sb.append('\n');
         }
         return sb.toString();
+    }
+
+    public int size() {
+        return matrix.size();
     }
 }
