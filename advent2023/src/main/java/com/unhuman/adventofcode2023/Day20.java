@@ -5,15 +5,15 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
-public class Day0 extends InputParser {
+public class Day20 extends InputParser {
     private static final String regex1 = null;
     private static final String regex2 = null;
 
-    public Day0() {
-        super(2023, 0, regex1, regex2);
+    public Day20() {
+        super(2023, 20, regex1, regex2);
     }
 
-    public Day0(String filename) {
+    public Day20(String filename) {
         super(filename, regex1, regex2);
     }
 
