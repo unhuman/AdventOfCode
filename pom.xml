@@ -43,6 +43,7 @@
     <!-- sub modules -->
     <modules>
         <module>aoc-framework</module>
+        <module>advent2019</module>
         <module>advent2021</module>
         <module>advent2022</module>
         <module>advent2023</module>

@@ -1,31 +1,24 @@
-package com.unhuman.adventofcode2023;
+package com.unhuman.adventofcode2019;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class Day0Test {
+public class Day1Test {
     // data must be at least 2 lines - add \n for single line data
     private static final String DATA =
             "";
 
     static InputParser getDay(String data) {
-        return null;
-        //return new DayX(data);
-    }
-
-    @Test
-    public void test1() {
-        InputParser day = getDay(DATA);
-        ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput1(groups[0], groups[1]));
+         return new Day1(data);
     }
 
     @Test
     public void test2() {
-        InputParser day = getDay(DATA);
+        String data = "14\n1969\n100756";
+        InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(51314L, day.processInput2(groups[0], groups[1]));
     }
 }
