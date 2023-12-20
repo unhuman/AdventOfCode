@@ -11,21 +11,30 @@ public class Day20Test {
             "";
 
     static InputParser getDay(String data) {
-        return null;
-        // return new DayX(data);
+         return new Day20(data);
     }
 
     @Test
     public void test1() {
-        InputParser day = getDay(DATA);
+        String data = "broadcaster -> a, b, c\n" +
+                "%a -> b\n" +
+                "%b -> c\n" +
+                "%c -> inv\n" +
+                "&inv -> a\n";
+        InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(32000000L, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
     public void test2() {
-        InputParser day = getDay(DATA);
+        String data = "broadcaster -> a\n" +
+                "%a -> inv, con\n" +
+                "&inv -> b\n" +
+                "%b -> con\n" +
+                "&con -> output\n";
+        InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(11687500L, day.processInput1(groups[0], groups[1]));
     }
 }
