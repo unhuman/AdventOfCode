@@ -51,7 +51,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java"
+    "settings.editor.selected.configurable": "preferences.keymap"
   },
   "keyToStringList": {
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
@@ -139,7 +139,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IntCodeParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day4Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2019" />
       <extension name="coverage">
         <pattern>
@@ -148,8 +148,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2019" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.IntCodeParserTest" />
-      <option name="METHOD_NAME" value="testDay2pt1_5" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.Day4Test" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -173,15 +172,15 @@
       <item itemvalue="JUnit.Day3Test" />
       <item itemvalue="JUnit.Day3Test.test1" />
       <item itemvalue="JUnit.Day3Test.test1b" />
-      <item itemvalue="JUnit.IntCodeParserTest" />
+      <item itemvalue="JUnit.Day4Test" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Advent2019" />
+        <item itemvalue="JUnit.Day4Test" />
         <item itemvalue="JUnit.Day3Test" />
         <item itemvalue="JUnit.Day3Test.test1b" />
         <item itemvalue="JUnit.Day3Test.test1" />
-        <item itemvalue="JUnit.IntCodeParserTest" />
       </list>
     </recent_temporary>
   </component>
@@ -271,6 +270,11 @@
           <url>file://$PROJECT_DIR$/advent2019/src/main/java/com/unhuman/adventofcode2019/Day3.java</url>
           <line>100</line>
           <option name="timeStamp" value="1019" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2019/src/main/java/com/unhuman/adventofcode2019/Day4.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="1021" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

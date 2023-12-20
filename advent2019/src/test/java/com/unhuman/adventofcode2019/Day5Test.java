@@ -5,13 +5,13 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class Day4Test {
+public class Day5Test {
     // data must be at least 2 lines - add \n for single line data
     private static final String DATA =
-            "273025-767253\n";
+            "";
 
     static InputParser getDay(String data) {
-        return new Day4(data);
+        return new Day5(data);
     }
 
     @Test
