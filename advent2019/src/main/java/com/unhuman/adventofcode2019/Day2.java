@@ -6,7 +6,7 @@ import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 public class Day2 extends InputParser {
-    private static final String regex1 = null;
+    private static final String regex1 = "(\\d+)";
     private static final String regex2 = null;
 
     public Day2() {
