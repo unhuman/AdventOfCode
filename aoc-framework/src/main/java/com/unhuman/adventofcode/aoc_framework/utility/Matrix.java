@@ -15,9 +15,6 @@ import java.util.List;
  *
  * All access is through using Point
  *
- * getClonedMatrix() could use for inspection that requires "paging" changes
- *
- * getAdjacentPoints() would be useful to find valid, adjacent points
  */
 public class Matrix extends InspectionMatrix {
 

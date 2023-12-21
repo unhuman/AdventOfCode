@@ -69,7 +69,7 @@ public class InspectionMatrix {
         return (point.x >= 0 && point.x < getWidth() && point.y >= 0 && point.y < getHeight());
     }
 
-    List<Point> getAdjacentPoints(Point point, boolean includeDiagonals) {
+    public List<Point> getAdjacentPoints(Point point, boolean includeDiagonals) {
         List<Point> adjacentPoints = new ArrayList<>();
 
         // verticals / rows
