@@ -3,10 +3,9 @@ package com.unhuman.adventofcode2019;
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
-import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 public class Day5 extends InputParser {
-    private static final String regex1 = null;
+    private static final String regex1 = "(-?\\d+),?";
     private static final String regex2 = null;
 
     public Day5() {
@@ -21,17 +20,21 @@ public class Day5 extends InputParser {
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
-        for (ItemLine line : item) {
-            for (String element : line) {
-
-            }
-        }
-
-        return 1;
+        IntCodeParser parser = new IntCodeParser(item.get(0));
+        parser.setInput("1");
+        parser.process();
+        String output = parser.getOutput();
+        return output;
     }
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        // easier to assume there's only one group
+        GroupItem item = configGroup.get(0);
+        IntCodeParser parser = new IntCodeParser(item.get(0));
+        parser.setInput("5");
+        parser.process();
+        String output = parser.getOutput();
+        return output;
     }
 }

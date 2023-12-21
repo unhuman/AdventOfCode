@@ -92,7 +92,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day3Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntCodeParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2019" />
       <extension name="coverage">
         <pattern>
@@ -101,13 +101,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2019" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.Day3Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.IntCodeParserTest" />
+      <option name="METHOD_NAME" value="testDay5pt1_1" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day3Test.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntCodeParserTest.testDay5pt2_1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2019" />
       <extension name="coverage">
         <pattern>
@@ -116,14 +117,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2019" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.Day3Test" />
-      <option name="METHOD_NAME" value="test1" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.IntCodeParserTest" />
+      <option name="METHOD_NAME" value="testDay5pt2_1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day3Test.test1b" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntCodeParserTest.testDay5pt2_4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2019" />
       <extension name="coverage">
         <pattern>
@@ -132,14 +133,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2019" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.Day3Test" />
-      <option name="METHOD_NAME" value="test1b" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.IntCodeParserTest" />
+      <option name="METHOD_NAME" value="testDay5pt2_4" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day4Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntCodeParserTest.testDay5pt2_7c" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2019" />
       <extension name="coverage">
         <pattern>
@@ -148,8 +149,9 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2019" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.Day4Test" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.IntCodeParserTest" />
+      <option name="METHOD_NAME" value="testDay5pt2_7c" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -169,18 +171,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Advent2019" />
-      <item itemvalue="JUnit.Day3Test" />
-      <item itemvalue="JUnit.Day3Test.test1" />
-      <item itemvalue="JUnit.Day3Test.test1b" />
-      <item itemvalue="JUnit.Day4Test" />
+      <item itemvalue="JUnit.IntCodeParserTest" />
+      <item itemvalue="JUnit.IntCodeParserTest.testDay5pt2_1" />
+      <item itemvalue="JUnit.IntCodeParserTest.testDay5pt2_4" />
+      <item itemvalue="JUnit.IntCodeParserTest.testDay5pt2_7c" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Advent2019" />
-        <item itemvalue="JUnit.Day4Test" />
-        <item itemvalue="JUnit.Day3Test" />
-        <item itemvalue="JUnit.Day3Test.test1b" />
-        <item itemvalue="JUnit.Day3Test.test1" />
+        <item itemvalue="JUnit.IntCodeParserTest" />
+        <item itemvalue="JUnit.IntCodeParserTest.testDay5pt2_7c" />
+        <item itemvalue="JUnit.IntCodeParserTest.testDay5pt2_4" />
+        <item itemvalue="JUnit.IntCodeParserTest.testDay5pt2_1" />
       </list>
     </recent_temporary>
   </component>
@@ -247,16 +249,6 @@
           <option name="timeStamp" value="1006" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2019/src/main/java/com/unhuman/adventofcode2019/IntCodeParser.java</url>
-          <line>55</line>
-          <option name="timeStamp" value="1012" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/advent2019/src/main/java/com/unhuman/adventofcode2019/IntCodeParser.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="1013" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2019/src/main/java/com/unhuman/adventofcode2019/Day2.java</url>
           <line>25</line>
           <option name="timeStamp" value="1014" />
@@ -276,6 +268,11 @@
           <line>49</line>
           <option name="timeStamp" value="1021" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2019/src/main/java/com/unhuman/adventofcode2019/IntCodeParser.java</url>
+          <line>248</line>
+          <option name="timeStamp" value="1033" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -286,6 +283,7 @@
     <watches-manager>
       <configuration name="Application">
         <watch expression="line" language="JAVA" />
+        <watch expression="memory.get(223)" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
