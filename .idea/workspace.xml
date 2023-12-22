@@ -71,27 +71,14 @@
       <recent name="C:\Users\Howie\github.git\unhuman\AdventOfCode\advent2021\src" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.unhuman.adventofcode2019" />
       <recent name="com.unhuman.adventofcode2023" />
+      <recent name="com.unhuman.adventofcode2019" />
       <recent name="com.unhuman.adventofcode.aoc_framework.utility" />
       <recent name="com.unhuman.adventofcode2021" />
       <recent name="com.unhuman.adventofcode2023.adventofcode2023" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Advent2023">
-    <configuration name="Advent2019" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.Advent2019" />
-      <module name="advent2019" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2019.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.Day22Test">
     <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
       <module name="advent2023" />
@@ -136,7 +123,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day21Test.test1b" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day21Test.test2preps" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -146,8 +133,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day21Test" />
-      <option name="METHOD_NAME" value="test1b" />
+      <option name="METHOD_NAME" value="test2preps" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day22Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day22Test" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -166,19 +168,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Advent2019" />
       <item itemvalue="Application.Advent2023" />
       <item itemvalue="JUnit.Day21Test" />
       <item itemvalue="JUnit.Day21Test.test0a" />
-      <item itemvalue="JUnit.Day21Test.test1b" />
+      <item itemvalue="JUnit.Day21Test.test2preps" />
+      <item itemvalue="JUnit.Day22Test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Day22Test" />
         <item itemvalue="Application.Advent2023" />
+        <item itemvalue="JUnit.Day21Test.test2preps" />
         <item itemvalue="JUnit.Day21Test" />
         <item itemvalue="JUnit.Day21Test.test0a" />
-        <item itemvalue="JUnit.Day21Test.test1b" />
-        <item itemvalue="Application.Advent2019" />
       </list>
     </recent_temporary>
   </component>
@@ -270,34 +272,34 @@
           <option name="timeStamp" value="1033" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/aoc-framework/src/main/java/com/unhuman/adventofcode/aoc_framework/utility/ScrollingMatrix.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="1041" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
-          <line>283</line>
+          <line>323</line>
           <option name="timeStamp" value="1043" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
-          <line>236</line>
+          <line>237</line>
           <option name="timeStamp" value="1052" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
-          <line>248</line>
+          <line>286</line>
           <option name="timeStamp" value="1053" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
-          <line>260</line>
-          <option name="timeStamp" value="1055" />
+          <line>318</line>
+          <option name="timeStamp" value="1057" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
-          <line>256</line>
-          <option name="timeStamp" value="1056" />
+          <line>200</line>
+          <option name="timeStamp" value="1058" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day22.java</url>
+          <line>174</line>
+          <option name="timeStamp" value="1077" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -307,6 +309,11 @@
       </pinned-members>
     </pin-to-top-manager>
     <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="block.num" language="JAVA" />
+        <watch expression="base.num" language="JAVA" />
+        <watch expression="block2.num" language="JAVA" />
+      </configuration>
       <configuration name="Application">
         <watch expression="oddItemsInRow" language="JAVA" />
         <watch expression="evenItemsInRow" language="JAVA" />
