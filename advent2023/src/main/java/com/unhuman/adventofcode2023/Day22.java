@@ -7,8 +7,11 @@ import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 import com.unhuman.adventofcode.aoc_framework.utility.Sparse3DMatrix;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Day22 extends InputParser {
@@ -43,6 +46,21 @@ public class Day22 extends InputParser {
                         points.add(new Sparse3DMatrix.Point3D(x, y, z));
                     }
                 }
+            }
+        }
+
+        Block(Block other, boolean needDeepCopy) {
+            this.num = other.num;
+            // need deep copies here
+            this.points = new ArrayList<Sparse3DMatrix.Point3D>(other.points);
+            if (needDeepCopy) {
+                this.supports = new ArrayList<>();
+                other.supports.forEach(support -> supports.add(new Block(support, false)));
+                this.supporters = new ArrayList<>();
+                other.supporters.forEach(supporter -> supporters.add(new Block(supporter, false)));
+            } else {
+                this.supports = new ArrayList<>(other.supports);
+                this.supporters = new ArrayList<>(other.supporters);
             }
         }
 
@@ -83,16 +101,29 @@ public class Day22 extends InputParser {
             }
             return false;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Block block = (Block) o;
+            return num == block.num;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(num);
+        }
     }
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        List<Block> blocks = setupFindRemovalCandidates(configGroup);
+        List<Block> blocks = setupBlocks(configGroup);
         Set<Block> removalCandidates = findRemovalCandidates(blocks);
         return removalCandidates.size();
     }
 
-    static List<Block> setupFindRemovalCandidates(ConfigGroup configGroup) {
+    static List<Block> setupBlocks(ConfigGroup configGroup) {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
         List<Block> blocks = new ArrayList<>();
@@ -170,20 +201,29 @@ public class Day22 extends InputParser {
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        List<Block> blocks = setupFindRemovalCandidates(configGroup);
+        List<Block> blocks = setupBlocks(configGroup);
         int totalRemovalCount = 0;
-        for (Block block: blocks) {
-            List<Block> checkRowRemoves = new ArrayList<>(block.supports);
-
-            while (checkRowRemoves.size() > 0) {
-                List<Block> nextCheckRowRemoves = new ArrayList<>();
-                for (Block rowItem: checkRowRemoves) {
-                    if (rowItem.supporters.size() == 1) {
-                        totalRemovalCount++;
-                        nextCheckRowRemoves.addAll(rowItem.supports);
+        for (int i = 0; i < blocks.size(); i++) {
+            // TODO: Copy entire Blocks array so we can change it.
+            List<Block> mutableBlocksArray = new ArrayList<>();
+            for (Block blockCopy : blocks) {
+                mutableBlocksArray.add(new Block(blockCopy, true));
+            }
+            Set<Block> foundationBlocks = Collections.singleton(mutableBlocksArray.get(i));
+            while (foundationBlocks.size() > 0) {
+                LinkedHashSet<Block> nextFoundationBlocks = new LinkedHashSet<>();
+                for (Block foundationBlock: foundationBlocks) {
+                    for (Block rowItem : foundationBlock.supports) {
+                        // we need to update the rowItem found from the copied array
+                        Block mutableItem = mutableBlocksArray.stream().filter(block -> block.num == rowItem.num).toList().get(0);
+                        mutableItem.supporters.remove(foundationBlock);
+                        if (mutableItem.supporters.size() == 0) {
+                            totalRemovalCount++;
+                            nextFoundationBlocks.add(rowItem); // this is the original - intentionally
+                        }
                     }
                 }
-                checkRowRemoves = nextCheckRowRemoves;
+                foundationBlocks = nextFoundationBlocks;
             }
         }
 

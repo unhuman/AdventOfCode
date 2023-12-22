@@ -78,7 +78,7 @@
       <recent name="com.unhuman.adventofcode2023.adventofcode2023" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Day22Test">
+  <component name="RunManager" selected="JUnit.Day22Test.test2">
     <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
       <module name="advent2023" />
@@ -103,22 +103,6 @@
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day21Test" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Day21Test.test0a" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2023" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day21Test" />
-      <option name="METHOD_NAME" value="test0a" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -154,6 +138,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Day22Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day22Test" />
+      <option name="METHOD_NAME" value="test2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="adventofcode" />
       <method v="2">
@@ -170,17 +170,17 @@
     <list>
       <item itemvalue="Application.Advent2023" />
       <item itemvalue="JUnit.Day21Test" />
-      <item itemvalue="JUnit.Day21Test.test0a" />
       <item itemvalue="JUnit.Day21Test.test2preps" />
       <item itemvalue="JUnit.Day22Test" />
+      <item itemvalue="JUnit.Day22Test.test2" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Day22Test" />
+        <item itemvalue="JUnit.Day22Test.test2" />
         <item itemvalue="Application.Advent2023" />
+        <item itemvalue="JUnit.Day22Test" />
         <item itemvalue="JUnit.Day21Test.test2preps" />
         <item itemvalue="JUnit.Day21Test" />
-        <item itemvalue="JUnit.Day21Test.test0a" />
       </list>
     </recent_temporary>
   </component>
@@ -298,8 +298,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day22.java</url>
-          <line>174</line>
-          <option name="timeStamp" value="1077" />
+          <line>211</line>
+          <option name="timeStamp" value="1083" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -310,9 +310,11 @@
     </pin-to-top-manager>
     <watches-manager>
       <configuration name="JUnit">
-        <watch expression="block.num" language="JAVA" />
-        <watch expression="base.num" language="JAVA" />
-        <watch expression="block2.num" language="JAVA" />
+        <watch expression="foundationBlock" language="JAVA" />
+        <watch expression="foundationBlocks" language="JAVA" />
+        <watch expression="rowItem" language="JAVA" />
+        <watch expression="blocks.get(2)" language="JAVA" />
+        <watch expression="mutableBlocksArray.get(2)" language="JAVA" />
       </configuration>
       <configuration name="Application">
         <watch expression="oddItemsInRow" language="JAVA" />
@@ -325,6 +327,9 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/adventofcode$Day22Test_test2.ic" NAME="Day22Test.test2 Coverage Results" MODIFIED="1703276457359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.unhuman.adventofcode2023.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/adventofcode$Day24Test_test1.ic" NAME="Day24Test.test1 Coverage Results" MODIFIED="1671902938065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.unhuman.adventofcode.*</FILTER>
     </SUITE>
