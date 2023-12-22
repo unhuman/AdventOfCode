@@ -22,6 +22,7 @@ public class Day21 extends InputParser {
     enum Corners { TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT }
     int count1 = 64;
     int count2 = 26501365;
+//    int count2 = 131;
 
     static class TouchedPoint extends Point {
         TouchType touchType;
@@ -167,8 +168,9 @@ public class Day21 extends InputParser {
 
         return touchedPoints.values().stream().filter(x -> x.touchType != TouchType.NONE).count();
     }
-
-
+    // 598047175204413 - ??
+    // 598047219103731 - ??
+    // 2392173899891582 too high
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // Track if we want evens or odd
@@ -196,72 +198,87 @@ public class Day21 extends InputParser {
             throw new RuntimeException("This algorithm prefers ending bits being odd");
         }
 
-        // with the evens ending, we need to find the edges (and points)
-        long evenTopLeftCount = 0L;     //    / <- this area
-        for (int y = 0; y < matrix.getHeight(); y++) {
-            for (int x = 0; x < matrix.getWidth() - y; x++) {
-                Point check = new Point(x, y);
-                evenTopLeftCount += (evenPointsInBase.containsKey(check)) ? 1 : 0;
-            }
-        }
-        long evenTopRightCount = 0L;    //         this area -> \
-        for (int y = 0; y < matrix.getHeight(); y++) {
-            for (int x = y; x < matrix.getWidth(); x++) {
-                Point check = new Point(x, y);
-                evenTopRightCount += (evenPointsInBase.containsKey(check)) ? 1 : 0;
-            }
-        }
-        long evenBottomLeftCount = 0L;  //    \ <- this area
-        for (int y = 0; y < matrix.getHeight(); y++) {
-            for (int x = matrix.getWidth(); x >= matrix.getWidth() - y; x--) {
-                Point check = new Point(x, y);
-                evenBottomLeftCount += (evenPointsInBase.containsKey(check)) ? 1 : 0;
-            }
-        }
-        long evenBottomRightCount = 0L; //         this area -> /
-        for (int y = 0; y < matrix.getHeight(); y++) {
-            for (int x = 0; x < matrix.getWidth() - y; x++) {
-                Point check = new Point(x, y);
-                evenBottomLeftCount += (evenPointsInBase.containsKey(check)) ? 1 : 0;
-            }
-        }
-
-        long evenTopPoint = 0L;
-        long evenLeftPoint = 0L;
-        long evenRightPoint = 0L;
-        long evenBottomPoint = 0L;
-        // Entire square, plus extra diagonals + extra center
-        long evenBottomAll = evenPointsInBase.size();
-        long diagonals = 0L;
+//        // with the evens ending, we need to find the edges (and points)
+//        long evenTopLeftCount = 0L;     //    / <- this area
+//        for (int y = 0; y < matrix.getHeight(); y++) {
+//            for (int x = matrix.getWidth() - 1; x >= matrix.getWidth() - 1 - y; x++) {
+//                Point check = new Point(x, y);
+//                evenTopLeftCount += (evenPointsInBase.containsKey(check)) ? 1 : 0;
+//            }
+//        }
+//
+//        long evenBottomRightCount = 0L; //         this area -> /
+//        for (int y = 0; y < matrix.getHeight(); y++) {
+//            for (int x = 0; x < matrix.getWidth() - y; x++) {
+//                Point check = new Point(x, y);
+//                evenBottomRightCount += (evenPointsInBase.containsKey(check)) ? 1 : 0;
+//            }
+//        }
+//
+//        long evenTopRightCount = 0L;    //         this area -> \
+//        for (int y = 0; y < matrix.getHeight(); y++) {
+//            for (int x = 0; x <= y; x++) {
+//                Point check = new Point(x, y);
+//                evenTopRightCount += (evenPointsInBase.containsKey(check)) ? 1 : 0;
+//            }
+//        }
+//        long evenBottomLeftCount = 0L;  //    \ <- this area
+//        for (int y = 0; y < matrix.getHeight(); y++) {
+//            for (int x = matrix.getWidth() - 1; x >= matrix.getWidth() - 1 - y; x--) {
+//                Point check = new Point(x, y);
+//                evenBottomLeftCount += (evenPointsInBase.containsKey(check)) ? 1 : 0;
+//            }
+//        }
+//
+//        long evenTopPoint = 0L;
+//        long evenLeftPoint = 0L;
+//        long evenRightPoint = 0L;
+//        long evenBottomPoint = 0L;
+//        // Entire square, plus extra diagonals + extra center
+        long evenDiagonal1 = 0L;
+        long evenDiagonal2 = 0L;
+        long evenCenterValue = 0L;
         for (int xy = 0; xy < matrix.getWidth(); xy++) {
             Point check = new Point(xy, xy);
-            evenBottomAll += (evenPointsInBase.containsKey(check)) ? 1 : 0;
+            evenDiagonal1 += (evenPointsInBase.containsKey(check)) ? 1 : 0;
 
             Point check2 = new Point(matrix.getWidth() - 1 - xy, xy);
-            evenBottomAll += (evenPointsInBase.containsKey(check2)) ? 1 : 0;
+            evenDiagonal2 += (evenPointsInBase.containsKey(check2)) ? 1 : 0;
 
             if (matrix.getWidth() - 1 - xy == xy) {
                 Point check3 = new Point(matrix.getWidth() - 1 - xy, xy);
-                evenBottomAll += (evenPointsInBase.containsKey(check3)) ? 1 : 0;
+                evenCenterValue += (evenPointsInBase.containsKey(check3)) ? 1 : 0;
             }
         }
 
+        // Top / Right / Left / Bottom Points +
+        long extraGoodness = evenPointsInBase.size();
+
         long mainArea = 0L;
-        for (long i = widthExactSquares; i >= 1; i--) {
-            mainArea += ((widthExactSquares / 2 + 1) * oddPointsInBase.size()) + (widthExactSquares / 2) * evenPointsInBase.size();
+        for (long i = widthExactSquares; i >= 1; i -= 2) {
+            long oddItemsInRow = (i / 2 + 1);
+            long evenItemsInRow = (i / 2);
+            long pointsInRow = (oddItemsInRow * oddPointsInBase.size()) + evenItemsInRow * evenPointsInBase.size();
+            mainArea += pointsInRow;
             // double everything but the middle line
             if (i != widthExactSquares) {
-                mainArea += ((widthExactSquares / 2 + 1) * oddPointsInBase.size()) + (widthExactSquares / 2) * evenPointsInBase.size();
-            } else {
-                // add one of:
-                // even top left, even top right, even bottom left, even bottom right
-                mainArea += evenTopLeftCount + evenTopRightCount + evenBottomLeftCount + evenBottomRightCount;
+                mainArea += pointsInRow;
+                // Add two values (top split + bottom split = two wholes)
+                mainArea += evenPointsInBase.size();
+                mainArea += evenPointsInBase.size();
+                // Add the diagonals for the split values
+                mainArea += evenDiagonal1;
+                mainArea += evenDiagonal2;
             }
         }
         // add even caps (top, bottom, left, right)
-        mainArea += evenTopPoint + evenLeftPoint + evenRightPoint + evenBottomPoint;
-        mainArea += evenBottomAll;
-
+//        mainArea += evenTopPoint + evenLeftPoint + evenRightPoint + evenBottomPoint;
+//        mainArea += extraGoodness;
+        mainArea += evenPointsInBase.size();
+        // add 2 diagonals and center point
+        mainArea += evenDiagonal1;
+        mainArea += evenDiagonal2;
+        mainArea += evenCenterValue;
         return mainArea;
 //
 //

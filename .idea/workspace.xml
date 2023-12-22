@@ -78,7 +78,7 @@
       <recent name="com.unhuman.adventofcode2023.adventofcode2023" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Day21Test">
+  <component name="RunManager" selected="Application.Advent2023">
     <configuration name="Advent2019" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2019.Advent2019" />
       <module name="advent2019" />
@@ -174,9 +174,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Advent2023" />
         <item itemvalue="JUnit.Day21Test" />
         <item itemvalue="JUnit.Day21Test.test0a" />
-        <item itemvalue="Application.Advent2023" />
         <item itemvalue="JUnit.Day21Test.test1b" />
         <item itemvalue="Application.Advent2019" />
       </list>
@@ -276,23 +276,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
-          <line>267</line>
+          <line>283</line>
           <option name="timeStamp" value="1043" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
+          <line>236</line>
+          <option name="timeStamp" value="1052" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
           <line>248</line>
-          <option name="timeStamp" value="1044" />
+          <option name="timeStamp" value="1053" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
-          <line>188</line>
-          <option name="timeStamp" value="1045" />
+          <line>260</line>
+          <option name="timeStamp" value="1055" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day21.java</url>
-          <line>192</line>
-          <option name="timeStamp" value="1046" />
+          <line>256</line>
+          <option name="timeStamp" value="1056" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -303,8 +308,8 @@
     </pin-to-top-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="line" language="JAVA" />
-        <watch expression="memory.get(223)" language="JAVA" />
+        <watch expression="oddItemsInRow" language="JAVA" />
+        <watch expression="evenItemsInRow" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
