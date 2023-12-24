@@ -115,6 +115,28 @@ public class InspectionMatrix {
         return founds;
     }
 
+    public List<Point> findCharacterLocationsInRow(int y, char lookFor) {
+        List<Point> founds = new ArrayList<>();
+        for (int x = 0; x < getWidth(); x++) {
+            Point check = new Point(x, y);
+            if (getValue(check) == lookFor) {
+                founds.add(check);
+            }
+        }
+        return founds;
+    }
+
+    public List<Point> findCharacterLocationsInColumn(int x, char lookFor) {
+        List<Point> founds = new ArrayList<>();
+        for (int y = 0; y < getHeight(); y++) {
+            Point check = new Point(x, y);
+            if (getValue(check) == lookFor) {
+                founds.add(check);
+            }
+        }
+        return founds;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(getHeight() * getWidth());

@@ -78,7 +78,7 @@
       <recent name="com.unhuman.adventofcode2023.adventofcode2023" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Day22Test.test2">
+  <component name="RunManager" selected="JUnit.Day23Test">
     <configuration name="Advent2023" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023" />
       <module name="advent2023" />
@@ -92,7 +92,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day21Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Advent2023Alt" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Advent2023Alt" />
+      <module name="advent2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day23Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -101,13 +114,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day21Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day23Test" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day21Test.test2preps" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day23Test.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -116,14 +129,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day21Test" />
-      <option name="METHOD_NAME" value="test2preps" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day23Test" />
+      <option name="METHOD_NAME" value="test1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day22Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Day23Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
         <pattern>
@@ -132,22 +145,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day22Test" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Day22Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2023" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day22Test" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day23Test" />
       <option name="METHOD_NAME" value="test2" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -168,19 +166,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Advent2023Alt" />
       <item itemvalue="Application.Advent2023" />
-      <item itemvalue="JUnit.Day21Test" />
-      <item itemvalue="JUnit.Day21Test.test2preps" />
-      <item itemvalue="JUnit.Day22Test" />
-      <item itemvalue="JUnit.Day22Test.test2" />
+      <item itemvalue="JUnit.Day23Test" />
+      <item itemvalue="JUnit.Day23Test.test1" />
+      <item itemvalue="JUnit.Day23Test.test2" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Day22Test.test2" />
+        <item itemvalue="JUnit.Day23Test" />
         <item itemvalue="Application.Advent2023" />
-        <item itemvalue="JUnit.Day22Test" />
-        <item itemvalue="JUnit.Day21Test.test2preps" />
-        <item itemvalue="JUnit.Day21Test" />
+        <item itemvalue="JUnit.Day23Test.test2" />
+        <item itemvalue="Application.Advent2023Alt" />
+        <item itemvalue="JUnit.Day23Test.test1" />
       </list>
     </recent_temporary>
   </component>
@@ -301,6 +299,16 @@
           <line>211</line>
           <option name="timeStamp" value="1083" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day23.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="1125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day23.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="1126" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -310,15 +318,13 @@
     </pin-to-top-manager>
     <watches-manager>
       <configuration name="JUnit">
-        <watch expression="foundationBlock" language="JAVA" />
-        <watch expression="foundationBlocks" language="JAVA" />
-        <watch expression="rowItem" language="JAVA" />
-        <watch expression="blocks.get(2)" language="JAVA" />
-        <watch expression="mutableBlocksArray.get(2)" language="JAVA" />
+        <watch expression="trackedPoints" language="JAVA" />
+        <watch expression="adjacentPoints" language="JAVA" />
       </configuration>
       <configuration name="Application">
         <watch expression="oddItemsInRow" language="JAVA" />
         <watch expression="evenItemsInRow" language="JAVA" />
+        <watch expression="pathTravelled" />
       </configuration>
     </watches-manager>
   </component>

@@ -1,14 +1,19 @@
 package com.unhuman.adventofcode.aoc_framework;
 
+import com.unhuman.adventofcode.aoc_framework.helper.LineInput;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
-import com.unhuman.adventofcode.aoc_framework.helper.LineInput;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -272,23 +277,29 @@ public abstract class InputParser {
         ConfigGroup dataItems1 = configGroups[0];
         ConfigGroup dataItems2 = configGroups[1];
 
-        System.out.println("*** Start " + getClass().getSimpleName() + " Task 1 *** ");
+        System.out.println("*** Start " + getClass().getSimpleName() + " Task 1 - "
+                + LocalTime.now().toString().split("\\.")[0]);
         time = System.nanoTime();
         Object results1 = processInput1(dataItems1, dataItems2);
         System.out.println(results1);
         time = System.nanoTime() - time;
         timeMs = (float) time / 1000000;
         timeS = timeMs / 1000;
-        System.out.println("*** End " + getClass().getSimpleName() + " Task 1 - time: " + time / 1000 + "us, " + timeMs + "ms, " + timeS + "s ***");
+        System.out.println("*** End " + getClass().getSimpleName().split("\\.")[0] + " Task 1 - "
+                + LocalTime.now().toString().split("\\.")[0]
+                + " - time: " + time / 1000 + "us, " + timeMs + "ms, " + timeS + "s ***");
 
-        System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 *** ");
+        System.out.println("*** Start " + getClass().getSimpleName() + " Task 2 - "
+                + LocalTime.now().toString().split("\\.")[0]);
         time = System.nanoTime();
         Object results2 = processInput2(dataItems1, dataItems2);
         System.out.println(results2);
         time = System.nanoTime() - time;
         timeMs = (float) time / 1000000;
         timeS = timeMs / 1000;
-        System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - time: " + time / 1000 + "us, " + timeMs + "ms, " + timeS + "s ***");
+        System.out.println("*** End " + getClass().getSimpleName() + " Task 2 - "
+                + LocalTime.now().toString().split("\\.")[0]
+                + " - time: " + time / 1000 + "us, " + timeMs + "ms, " + timeS + "s ***");
 
         System.out.println();
     }
