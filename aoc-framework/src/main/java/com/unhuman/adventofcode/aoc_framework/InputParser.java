@@ -37,7 +37,9 @@ public abstract class InputParser {
      * @param year
      * @param day
      * @param lineItemRegex1
+     * you may need to prepend (?:.*?) to your regex to ignore cruft in the beginning
      * @param lineItemRegex2
+     * you may need to prepend (?:.*?) to your regex to ignore cruft in the beginning
      */
     public InputParser(int year, int day, String lineItemRegex1, String lineItemRegex2) {
         this(generateUrlPath(year, day), lineItemRegex1, lineItemRegex2);
@@ -47,7 +49,9 @@ public abstract class InputParser {
      * Creates an InputParser that will process line-by-line
      * @param filenameOrData (filename or data (if multi-line))
      * @param lineItemRegex1
+     * you may need to prepend (?:.*?) to your regex to ignore cruft in the beginning
      * @param lineItemRegex2
+     * you may need to prepend (?:.*?) to your regex to ignore cruft in the beginning
      */
     public InputParser(String filenameOrData, String lineItemRegex1, String lineItemRegex2) {
         this.filenameOrData = filenameOrData;
@@ -204,6 +208,7 @@ public abstract class InputParser {
     /**
      * Convert lines into usable data
      * @param lineInput
+     * note: to get this work properly, you may need to prepend (?:.*?) to your regex to ignore cruft in the beginning
      * @param regexLineItem
      * @return
      */
@@ -212,7 +217,7 @@ public abstract class InputParser {
             return null;
         }
 
-        Pattern patternLineItem = Pattern.compile(regexLineItem);
+        Pattern patternLineItem = Pattern.compile(regexLineItem, Pattern.MULTILINE | Pattern.DOTALL);
 
         // clear off any preceding blank lines
         while (true) {

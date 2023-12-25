@@ -41,7 +41,7 @@ public class Sparse3DMatrix<T> {
         return defaultValueOf(priorValue);
     }
 
-    public T put(int x, int y, int z, T value) {
+    public T put(long x, long y, long z, T value) {
         return put(new Point3D(x, y, z), value);
     }
 
@@ -57,7 +57,7 @@ public class Sparse3DMatrix<T> {
         return defaultValueOf(value);
     }
 
-    public T remove(int x, int y, int z) {
+    public T remove(long x, long y, long z) {
         return remove(new Point3D(x, y, z));
     }
 
@@ -71,7 +71,7 @@ public class Sparse3DMatrix<T> {
         return defaultValueOf(value);
     }
 
-    public T get(int x, int y, int z) {
+    public T get(long x, long y, long z) {
         return get(new Point3D(x, y, z));
     }
 
@@ -130,7 +130,7 @@ public class Sparse3DMatrix<T> {
 
     }
 
-    public record Point3D(int x, int y, int z) {
+    public record Point3D(long x, long y, long z) {
         @Override
         public boolean equals(Object o) {
             Point3D other = (Point3D) o;

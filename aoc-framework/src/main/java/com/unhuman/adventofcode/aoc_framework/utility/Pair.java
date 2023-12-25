@@ -16,4 +16,8 @@ public class Pair <T, T2> {
     public T2 getRight() {
         return right;
     }
+
+    public String toString() {
+        return "[" + this.left.toString() + ":" + this.right.toString() + "]";
+    }
 }

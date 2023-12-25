@@ -34,15 +34,15 @@ public class Day22 extends InputParser {
 
         Block(int num, Sparse3DMatrix.Point3D start, Sparse3DMatrix.Point3D end) {
             this.num = num;
-            int x1 = start.x();
-            int y1 = start.y();
-            int z1 = start.z();
-            int x2 = end.x();
-            int y2 = end.y();
-            int z2 = end.z();
-            for (int x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
-                for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
-                    for (int z = Math.min(z1, z2); z <= Math.max(z1, z2); z++) {
+            long x1 = start.x();
+            long y1 = start.y();
+            long z1 = start.z();
+            long x2 = end.x();
+            long y2 = end.y();
+            long z2 = end.z();
+            for (long x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
+                for (long y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
+                    for (long z = Math.min(z1, z2); z <= Math.max(z1, z2); z++) {
                         points.add(new Sparse3DMatrix.Point3D(x, y, z));
                     }
                 }
@@ -91,7 +91,7 @@ public class Day22 extends InputParser {
         }
 
         boolean gravitate() {
-            int minZ = points.stream().map(x -> x.z()).min((a, b) -> (a - b)).get();
+            long minZ = points.stream().map(x -> x.z()).mapToLong(val -> val).min().orElseThrow();
             if (supporters.size() == 0 && minZ > 1) {
                 for (int i = 0; i < points.size(); i++) {
                     Sparse3DMatrix.Point3D point = points.get(i);
