@@ -108,7 +108,7 @@ public class Day25 extends InputParser {
                         return groups.get(0).size() * groups.get(1).size();
                     }
 
-                    restoreConnection(endpointConnections, connections.get(i));
+                    restoreConnection(endpointConnections, connections.get(k));
                 }
                 restoreConnection(endpointConnections, connections.get(j));
             }

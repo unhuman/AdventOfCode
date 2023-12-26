@@ -1,4 +1,4 @@
-package com.unhuman.adventofcode2023;
+package com.unhuman.adventofcodeYear;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
@@ -12,19 +12,21 @@ public class Day0Test {
 
     static InputParser getDay(String data) {
         return null;
-        // return new DayX(data);
+        //return new DayX(data);
     }
 
     @Test
     public void test1() {
-        InputParser day = getDay(DATA);
+        String data = DATA;
+        InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(0, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
     public void test2() {
-        InputParser day = getDay(DATA);
+        String data = DATA;
+        InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
     }

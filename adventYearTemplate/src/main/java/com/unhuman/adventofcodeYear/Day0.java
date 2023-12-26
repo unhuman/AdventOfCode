@@ -1,4 +1,9 @@
-package com.unhuman.adventofcode2023;
+package com.unhuman.adventofcodeYear;
+
+import com.unhuman.adventofcode.aoc_framework.InputParser;
+import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
+import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
+import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
@@ -10,7 +15,7 @@ public class Day0 extends InputParser {
     private static final String regex2 = null;
 
     public Day0() {
-        super(2023, 0, regex1, regex2);
+        super(0000, 0, regex1, regex2);
     }
 
     public Day0(String filename) {

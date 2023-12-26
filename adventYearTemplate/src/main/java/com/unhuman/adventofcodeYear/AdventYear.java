@@ -1,10 +1,10 @@
-package com.unhuman.adventofcode2023;
+package com.unhuman.adventofcodeYear;
 
 /**
  * Hello world!
  *
  */
-public class Advent2023
+public class AdventYear
 {
     public static void main( String[] args )
     {
@@ -28,6 +28,10 @@ public class Advent2023
 //        new Day18().process();
 //        new Day19().process();
 //        new Day20().process();
-        new Day21().process();
+//        new Day21().process();
+//        new Day22().process();
+//        new Day23().process();
+//        new Day24().process();
+//        new Day25().process();
     }
 }

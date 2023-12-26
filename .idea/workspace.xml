@@ -107,37 +107,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day22Test.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2023" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day22Test" />
-      <option name="METHOD_NAME" value="test2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Day23Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="advent2023" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
-      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day23Test" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Day24Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="advent2023" />
       <extension name="coverage">
@@ -149,6 +118,37 @@
       <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
       <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day24Test" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day25Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day25Test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day25Test.test1simple" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="advent2023" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.unhuman.adventofcode2023.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.unhuman.adventofcode2023" />
+      <option name="MAIN_CLASS_NAME" value="com.unhuman.adventofcode2023.Day25Test" />
+      <option name="METHOD_NAME" value="test1simple" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -169,17 +169,17 @@
     <list>
       <item itemvalue="Application.Advent2023" />
       <item itemvalue="JUnit.Day22Test" />
-      <item itemvalue="JUnit.Day22Test.test2" />
-      <item itemvalue="JUnit.Day23Test" />
       <item itemvalue="JUnit.Day24Test" />
+      <item itemvalue="JUnit.Day25Test" />
+      <item itemvalue="JUnit.Day25Test.test1simple" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Advent2023" />
+        <item itemvalue="JUnit.Day25Test" />
+        <item itemvalue="JUnit.Day25Test.test1simple" />
         <item itemvalue="JUnit.Day24Test" />
         <item itemvalue="JUnit.Day22Test" />
-        <item itemvalue="JUnit.Day22Test.test2" />
-        <item itemvalue="JUnit.Day23Test" />
       </list>
     </recent_temporary>
   </component>
@@ -310,6 +310,11 @@
           <line>58</line>
           <option name="timeStamp" value="1139" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/advent2023/src/main/java/com/unhuman/adventofcode2023/Day25.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="1179" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -319,8 +324,8 @@
     </pin-to-top-manager>
     <watches-manager>
       <configuration name="JUnit">
-        <watch expression="line" language="JAVA" />
-        <watch expression="matcher.group(0)" language="JAVA" />
+        <watch expression="endpointConnectionsCopy.get(connection.conn1)" language="JAVA" />
+        <watch expression="endpointConnectionsCopy.get(connection.conn2)" language="JAVA" />
       </configuration>
       <configuration name="Application">
         <watch expression="oddItemsInRow" language="JAVA" />
