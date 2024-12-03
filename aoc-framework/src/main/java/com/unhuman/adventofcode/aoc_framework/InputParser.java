@@ -247,10 +247,13 @@ public abstract class InputParser {
                         for (int i = 1; i <= matcher.groupCount(); i++) {
                             String lineItem = (matcher.group(i) != null && matcher.group(i).length() > 0)
                                     ? matcher.group(i) : null;
-                            dataLine.add(lineItem);
+                            // only add non-null items
+                            if (lineItem != null) {
+                                dataLine.add(lineItem);
+                            }
                         }
                         // allow continuation for duplicate matchers on a line
-                        line = line.substring(matcher.group(0).length());
+                        line = line.substring(line.indexOf(matcher.group(0)) + matcher.group(0).length());
                         // if we advance to the end of the string and it's done, then we process next line
                         if (line.isEmpty()) {
                             break;
