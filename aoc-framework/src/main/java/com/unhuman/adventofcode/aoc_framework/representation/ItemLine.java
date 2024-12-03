@@ -8,4 +8,16 @@ public class ItemLine extends ArrayList<String> {
         this.forEach(sb::append);
         return sb.toString();
     }
+
+    public char getChar(int index) {
+        return get(index).charAt(0);
+    }
+
+    public String getString(int index) {
+        return get(index);
+    }
+
+    public long getLong(int index) {
+        return Long.parseLong(get(index));
+    }
 }

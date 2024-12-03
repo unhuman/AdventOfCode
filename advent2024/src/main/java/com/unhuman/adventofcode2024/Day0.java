@@ -22,8 +22,10 @@ public class Day0 extends InputParser {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
         for (ItemLine line : item) {
-            for (String element : line) {
-
+            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
+//                String item = line.getString(itemNum);
+//                String item = line.getString(itemNum);
+//                Long item = line.getLong(itemNum);
             }
         }
 
