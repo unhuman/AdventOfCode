@@ -78,31 +78,31 @@ public class Day18 extends InputParser {
         }
 
         // spread zeros from the edges
-        for (int y = minPoint.y() + 1; y <= maxPoint.y() - 1; y++) {
-            for (int z = minPoint.z() + 1; z <= maxPoint.z() - 1; z++) {
+        for (long y = minPoint.y() + 1; y <= maxPoint.y() - 1; y++) {
+            for (long z = minPoint.z() + 1; z <= maxPoint.z() - 1; z++) {
                 spreadZeros(minPoint.x(), y, z);
                 spreadZeros(maxPoint.x(), y, z);
             }
         }
 
-        for (int x = minPoint.x() + 1; x <= maxPoint.x() - 1; x++) {
-            for (int z = minPoint.z() + 1; z <= maxPoint.z() - 1; z++) {
+        for (long x = minPoint.x() + 1; x <= maxPoint.x() - 1; x++) {
+            for (long z = minPoint.z() + 1; z <= maxPoint.z() - 1; z++) {
                 spreadZeros(x, minPoint.y(), z);
                 spreadZeros(x, maxPoint.y(), z);
             }
         }
 
-        for (int x = minPoint.x() + 1; x <= maxPoint.x() - 1; x++) {
-            for (int y = minPoint.y() + 1; y <= maxPoint.y() - 1; y++) {
+        for (long x = minPoint.x() + 1; x <= maxPoint.x() - 1; x++) {
+            for (long y = minPoint.y() + 1; y <= maxPoint.y() - 1; y++) {
                 spreadZeros(x, y, minPoint.z());
                 spreadZeros(x, y, minPoint.z());
             }
         }
 
         // lower neighboring counters for items missing
-        for (int x = minPoint.x(); x <= maxPoint.x() - 1; x++) {
-            for (int y = minPoint.y() ; y <= maxPoint.y(); y++) {
-                for (int z = minPoint.z(); z <= maxPoint.z(); z++) {
+        for (long x = minPoint.x(); x <= maxPoint.x() - 1; x++) {
+            for (long y = minPoint.y() ; y <= maxPoint.y(); y++) {
+                for (long z = minPoint.z(); z <= maxPoint.z(); z++) {
                     if (matrix.get(x, y, z) == null) {
                         lowerNeighboringMatrixCounts(matrix, x, y, z);
                     }
@@ -117,7 +117,7 @@ public class Day18 extends InputParser {
         return total;
     }
 
-    public void spreadZeros(int x, int y, int z) {
+    public void spreadZeros(long x, long y, long z) {
         // if we're off the grid, ignore this
         if (x < minPoint.x() || y < minPoint.y() || z < minPoint.z()
             || x > maxPoint.x() || y > maxPoint.y() || z > maxPoint.z()) {
@@ -139,7 +139,7 @@ public class Day18 extends InputParser {
         spreadZeros(x, y, z + 1);
     }
 
-    public void lowerNeighboringMatrixCounts(Sparse3DMatrix<Integer> matrix, int x, int y, int z) {
+    public void lowerNeighboringMatrixCounts(Sparse3DMatrix<Integer> matrix, long x, long y, long z) {
         lowerMatrixCounter(matrix, x - 1, y, z);
         lowerMatrixCounter(matrix, x + 1, y, z);
         lowerMatrixCounter(matrix, x, y - 1, z);
@@ -148,7 +148,7 @@ public class Day18 extends InputParser {
         lowerMatrixCounter(matrix, x, y, z + 1);
     }
 
-    public void lowerMatrixCounter(Sparse3DMatrix<Integer> matrix, int x, int y, int z) {
+    public void lowerMatrixCounter(Sparse3DMatrix<Integer> matrix, long x, long y, long z) {
         // if we're off the grid, ignore this
         if (x < minPoint.x() || y < minPoint.y() || z < minPoint.z()
                 || x > maxPoint.x() || y > maxPoint.y() || z > maxPoint.z()) {
