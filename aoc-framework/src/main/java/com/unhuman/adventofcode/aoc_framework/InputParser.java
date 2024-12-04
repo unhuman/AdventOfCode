@@ -247,10 +247,7 @@ public abstract class InputParser {
                         for (int i = 1; i <= matcher.groupCount(); i++) {
                             String lineItem = (matcher.group(i) != null && matcher.group(i).length() > 0)
                                     ? matcher.group(i) : null;
-                            // only add non-null items
-                            if (lineItem != null) {
-                                dataLine.add(lineItem);
-                            }
+                            dataLine.add(lineItem);
                         }
                         // allow continuation for duplicate matchers on a line
                         line = line.substring(line.indexOf(matcher.group(0)) + matcher.group(0).length());

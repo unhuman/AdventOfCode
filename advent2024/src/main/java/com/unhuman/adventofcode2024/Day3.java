@@ -25,6 +25,9 @@ public class Day3 extends InputParser {
         for (ItemLine line : item) {
             for (int itemNum = 0; itemNum < line.size(); itemNum++) {
                 String checkItem = line.getString(itemNum);
+                if (checkItem == null) {
+                    continue;
+                }
                 if (!checkItem.equals("do()") && !checkItem.equals("don't()")) {
                     Long item1 = line.getLong(itemNum);
                     Long item2 = line.getLong(itemNum + 1);
@@ -46,6 +49,9 @@ public class Day3 extends InputParser {
         for (ItemLine line : item) {
             for (int itemNum = 0; itemNum < line.size(); itemNum++) {
                 String checkItem = line.getString(itemNum);
+                if (checkItem == null) {
+                    continue;
+                }
                 switch (checkItem) {
                     case "do()":
                         addValue = true;

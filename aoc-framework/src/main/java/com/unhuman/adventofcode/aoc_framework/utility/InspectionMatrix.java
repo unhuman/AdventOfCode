@@ -57,16 +57,23 @@ public class InspectionMatrix {
     }
 
     public Character getValue(int x, int y) {
-        return getValue(new Point(x, y));
-    }
-
-    public Character getValue(Point point) {
-        Character charValue = (isValid(point)) ? matrix.get(point.y).get(point.x) : null;
+        Character charValue = (isValid(x, y)) ? matrix.get(y).get(x) : null;
+        if (charValue == null) {
+            return null;
+        }
         return (dataType == DataType.DIGIT) ? (char) (charValue - '0') : charValue;
     }
 
+    public Character getValue(Point point) {
+        return getValue(point.x, point.y);
+    }
+
+    public boolean isValid(int x, int y) {
+        return (x >= 0 && x < getWidth() && y >= 0 && y < getHeight());
+    }
+
     public boolean isValid(Point point) {
-        return (point.x >= 0 && point.x < getWidth() && point.y >= 0 && point.y < getHeight());
+        return isValid(point.x, point.y);
     }
 
     public List<Point> getAdjacentPoints(Point point, boolean includeDiagonals) {
