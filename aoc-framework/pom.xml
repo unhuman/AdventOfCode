@@ -9,7 +9,6 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.unhuman.adventofcode</groupId>
   <artifactId>aoc-framework</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 

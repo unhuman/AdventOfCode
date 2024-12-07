@@ -19,7 +19,7 @@ public class Day11 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        Matrix<Integer> matrix = new Matrix<>(configGroup, InspectionMatrix.SupportedType.INTEGER);
+        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.DIGIT);
 
         return 1;
     }
