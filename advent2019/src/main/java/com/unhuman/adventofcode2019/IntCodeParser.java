@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class IntCodeParser {
     private List<Integer> memory;
 
-    private String input = null;
+    private List<String> input = new ArrayList<>();
     private String output;
 
     enum ParameterMode { POSITION, IMMEDIATE }
@@ -233,11 +233,11 @@ public class IntCodeParser {
 
     String consumeInput() {
         System.out.println("Consuming input: ....");
-        return input;
+        return input.remove(0);
     }
 
     void setInput(String input) {
-        this.input = input;
+        this.input.add(input);
     }
 
     void appendOutput(int data, int instructionPointer) {
