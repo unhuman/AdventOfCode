@@ -5,8 +5,12 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Day7 extends InputParser {
-    private static final String regex1 = null;
+    private static final String regex1 = "(\\d+)";
     private static final String regex2 = null;
 
     public Day7() {
@@ -20,31 +24,99 @@ public class Day7 extends InputParser {
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
+        long grandTotal = 0;
         GroupItem group0 = configGroup.get(0);
         for (ItemLine line : group0) {
-            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-//                char value = line.getChar(itemNum);
-//                String value = line.getString(itemNum);
-//                Long value = line.getLong(itemNum);
+            long sum = line.getLong(0);
+            List<Long> operands = new ArrayList<>();
+            for (int itemNum = 1; itemNum < line.size(); itemNum++) {
+                operands.add(line.getLong(itemNum));
+            }
+
+            int operationsRequired = operands.size() - 1;
+            List<String> permutations = generateMathPermutations(operationsRequired, false);
+
+            for (String permutation: permutations) {
+                Long total = operands.get(0);
+                for (int i = 0; i < permutation.length(); i++) {
+                    char operation = permutation.charAt(i);
+                    switch (operation) {
+                        case '+':
+                            total += operands.get(i + 1);
+                            break;
+                        case '*':
+                            total *= operands.get(i + 1);
+                            break;
+                    }
+                }
+
+                if (total == sum) {
+                    grandTotal += sum;
+                    break;
+                }
             }
         }
 
-        // Here's code for a 2nd group, if needed
-//        GroupItem group1 = configGroup1.get(0);
-//        for (ItemLine line : group1) {
-//            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-////                char value = line.getChar(itemNum);
-////                String value = line.getString(itemNum);
-////                Long value = line.getLong(itemNum);
-//            }
-//        }
+        return grandTotal;
+    }
 
+    List<String> generateMathPermutations(int length, boolean includeAppend) {
+        if (length == 0) {
+            return Collections.singletonList("");
+        }
 
-        return 1;
+        List<String> recursedPermutations = generateMathPermutations(length - 1, includeAppend);
+
+        List<String> permutations = new ArrayList<>();
+        for (String recursedPermutation: recursedPermutations) {
+            permutations.add("+" + recursedPermutation);
+            permutations.add("*" + recursedPermutation);
+            if (includeAppend) {
+                permutations.add("|" + recursedPermutation);
+            }
+        }
+        return permutations;
     }
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        // easier to assume there's only one group
+        long grandTotal = 0;
+        GroupItem group0 = configGroup.get(0);
+        for (ItemLine line : group0) {
+            long sum = line.getLong(0);
+            List<Long> operands = new ArrayList<>();
+            for (int itemNum = 1; itemNum < line.size(); itemNum++) {
+                operands.add(line.getLong(itemNum));
+            }
+
+            int operationsRequired = operands.size() - 1;
+            List<String> permutations = generateMathPermutations(operationsRequired, true);
+
+            for (String permutation: permutations) {
+                Long total = operands.get(0);
+                for (int i = 0; i < permutation.length(); i++) {
+                    char operation = permutation.charAt(i);
+                    switch (operation) {
+                        case '+':
+                            total += operands.get(i + 1);
+                            break;
+                        case '*':
+                            total *= operands.get(i + 1);
+                            break;
+                        case '|':
+                            total = Long.parseLong(String.format("%d%d", total, operands.get(i + 1)));
+                            break;
+                    }
+                }
+
+                if (total == sum) {
+                    grandTotal += sum;
+                    break;
+                }
+            }
+        }
+
+        return grandTotal;
     }
 }
