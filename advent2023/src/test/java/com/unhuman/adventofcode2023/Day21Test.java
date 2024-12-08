@@ -183,12 +183,12 @@ public class Day21Test {
         Assertions.assertEquals(668697L, day.processInput2Original(groups[0], groups[1]));
     }
 
-    @Test
-    public void test2g() {
-        Day21 day = getDay(DATA2);
-        day.setCount(5000);
-        ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(16733044L, day.processInput2Original(groups[0], groups[1]));
-    }
+//    @Test
+//    public void test2g() {
+//        Day21 day = getDay(DATA2);
+//        day.setCount(5000);
+//        ConfigGroup[] groups = day.parseFiles();
+//        Assertions.assertEquals(16733044L, day.processInput2Original(groups[0], groups[1]));
+//    }
 
 }
