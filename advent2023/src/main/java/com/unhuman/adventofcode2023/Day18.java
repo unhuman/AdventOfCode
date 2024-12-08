@@ -4,7 +4,6 @@ import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
-import com.unhuman.adventofcode.aoc_framework.utility.InspectionMatrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Pair;
 import com.unhuman.adventofcode.aoc_framework.utility.SparseMatrix;
@@ -81,7 +80,7 @@ public class Day18 extends InputParser {
 
         // Copy all this data to a matrix
         int populatedPoints = 0;
-        Matrix matrix = new Matrix(bottomRight.x + xOffset + 1, bottomRight.y + yOffset + 1, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new Matrix(bottomRight.x + xOffset + 1, bottomRight.y + yOffset + 1, Matrix.DataType.CHARACTER);
         for (int row = topLeft.y; row <= bottomRight.y; row++) {
             for (int col = topLeft.x; col <= bottomRight.x; col++) {
                 if (dugout.get(col, row) != null) {

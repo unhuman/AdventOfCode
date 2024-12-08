@@ -2,7 +2,6 @@ package com.unhuman.adventofcode2024;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.utility.InspectionMatrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Pair;
 
@@ -33,7 +32,7 @@ public class Day6 extends InputParser {
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         corners.clear();
 
-        Matrix map = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix map = new Matrix(configGroup, Matrix.DataType.CHARACTER);
         Point direction = new Point(0, -1);
 
         Point location = map.findCharacterLocations('^').get(0);
@@ -75,7 +74,7 @@ public class Day6 extends InputParser {
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        Matrix map = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix map = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
         Point start = map.findCharacterLocations('^').get(0);
 

@@ -2,10 +2,9 @@ package com.unhuman.adventofcode2023;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.utility.InspectionMatrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -73,7 +72,7 @@ public class Day16 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
         Beam startingBeam = new Beam(-1, 0, Direction.RIGHT);
 
@@ -175,7 +174,7 @@ public class Day16 extends InputParser {
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
         int maxScore = 0;
         for (int i = 0; i < matrix.getWidth(); i++) {

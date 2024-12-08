@@ -2,7 +2,6 @@ package com.unhuman.adventofcode2023;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.utility.InspectionMatrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Pair;
 
@@ -32,7 +31,7 @@ public class Day23 extends InputParser {
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
-        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
         Point startingPoint = matrix.findCharacterLocationsInRow(0, '.').get(0);
         Point endingPoint = matrix.findCharacterLocationsInRow(matrix.getHeight() - 1, '.').get(0);
 
@@ -193,7 +192,7 @@ public class Day23 extends InputParser {
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
-        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
         prepopulateDistanceCache(matrix, true);
 

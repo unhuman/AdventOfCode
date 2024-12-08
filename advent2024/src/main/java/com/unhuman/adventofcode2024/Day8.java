@@ -2,7 +2,6 @@ package com.unhuman.adventofcode2024;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.utility.InspectionMatrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
 import com.unhuman.adventofcode.aoc_framework.utility.PointHelper;
 
@@ -25,7 +24,7 @@ public class Day8 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
         List<Character> antennaNames = new ArrayList<>(matrix.getKnownCharacters());
         antennaNames.remove(Character.valueOf('.'));
@@ -56,7 +55,7 @@ public class Day8 extends InputParser {
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
         List<Character> antennaNames = new ArrayList<>(matrix.getKnownCharacters());
         antennaNames.remove(Character.valueOf('.'));

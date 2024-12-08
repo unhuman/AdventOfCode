@@ -2,7 +2,6 @@ package com.unhuman.adventofcode2023;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.utility.InspectionMatrix;
 import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
 import com.unhuman.adventofcode.aoc_framework.utility.ScrollingMatrix;
 
@@ -76,7 +75,7 @@ public class Day21 extends InputParser {
         Parity parity = (countDesired % 2 == 0) ? Parity.EVEN : Parity.ODD;
 
         LinkedHashMap<Point, TouchedPoint> touchedPoints = new LinkedHashMap<>();
-        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
         List<Point> priorStepPoints = new ArrayList<>();
         Point startingPoint = matrix.findCharacterLocations('S').get(0);
@@ -123,7 +122,7 @@ public class Day21 extends InputParser {
         boolean evens = count2 % 2 == 0;
 
         LinkedHashMap<Point, TouchedPoint> touchedPoints = new LinkedHashMap<>();
-        Matrix matrix = new ScrollingMatrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new ScrollingMatrix(configGroup, Matrix.DataType.CHARACTER);
 
 
         List<Point> priorStepPoints = new ArrayList<>();
@@ -177,7 +176,7 @@ public class Day21 extends InputParser {
         boolean evens = count2 % 2 == 0;
 
         LinkedHashMap<Point, TouchedPoint> touchedPoints = new LinkedHashMap<>();
-        Matrix matrix = new ScrollingMatrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+        Matrix matrix = new ScrollingMatrix(configGroup, Matrix.DataType.CHARACTER);
 
         // calculate evens and odds
         if (matrix.getWidth() != matrix.getHeight()) {
