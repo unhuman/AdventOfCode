@@ -11,8 +11,7 @@ public class Day0Test {
             "\n";
 
     static InputParser getDay(String data) {
-        return null;
-        //return new DayX(data);
+        return new Day0(data);
     }
 
     @Test
