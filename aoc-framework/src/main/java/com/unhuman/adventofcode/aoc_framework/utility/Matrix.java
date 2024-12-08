@@ -24,7 +24,7 @@ import java.util.Set;
  *
  */
 public class Matrix {
-    public enum DataType { CHARACTER, DIGIT}
+    public enum DataType { CHARACTER, DIGIT }
     protected List<List<Character>> matrix;
     protected DataType dataType;
 
@@ -37,11 +37,12 @@ public class Matrix {
 
         this.dataType = dataType;
         this.matrix = new ArrayList<>(height);
+        Character emptyValue = (dataType == DataType.CHARACTER) ? ' ' : '0';
         for (int i = 0; i < height; ++i) {
             List<Character> line = new ArrayList<>(width);
             if (initLines) {
                 for (int x = 0; x < width; x++) {
-                    line.add(null);
+                    line.add(emptyValue);
                 }
             }
             this.matrix.add(line);
