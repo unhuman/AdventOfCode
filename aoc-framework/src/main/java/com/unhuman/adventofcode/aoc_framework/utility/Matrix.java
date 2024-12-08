@@ -2,7 +2,6 @@ package com.unhuman.adventofcode.aoc_framework.utility;
 
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
-import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -30,18 +30,25 @@ public class Matrix {
 
     Map<Character, List<Point>> characterTracker = new HashMap<>();
 
-    private Matrix(int width, int height, Matrix.DataType dataType, boolean initLines) {
+    private Matrix(int width, int height, Matrix.DataType dataType, Optional<GroupItem> optionalGroup) {
         if (width < 1 || height < 1) {
             throw new RuntimeException("Can't create matrix of size (" + width + ", " + height + ")");
         }
 
         this.dataType = dataType;
         this.matrix = new ArrayList<>(height);
-        Character emptyValue = (dataType == DataType.CHARACTER) ? ' ' : '0';
-        for (int i = 0; i < height; ++i) {
+        char emptyValue = (dataType == DataType.CHARACTER) ? ' ' : '0';
+        for (int y = 0; y < height; ++y) {
             List<Character> line = new ArrayList<>(width);
-            if (initLines) {
-                for (int x = 0; x < width; x++) {
+            for (int x = 0; x < width; x++) {
+                if (optionalGroup.isPresent()) {
+                    Character character = optionalGroup.get().get(y).getChar(x);
+                    if (!characterTracker.containsKey(character)) {
+                        characterTracker.put(character, new ArrayList<>());
+                    }
+                    characterTracker.get(character).add(new Point(x, y));
+                    line.add(character);
+                } else {
                     line.add(emptyValue);
                 }
             }
@@ -50,26 +57,11 @@ public class Matrix {
     }
 
     public Matrix(int width, int height, Matrix.DataType dataType) {
-        this (width, height, dataType, true);
+        this (width, height, dataType, Optional.empty());
     }
 
     public Matrix(ConfigGroup configGroup, DataType dataType) {
-        this(configGroup.get(0).get(0).size(), configGroup.get(0).size(), dataType, false);
-        GroupItem groupItem = configGroup.get(0);
-        int width = groupItem.get(0).size();
-        for (int y = 0; y < getHeight(); y++) {
-            ItemLine line = groupItem.get(y);
-            List<Character> matrixLine = matrix.get(y);
-            for (int x = 0; x < width; x++) {
-                Character character = line.get(x).charAt(0);
-                if (!characterTracker.containsKey(character)) {
-                    characterTracker.put(character, new ArrayList<>());
-                }
-                characterTracker.get(character).add(new Point(x, y));
-
-                matrixLine.add(x, character);
-            }
-        }
+        this(configGroup.get(0).get(0).size(), configGroup.get(0).size(), dataType, Optional.of(configGroup.get(0)));
     }
 
     /**
