@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Day7Test {
     // data must be at least 2 lines - add \n for single line data
     private static final String DATA =
-            "";
+            "\n";
 
     static InputParser getDay(String data) {
         return new Day7(data);
