@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class Day9Test {
     // data must be at least 2 lines - add \n for single line data
     private static final String DATA =
-            "";
+            "\n";
 
     static InputParser getDay(String data) {
         return new Day9(data);

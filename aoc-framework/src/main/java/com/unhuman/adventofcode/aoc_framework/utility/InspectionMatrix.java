@@ -23,6 +23,7 @@ public abstract class InspectionMatrix {
     public enum DataType { CHARACTER, DIGIT}
     protected List<List<Character>> matrix;
     protected DataType dataType;
+    Map<Character, List<Point>> characterTracker = new HashMap<>();
 
     protected InspectionMatrix(int width, int height, DataType dataType) {
         this.dataType = dataType;
@@ -34,6 +35,15 @@ public abstract class InspectionMatrix {
             }
             this.matrix.add(line);
         }
+    }
+
+    /** Only to be used during setup */
+    protected void initializeValue(int x, int y, Character character) {
+        matrix.get(y).set(x, character);
+        if (!characterTracker.containsKey(character)) {
+            characterTracker.put(character, new ArrayList<>());
+        }
+        characterTracker.get(character).add(new Point(x, y));
     }
 
     /**
@@ -146,6 +156,14 @@ public abstract class InspectionMatrix {
             }
         }
         return founds;
+    }
+
+    public Set<Character> getKnownCharacters() {
+        return characterTracker.keySet();
+    }
+
+    public List<Point> getCharacterLocations(Character character) {
+        return characterTracker.getOrDefault(character, Collections.emptyList());
     }
 
     public boolean isValidLocation(Point point) {
