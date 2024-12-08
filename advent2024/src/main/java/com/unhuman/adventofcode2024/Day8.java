@@ -2,11 +2,17 @@ package com.unhuman.adventofcode2024;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
-import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
+import com.unhuman.adventofcode.aoc_framework.utility.InspectionMatrix;
+import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
+import com.unhuman.adventofcode.aoc_framework.utility.PointHelper;
+
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class Day8 extends InputParser {
-    private static final String regex1 = null;
+    private static final String regex1 = "(.)";
     private static final String regex2 = null;
 
     public Day8() {
@@ -19,32 +25,67 @@ public class Day8 extends InputParser {
 
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        // easier to assume there's only one group
-        GroupItem group0 = configGroup.get(0);
-        for (ItemLine line : group0) {
-            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-//                char value = line.getChar(itemNum);
-//                String value = line.getString(itemNum);
-//                Long value = line.getLong(itemNum);
+        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+
+        List<Character> antennaNames = new ArrayList<>(matrix.getKnownCharacters());
+        antennaNames.remove(Character.valueOf('.'));
+
+        HashSet<Point> antinodes = new HashSet<>();
+
+        for (Character antennaName: antennaNames) {
+            List <Point> antennaLocations = matrix.getCharacterLocations(antennaName);
+            for (int i = 0; i < antennaLocations.size() - 1; i++) {
+                for (int j = i + 1; j < antennaLocations.size(); j++) {
+                    Point p1 = antennaLocations.get(i);
+                    Point p2 = antennaLocations.get(j);
+                    Point slope = PointHelper.getSlope(p1, p2);
+                    Point check = PointHelper.subtrackSlope(p1, slope);
+                    if (matrix.isValidLocation(check)) {
+                        antinodes.add(check);
+                    }
+                    check = PointHelper.addSlope(p2, slope);
+                    if (matrix.isValidLocation(check)) {
+                        antinodes.add(check);
+                    }
+                }
             }
         }
 
-        // Here's code for a 2nd group, if needed
-//        GroupItem group1 = configGroup1.get(0);
-//        for (ItemLine line : group1) {
-//            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-////                char value = line.getChar(itemNum);
-////                String value = line.getString(itemNum);
-////                Long value = line.getLong(itemNum);
-//            }
-//        }
-
-
-        return 1;
+        return antinodes.size();
     }
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        Matrix matrix = new Matrix(configGroup, InspectionMatrix.DataType.CHARACTER);
+
+        List<Character> antennaNames = new ArrayList<>(matrix.getKnownCharacters());
+        antennaNames.remove(Character.valueOf('.'));
+
+        HashSet<Point> antinodes = new HashSet<>();
+
+        for (Character antennaName: antennaNames) {
+            List <Point> antennaLocations = matrix.getCharacterLocations(antennaName);
+            for (int i = 0; i < antennaLocations.size() - 1; i++) {
+                for (int j = i + 1; j < antennaLocations.size(); j++) {
+                    Point p1 = antennaLocations.get(i);
+                    Point p2 = antennaLocations.get(j);
+                    Point slope = PointHelper.getSlope(p1, p2);
+                    Point check = PointHelper.subtrackSlope(p1, slope);
+                    antinodes.add(p1);
+                    antinodes.add(p2);
+                    while (matrix.isValidLocation(check)) {
+                        antinodes.add(check);
+                        check = PointHelper.subtrackSlope(check, slope);
+                    }
+                    check = PointHelper.addSlope(p2, slope);
+                    while (matrix.isValidLocation(check)) {
+                        antinodes.add(check);
+                        check = PointHelper.addSlope(check, slope);
+                    }
+                }
+            }
+        }
+
+        return antinodes.size();
     }
 }

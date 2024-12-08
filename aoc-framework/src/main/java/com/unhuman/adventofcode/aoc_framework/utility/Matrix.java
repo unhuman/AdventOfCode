@@ -2,7 +2,7 @@ package com.unhuman.adventofcode.aoc_framework.utility;
 
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.List;
 
 /**
@@ -17,7 +17,6 @@ import java.util.List;
  *
  */
 public class Matrix extends InspectionMatrix {
-
     public Matrix(ConfigGroup configGroup, DataType dataType) {
         super(configGroup.get(0).get(0).size(), configGroup.get(0).size(), dataType);
         if (configGroup.size() != 1) {
@@ -27,7 +26,7 @@ public class Matrix extends InspectionMatrix {
         for (int y = 0; y < getHeight(); y++) {
             List<String> line = configGroup.get(0).get(y);
             for (int x = 0; x < getWidth(); x++) {
-                matrix.get(y).set(x, line.get(x).charAt(0));
+                initializeValue(x, y, line.get(x).charAt(0));
             }
         }
     }
@@ -37,7 +36,7 @@ public class Matrix extends InspectionMatrix {
 
         for (int x = 0; x < getWidth(); x++) {
             for (int y = 0; y < getHeight(); y++) {
-                matrix.get(y).set(x, ' ');
+                initializeValue(x, y, ' ');
             }
         }
     }
@@ -60,7 +59,7 @@ public class Matrix extends InspectionMatrix {
     }
 
     public int floodFill(int x, int y, char match, char fillPattern) {
-        if (x < 0 || y < 0 || x >= getWidth() || y >= getHeight()) {
+        if (!isValidLocation(x, y)) {
             return 0;
         }
         if (matrix.get(y).get(x) != match) {
@@ -76,4 +75,5 @@ public class Matrix extends InspectionMatrix {
                 + floodFill(x, y + 1, match, fillPattern);
         return count;
     }
+
 }

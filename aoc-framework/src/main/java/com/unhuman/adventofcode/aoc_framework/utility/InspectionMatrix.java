@@ -2,7 +2,11 @@ package com.unhuman.adventofcode.aoc_framework.utility;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * InspectionMatrix class can be used to parse input easily
@@ -15,7 +19,7 @@ import java.util.List;
  *
  * getAdjacentPoints() would be useful to find valid, adjacent points
  */
-public class InspectionMatrix {
+public abstract class InspectionMatrix {
     public enum DataType { CHARACTER, DIGIT}
     protected List<List<Character>> matrix;
     protected DataType dataType;
@@ -38,15 +42,15 @@ public class InspectionMatrix {
      * The owned matrix should be the one mutated
      * @return
      */
-    public InspectionMatrix getInspectionMatrix() {
-        int height = getHeight();
-        InspectionMatrix inspectionMatrix = new InspectionMatrix(matrix.get(0).size(), height, dataType);
-        for (int y = 0; y < height; y++) {
-            // TODO: this is probably wrong now
-            inspectionMatrix.matrix.add(new ArrayList<>(matrix.get(y)));
-        }
-        return inspectionMatrix;
-    }
+//    public InspectionMatrix getInspectionMatrix() {
+//        int height = getHeight();
+//        InspectionMatrix inspectionMatrix = new InspectionMatrix(matrix.get(0).size(), height, dataType);
+//        for (int y = 0; y < height; y++) {
+//            // TODO: this is probably wrong now
+//            inspectionMatrix.matrix.add(new ArrayList<>(matrix.get(y)));
+//        }
+//        return inspectionMatrix;
+//    }
 
     public int getWidth() {
         return matrix.get(0).size();
@@ -142,6 +146,14 @@ public class InspectionMatrix {
             }
         }
         return founds;
+    }
+
+    public boolean isValidLocation(Point point) {
+        return isValidLocation(point.x, point.y);
+    }
+
+    public boolean isValidLocation(int x, int y) {
+        return (x >= 0 && x < getWidth() && y >=0 && y < getHeight());
     }
 
     @Override

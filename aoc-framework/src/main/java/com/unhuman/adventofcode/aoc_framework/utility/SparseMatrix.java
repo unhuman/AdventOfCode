@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 public class SparseMatrix<T> {
     enum MatrixSystem { CARTESIAN, ROW }
 
-    private Map<Point, T> matrix = new HashMap();
-    private T defaultValue = null;
+    private Map<Point, T> matrix;
+    private T defaultValue;
     private Point topLeft = null;
     private Point bottomRight = null;
 
@@ -22,7 +22,7 @@ public class SparseMatrix<T> {
     }
 
     public SparseMatrix(T defaultValue) {
-        this.matrix = new HashMap();
+        this.matrix = new HashMap<>();
         this.defaultValue = defaultValue;
     }
 
