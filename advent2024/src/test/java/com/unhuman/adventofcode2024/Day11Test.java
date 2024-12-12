@@ -22,11 +22,19 @@ public class Day11Test {
         Assertions.assertEquals(55312L, day.processInput1(groups[0], groups[1]));
     }
 
+//    @Test
+//    public void test2a() {
+//        String data = "0 1\n";
+//        InputParser day = getDay(data);
+//        ConfigGroup[] groups = day.parseFiles();
+//        Assertions.assertEquals(55312L, day.processInput2(groups[0], groups[1]));
+//    }
+
     @Test
     public void test2() {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(19778L, day.processInput2(groups[0], groups[1]));
     }
 }
