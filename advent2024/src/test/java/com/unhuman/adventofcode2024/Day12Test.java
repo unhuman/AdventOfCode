@@ -164,4 +164,88 @@ public class Day12Test {
         Assertions.assertEquals(196L, day.processInput2(groups[0], groups[1]));
     }
 
+    @Test
+    public void test2j() {
+        String data =
+                "BAB\n" +
+                        "ABA\n" +
+                        "BAB";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(36L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2k() {
+        String data =
+                "ABA\n" +
+                        "BBB\n" +
+                        "ABA";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(76L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2l() {
+        String data =
+                "CCCCC\n" +
+                        "CAAAC\n" +
+                        "CACAC\n" +
+                        "CAAAC\n" +
+                        "CCCCC\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(196L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2m() {
+        String data =
+                "CCCCC\n" +
+                        "AAAAC\n" +
+                        "ACCAC\n" +
+                        "ACAAC\n" +
+                        "ACCCC\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(280L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2n() {
+        String data =
+                        "AAABB\n" +
+                        "AAABB\n" +
+                        "BBBAA\n" +
+                        "BBBAA\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(80L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2o() {
+        String data =
+                "AAABB\n" +
+                "AAABB\n" +
+                "BBAAA\n" +
+                "BBAAA\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(128L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2p() {
+        String data =
+                "AAAAA\n" +
+                "AAABA\n" +
+                "ABAAA\n" +
+                "AAAAA\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(224L, day.processInput2(groups[0], groups[1]));
+    }
+
 }

@@ -131,7 +131,7 @@ public class Day12 extends InputParser {
                 }
 
                 long sides = 0;
-                while (fences.size() > 0) {
+                while (!fences.isEmpty()) {
                     Fence fence = fences.remove(0);
                     sides++;
                     cleanAdjacentFences(fences, fence);
