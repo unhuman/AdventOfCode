@@ -95,8 +95,6 @@ public class Day12 extends InputParser {
         }
     }
 
-    List<String> seenRegions = new ArrayList<>();
-
     @Override
     // 910172 too high
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
@@ -139,29 +137,9 @@ public class Day12 extends InputParser {
                     cleanAdjacentFences(fences, fence);
                 }
                 cost += area * sides;
-
-                seenRegions.add("Section: " + fieldName + " Area: " + area + " * sides " + sides + " = " + area * sides);
-                System.out.println("Section: " + fieldName + " Area: " + area + " * sides " + sides + " = " + area * sides);
             }
         }
 
-        Collections.sort(seenRegions);
-        long total = 0;
-        Character currentRegion = null;
-        for (String region : seenRegions) {
-            // System.out.println(region);
-            // parse out the section from the region
-            String[] parts = region.split(" ");
-            Character current = parts[1].charAt(0);
-            if (!current.equals(currentRegion)) {
-                System.out.println("Total for " + currentRegion + ": " + total);
-                currentRegion = current;
-                total = 0;
-            }
-            total += Long.parseLong(parts[8]);
-            // parse out the total from the region
-        }
-        System.out.println("Total for " + currentRegion + ": " + total);
         return cost;
     }
 
