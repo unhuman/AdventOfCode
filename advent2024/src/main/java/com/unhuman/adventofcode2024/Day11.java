@@ -3,11 +3,14 @@ package com.unhuman.adventofcode2024;
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
+import com.unhuman.adventofcode.aoc_framework.utility.ListHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Day11 extends InputParser {
     private static final String regex1 = "(\\d+)\\s*";
@@ -61,41 +64,48 @@ public class Day11 extends InputParser {
         return blinked;
     }
 
-    public List<Long> blink2(Long value, int roundsLeft) {
+    public Long blink2(Map<Long, Long> lineMap, int roundsLeft) {
         if (roundsLeft == 0) {
-            return Collections.singletonList(value);
+            Long total = 0L;
+
+            for (Map.Entry<Long, Long> entry : lineMap.entrySet()) {
+                total += entry.getValue();
+            }
+
+            return total;
         }
 
-        List<Long> result = new ArrayList<>();
-
-        List<Long> nextResults = blinkRules(value);
-        for (Long next: nextResults) {
-            result.addAll(blink2(next, roundsLeft - 1));
-        }
-
-        return result;
-    }
-
-    public List<Long> blink2(List<Long> lineMap, int roundsLeft) {
         List<Long> blinked = new ArrayList<>();
-        for (int i = 0; i < lineMap.size(); i++) {
-            blinked.addAll(blink2(lineMap.get(i), roundsLeft));
-        }
-        return blinked;
+
+        Map<Long, Long> nextLineMap = new HashMap<>();
+
+        lineMap.forEach((key, count) -> {
+            List<Long> nextResults = blinkRules(key);
+            nextResults.forEach(next -> {
+                if (!nextLineMap.containsKey(next)) {
+                    nextLineMap.put(next, count);
+                } else {
+                    nextLineMap.put(next, nextLineMap.get(next) + count);
+                }
+            });
+        });
+
+        System.out.println("RoundsLeft = " + roundsLeft + " " + lineMap);
+        return (blink2(nextLineMap, roundsLeft - 1));
     }
 
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        List<Long> lineMap = new ArrayList<>();
+        List<Long> data = new ArrayList<>();
 
         ItemLine line = configGroup.get(0).get(0);
         for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-            lineMap.add(line.getLong(itemNum));
+            data.add(line.getLong(itemNum));
         }
 
-        lineMap = blink2(lineMap, 25);
+        Map<Long, Long> itemCounts = (Map<Long, Long>) ListHelper.getItemCounts(data);
 
-        return (long) lineMap.size();
+        return blink2(itemCounts, 75);
     }
 }
