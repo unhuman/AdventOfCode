@@ -81,19 +81,21 @@ public class Day12 extends InputParser {
             return;
         }
 
-        for (int i = 0; i < fences.size(); ) {
-            Fence checkFence = fences.get(i);
-            if (new Fence(fence.x - 1, fence.y, fence.fenceLocation).equals(checkFence)
-                    || new Fence(fence.x + 1, fence.y, fence.fenceLocation).equals(checkFence)
-                    || new Fence(fence.x, fence.y - 1, fence.fenceLocation).equals(checkFence)
-                    || new Fence(fence.x, fence.y + 1, fence.fenceLocation).equals(checkFence)) {
-                fences.remove(checkFence);
-                cleanAdjacentFences(fences, checkFence);
-            } else {
-                i++;
-            }
+        for (int i = fences.size() - 1; i >= 0; --i) {
+            try {
+                Fence checkFence = fences.get(i);
+                if (new Fence(fence.x - 1, fence.y, fence.fenceLocation).equals(checkFence)
+                        || new Fence(fence.x + 1, fence.y, fence.fenceLocation).equals(checkFence)
+                        || new Fence(fence.x, fence.y - 1, fence.fenceLocation).equals(checkFence)
+                        || new Fence(fence.x, fence.y + 1, fence.fenceLocation).equals(checkFence)) {
+                    fences.remove(checkFence);
+                    cleanAdjacentFences(fences, checkFence);
+                }
+            } catch (Exception e) { }
         }
     }
+
+    List<String> seenRegions = new ArrayList<>();
 
     @Override
     // 910172 too high
@@ -107,7 +109,7 @@ public class Day12 extends InputParser {
 
         for (Character fieldName: fieldNames) {
             List<Point> locations = matrix.getCharacterLocations(fieldName);
-            while (locations.size() > 0) {
+            while (!locations.isEmpty()) {
                 Point startLocation = locations.get(0);
                 Set<Point> field = findAdjacentPositions(matrix, locations, startLocation, fieldName);
 
@@ -137,10 +139,29 @@ public class Day12 extends InputParser {
                     cleanAdjacentFences(fences, fence);
                 }
                 cost += area * sides;
+
+                seenRegions.add("Section: " + fieldName + " Area: " + area + " * sides " + sides + " = " + area * sides);
                 System.out.println("Section: " + fieldName + " Area: " + area + " * sides " + sides + " = " + area * sides);
             }
         }
 
+        Collections.sort(seenRegions);
+        long total = 0;
+        Character currentRegion = null;
+        for (String region : seenRegions) {
+            // System.out.println(region);
+            // parse out the section from the region
+            String[] parts = region.split(" ");
+            Character current = parts[1].charAt(0);
+            if (!current.equals(currentRegion)) {
+                System.out.println("Total for " + currentRegion + ": " + total);
+                currentRegion = current;
+                total = 0;
+            }
+            total += Long.parseLong(parts[8]);
+            // parse out the total from the region
+        }
+        System.out.println("Total for " + currentRegion + ": " + total);
         return cost;
     }
 
