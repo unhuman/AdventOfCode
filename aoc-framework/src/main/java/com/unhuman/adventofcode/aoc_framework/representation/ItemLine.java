@@ -17,6 +17,10 @@ public class ItemLine extends ArrayList<String> {
         return get(index);
     }
 
+    public int getInt(int index) {
+        return Integer.parseInt(get(index));
+    }
+
     public long getLong(int index) {
         return Long.parseLong(get(index));
     }
