@@ -136,11 +136,22 @@ public class Day13Test {
         Assertions.assertEquals(480L, day.processInput1(groups[0], groups[1]));
     }
 
-    @Test
-    public void test2() {
-        String data = DATA;
-        InputParser day = getDay(data);
-        ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput2(groups[0], groups[1]));
-    }
+    // These tests not valid for the englarger numbers
+//    @Test
+//    public void test2a() {
+//        String data = "Button A: X+94, Y+34\n" +
+//                "Button B: X+22, Y+67\n" +
+//                "Prize: X=8400, Y=5400\n";
+//        InputParser day = getDay(data);
+//        ConfigGroup[] groups = day.parseFiles();
+//        Assertions.assertEquals(280L, day.processInput2(groups[0], groups[1]));
+//    }
+//
+//    @Test
+//    public void test2() {
+//        String data = DATA;
+//        InputParser day = getDay(data);
+//        ConfigGroup[] groups = day.parseFiles();
+//        Assertions.assertEquals(480L, day.processInput2(groups[0], groups[1]));
+//    }
 }

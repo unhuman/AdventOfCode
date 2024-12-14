@@ -4,6 +4,9 @@ import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
+import com.unhuman.adventofcode.aoc_framework.utility.Pair;
+
+import java.awt.Button;
 
 public class Day13 extends InputParser {
     private static final String regex1 = "(Button|Prize)\\s*([AB]?): X[+=](\\d+), Y[+=](\\d+)";
@@ -63,6 +66,7 @@ public class Day13 extends InputParser {
                     i * buttonA.yDelta + buttonBMax * buttonB.yDelta == prize.yLocation) {
                     long cost = i * BUTTON_A_COST + buttonBMax * BUTTON_B_COST;
                     if (minValue == null || cost < minValue) {
+//                        System.out.println("a = " + i + " b = " + buttonBMax);
                         minValue = cost;
                     }
                 }
@@ -73,6 +77,44 @@ public class Day13 extends InputParser {
         } else {
             throw new RuntimeException("No solution found");
         }
+    }
+
+    Long calculateMinimumCost2(Button buttonA, Button buttonB, Prize prize) {
+        // reduce to solve for x
+
+//        Button A: X+94, Y+34
+//        Button B: X+22, Y+67
+//        Prize: X=8400, Y=5400
+
+        // Equations
+        // A * buttonA.xDelta + B * buttonB.xDelta = Prize.X
+        // A * buttonA.yDelta + B * buttonB.yDelta = Prize.Y
+
+        // inverse co-efficients to eliminate first variable
+        // A * buttonA.xDelta * buttonA.yDelta + B * buttonB.xDelta * ButtonA.yDelta = Prize.X * buttonA.yDelta
+        // A * buttonA.yDelta * buttonA.xDelta + B * buttonB.yDelta * buttonA.xDelta = Prize.Y * buttonA.xDelta
+        // subtract equations
+        // B * (buttonB.xDelta * ButtonA.yDelta) - B * (buttonB.yDelta * buttonA.xDelta)
+        //                = Prize.X * buttonA.yDelta - Prize.Y * buttonA.xDelta
+
+
+        long diffEquations = buttonB.xDelta * buttonA.yDelta - buttonB.yDelta * buttonA.xDelta;
+        long diffTotals = prize.xLocation * buttonA.yDelta - prize.yLocation * buttonA.xDelta;
+
+        // calculate b button hits
+        if (diffTotals % diffEquations != 0) {
+            throw new RuntimeException("Decimal");
+        }
+        long b = diffTotals / diffEquations;
+
+        // then solve for a button hits
+        // A * buttonA.xDelta + B * buttonB.xDelta = Prize.X
+        if (((prize.xLocation - b * buttonB.xDelta) % buttonA.xDelta) != 0) {
+            throw new RuntimeException("Decimal");
+        }
+        long a = (prize.xLocation - b * buttonB.xDelta) / buttonA.xDelta;
+
+        return a * BUTTON_A_COST + b * BUTTON_B_COST;
     }
 
     // This is expensive.  I'm sure there's a better way to do this.
@@ -115,6 +157,7 @@ public class Day13 extends InputParser {
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         Long totalMinimumCost = 0L;
         final long ENGLARGER = 10000000000000L;
+
         for (GroupItem group : configGroup) {
             ItemLine line = group.get(0);
             assert ("Button".equals(line.getString(0)));
@@ -129,8 +172,7 @@ public class Day13 extends InputParser {
             Prize prize = new Prize(line.getLong(2) + ENGLARGER, line.getLong(3) + ENGLARGER);
 
             try {
-                System.out.print("Next");
-                totalMinimumCost += calculateMinimumCost(button1, button2, prize);
+                totalMinimumCost += calculateMinimumCost2(button1, button2, prize);
             } catch (Exception e) {
                 // ignore
             }

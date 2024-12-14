@@ -58,5 +58,6 @@
         <module>advent2021</module>
         <module>advent2022</module>
         <module>advent2023</module>
+        <module>advent2024</module>
     </modules>
 </project>

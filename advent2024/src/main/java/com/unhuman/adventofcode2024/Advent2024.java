@@ -20,8 +20,8 @@ public class Advent2024
 //        new Day10().process();
 //        new Day11().process();
 //        new Day12().process();
-        new Day13().process();
-//        new Day14().process();
+//        new Day13().process();
+        new Day14().process();
 //        new Day15().process();
 //        new Day16().process();
 //        new Day17().process();
