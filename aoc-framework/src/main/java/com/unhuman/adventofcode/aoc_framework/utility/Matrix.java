@@ -25,10 +25,46 @@ import java.util.Set;
  */
 public class Matrix {
     public enum DataType { CHARACTER, DIGIT }
+    public enum Direction {
+        UP(new Point(0, -1)),
+        RIGHT(new Point(1, 0)),
+        DOWN(new Point(0, 1)),
+        LEFT(new Point (-1, 0));
+
+        private final Point direction;
+
+        Direction(Point point) {
+            this.direction = point;
+        }
+
+        public Point getDirection() {
+            return direction;
+        }
+
+        public static Direction getDirection(Character arrow) {
+            return switch (arrow) {
+                case '^' -> UP;
+                case '>' -> RIGHT;
+                case 'v' -> DOWN;
+                case '<' -> LEFT;
+                default -> throw new RuntimeException("Invalid direction: " + arrow);
+            };
+        }
+
+        public static Point getDirectionVelocity(Character arrow) {
+            return switch (arrow) {
+                case '^' -> UP.getDirection();
+                case '>' -> RIGHT.getDirection();
+                case 'v' -> DOWN.getDirection();
+                case '<' -> LEFT.getDirection();
+                default -> throw new RuntimeException("Invalid direction: " + arrow);
+            };
+        }
+    }
     protected List<List<Character>> matrix;
     protected DataType dataType;
 
-    Map<Character, List<Point>> characterTracker = new HashMap<>();
+    Map<Character, List<Point>> startingCharacterTracker = new HashMap<>();
 
     private Matrix(int width, int height, Matrix.DataType dataType, Optional<GroupItem> optionalGroup) {
         if (width < 1 || height < 1) {
@@ -43,10 +79,10 @@ public class Matrix {
             for (int x = 0; x < width; x++) {
                 if (optionalGroup.isPresent()) {
                     Character character = optionalGroup.get().get(y).getChar(x);
-                    if (!characterTracker.containsKey(character)) {
-                        characterTracker.put(character, new ArrayList<>());
+                    if (!startingCharacterTracker.containsKey(character)) {
+                        startingCharacterTracker.put(character, new ArrayList<>());
                     }
-                    characterTracker.get(character).add(new Point(x, y));
+                    startingCharacterTracker.get(character).add(new Point(x, y));
                     line.add(character);
                 } else {
                     line.add(emptyValue);
@@ -95,7 +131,7 @@ public class Matrix {
         matrix.get(y).set(x, character);
     }
 
-    public void setPointValue(Point point, Character character) {
+    public void setValue(Point point, Character character) {
         setValue(point.x, point.y, character);
     }
 
@@ -103,12 +139,18 @@ public class Matrix {
         return matrix;
     }
 
-    public Set<Character> getKnownCharacters() {
-        return characterTracker.keySet();
+    public Set<Character> getStartingKnownCharacters() {
+        return startingCharacterTracker.keySet();
     }
 
-    public List<Point> getCharacterLocations(Character character) {
-        return characterTracker.getOrDefault(character, Collections.emptyList());
+    /**
+     * Returns list of the character locations that everything started at
+     * Alternative is getCharacterLocations
+     * @param character
+     * @return
+     */
+    public List<Point> getStartingCharacterLocations(Character character) {
+        return startingCharacterTracker.getOrDefault(character, Collections.emptyList());
     }
 
     public int floodFill(Point point, char match, char fillPattern) {
@@ -186,7 +228,7 @@ public class Matrix {
         return adjacentPoints;
     }
 
-    public List<Point> findCharacterLocations(char lookFor) {
+    public List<Point> getCharacterLocations(char lookFor) {
         List<Point> founds = new ArrayList<>();
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getWidth(); x++) {

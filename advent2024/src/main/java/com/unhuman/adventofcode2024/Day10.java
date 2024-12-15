@@ -25,7 +25,7 @@ public class Day10 extends InputParser {
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
         Matrix mountain = new Matrix(configGroup, Matrix.DataType.CHARACTER);
-        List<Point> trailheads = mountain.getCharacterLocations('0');
+        List<Point> trailheads = mountain.getStartingCharacterLocations('0');
 
         long scores = 0;
 
@@ -93,7 +93,7 @@ public class Day10 extends InputParser {
 
         // easier to assume there's only one group
         Matrix mountain = new Matrix(configGroup, Matrix.DataType.CHARACTER);
-        List<Point> trailheads = mountain.getCharacterLocations('0');
+        List<Point> trailheads = mountain.getStartingCharacterLocations('0');
 
         long scores = 0;
 

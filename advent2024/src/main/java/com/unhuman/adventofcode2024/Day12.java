@@ -32,10 +32,10 @@ public class Day12 extends InputParser {
 
         long cost = 0L;
 
-        Set<Character> fieldNames = matrix.getKnownCharacters();
+        Set<Character> fieldNames = matrix.getStartingKnownCharacters();
 
         for (Character fieldName: fieldNames) {
-            List<Point> locations = matrix.getCharacterLocations(fieldName);
+            List<Point> locations = matrix.getStartingCharacterLocations(fieldName);
             while (locations.size() > 0) {
                 Point startLocation = locations.get(0);
                 Set<Point> field = findAdjacentPositions(matrix, locations, startLocation, fieldName);
@@ -103,10 +103,10 @@ public class Day12 extends InputParser {
 
         long cost = 0L;
 
-        Set<Character> fieldNames = matrix.getKnownCharacters();
+        Set<Character> fieldNames = matrix.getStartingKnownCharacters();
 
         for (Character fieldName: fieldNames) {
-            List<Point> locations = matrix.getCharacterLocations(fieldName);
+            List<Point> locations = matrix.getStartingCharacterLocations(fieldName);
             while (!locations.isEmpty()) {
                 Point startLocation = locations.get(0);
                 Set<Point> field = findAdjacentPositions(matrix, locations, startLocation, fieldName);

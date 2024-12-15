@@ -78,7 +78,7 @@ public class Day21 extends InputParser {
         Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
         List<Point> priorStepPoints = new ArrayList<>();
-        Point startingPoint = matrix.findCharacterLocations('S').get(0);
+        Point startingPoint = matrix.getCharacterLocations('S').get(0);
         priorStepPoints.add(startingPoint);
 
         HashSet<Point> alreadyProcessedNeighbors = new HashSet<>();
@@ -126,7 +126,7 @@ public class Day21 extends InputParser {
 
 
         List<Point> priorStepPoints = new ArrayList<>();
-        Point startingPoint = matrix.findCharacterLocations('S').get(0);
+        Point startingPoint = matrix.getCharacterLocations('S').get(0);
         priorStepPoints.add(startingPoint);
 
 

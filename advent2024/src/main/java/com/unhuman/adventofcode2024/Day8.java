@@ -26,13 +26,13 @@ public class Day8 extends InputParser {
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
-        List<Character> antennaNames = new ArrayList<>(matrix.getKnownCharacters());
+        List<Character> antennaNames = new ArrayList<>(matrix.getStartingKnownCharacters());
         antennaNames.remove(Character.valueOf('.'));
 
         HashSet<Point> antinodes = new HashSet<>();
 
         for (Character antennaName: antennaNames) {
-            List <Point> antennaLocations = matrix.getCharacterLocations(antennaName);
+            List <Point> antennaLocations = matrix.getStartingCharacterLocations(antennaName);
             for (int i = 0; i < antennaLocations.size() - 1; i++) {
                 for (int j = i + 1; j < antennaLocations.size(); j++) {
                     Point p1 = antennaLocations.get(i);
@@ -57,13 +57,13 @@ public class Day8 extends InputParser {
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
-        List<Character> antennaNames = new ArrayList<>(matrix.getKnownCharacters());
+        List<Character> antennaNames = new ArrayList<>(matrix.getStartingKnownCharacters());
         antennaNames.remove(Character.valueOf('.'));
 
         HashSet<Point> antinodes = new HashSet<>();
 
         for (Character antennaName: antennaNames) {
-            List <Point> antennaLocations = matrix.getCharacterLocations(antennaName);
+            List <Point> antennaLocations = matrix.getStartingCharacterLocations(antennaName);
             for (int i = 0; i < antennaLocations.size() - 1; i++) {
                 for (int j = i + 1; j < antennaLocations.size(); j++) {
                     Point p1 = antennaLocations.get(i);

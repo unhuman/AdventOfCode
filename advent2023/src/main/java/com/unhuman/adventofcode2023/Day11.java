@@ -53,7 +53,7 @@ public class Day11 extends InputParser {
         }
 
         long total = 0L;
-        List<Point> points = matrix.findCharacterLocations('#');
+        List<Point> points = matrix.getCharacterLocations('#');
         for (int i = 0; i < points.size() - 1; i++) {
             for (int j = i; j < points.size(); j++) {
                 Point p1 = points.get(i);
@@ -92,7 +92,7 @@ public class Day11 extends InputParser {
         }
 
         long total = 0L;
-        List<Point> points = matrix.findCharacterLocations('#');
+        List<Point> points = matrix.getCharacterLocations('#');
         for (int i = 0; i < points.size() - 1; i++) {
             for (int j = i; j < points.size(); j++) {
                 Point p1 = points.get(i);

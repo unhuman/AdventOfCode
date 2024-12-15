@@ -35,7 +35,7 @@ public class Day6 extends InputParser {
         Matrix map = new Matrix(configGroup, Matrix.DataType.CHARACTER);
         Point direction = new Point(0, -1);
 
-        Point location = map.findCharacterLocations('^').get(0);
+        Point location = map.getCharacterLocations('^').get(0);
         HashSet<Point> visited = new HashSet<>();
         while (location != null) {
             visited.add(location);
@@ -76,7 +76,7 @@ public class Day6 extends InputParser {
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
         Matrix map = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
-        Point start = map.findCharacterLocations('^').get(0);
+        Point start = map.getCharacterLocations('^').get(0);
 
         long count = 0;
 
