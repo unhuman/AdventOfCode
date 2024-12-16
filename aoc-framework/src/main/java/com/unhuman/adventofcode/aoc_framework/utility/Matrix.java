@@ -60,6 +60,24 @@ public class Matrix {
                 default -> throw new RuntimeException("Invalid direction: " + arrow);
             };
         }
+
+        public static Direction getDirectionVelocity(Point value) {
+            if (value.equals(Direction.UP.direction)) {
+                return UP;
+            }
+            if (value.equals(Direction.RIGHT.direction)) {
+                return RIGHT;
+            }
+            if (value.equals(Direction.DOWN.direction)) {
+                return DOWN;
+            }
+            if (value.equals(Direction.LEFT.direction)) {
+                return LEFT;
+            }
+
+            throw new RuntimeException("Invalid direction: " + value);
+        }
+
     }
     protected List<List<Character>> matrix;
     protected DataType dataType;
@@ -228,6 +246,17 @@ public class Matrix {
         return adjacentPoints;
     }
 
+    public List<Point> getAdjacentPointsAvoidChar(Point point, boolean includeDiagonals, Character avoidChar) {
+        return getAdjacentPoints(point, includeDiagonals).stream().filter(p -> getValue(p) != avoidChar).toList();
+    }
+
+    public List<Direction> getNextNavigation(Point point, boolean includeDiagonals, Character avoidChar) {
+        return getAdjacentPointsAvoidChar(point, includeDiagonals, avoidChar)
+                .stream().map(p -> Direction.getDirectionVelocity(new Point(p.x - point.x, p.y - point.y)))
+                .toList();
+    }
+
+
     public List<Point> getCharacterLocations(char lookFor) {
         List<Point> founds = new ArrayList<>();
         for (int y = 0; y < getHeight(); y++) {
@@ -269,6 +298,34 @@ public class Matrix {
 
     public boolean isValidLocation(int x, int y) {
         return (x >= 0 && x < getWidth() && y >=0 && y < getHeight());
+    }
+
+    public void eliminateDeadEnds(Character openChar, Character wallChar) {
+        boolean changed;
+        do {
+            changed = false;
+            for (int y = 0; y < getHeight(); y++) {
+                for (int x = 0; x < getWidth(); x++) {
+                    Point check = new Point(x, y);
+                    // only inspect open space characters
+                    if (getValue(check) == openChar) {
+                        List<Point> adjacentPoints = getAdjacentPoints(check, false);
+                        int wallCount = 0;
+                        for (Point adjacentPoint : adjacentPoints) {
+                            if (getValue(adjacentPoint) == wallChar) {
+                                wallCount++;
+                            }
+                        }
+                        if (wallCount == 3) {
+                            setValue(check, wallChar);
+                            changed = true;
+
+                            // Todo: navigate the path until there isn't any other dead ends
+                        }
+                    }
+                }
+            }
+        } while (changed);
     }
 
     @Override

@@ -15,11 +15,64 @@ public class Day16Test {
     }
 
     @Test
-    public void test1() {
-        String data = DATA;
+    public void test0a() {
+        String data =
+                "#####\n" +
+                "###E#\n" +
+                "###.#\n" +
+                "#S..#\n" +
+                "#####";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(1004L, day.processInput1(groups[0], groups[1]));
+    }
+
+
+
+    @Test
+    public void test1a() {
+        String data = "###############\n" +
+                "#.......#....E#\n" +
+                "#.#.###.#.###.#\n" +
+                "#.....#.#...#.#\n" +
+                "#.###.#####.#.#\n" +
+                "#.#.#.......#.#\n" +
+                "#.#.#####.###.#\n" +
+                "#...........#.#\n" +
+                "###.#.#####.#.#\n" +
+                "#...#.....#.#.#\n" +
+                "#.#.#.###.#.#.#\n" +
+                "#.....#...#.#.#\n" +
+                "#.###.#.#.#.#.#\n" +
+                "#S..#.....#...#\n" +
+                "###############";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(7036L, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test1b() {
+        String data = "#################\n" +
+                "#...#...#...#..E#\n" +
+                "#.#.#.#.#.#.#.#.#\n" +
+                "#.#.#.#...#...#.#\n" +
+                "#.#.#.#.###.#.#.#\n" +
+                "#...#.#.#.....#.#\n" +
+                "#.#.#.#.#.#####.#\n" +
+                "#.#...#.#.#.....#\n" +
+                "#.#.#####.#.###.#\n" +
+                "#.#.#.......#...#\n" +
+                "#.#.###.#####.###\n" +
+                "#.#.#...#.....#.#\n" +
+                "#.#.#.#####.###.#\n" +
+                "#.#.#.........#.#\n" +
+                "#.#.#.#########.#\n" +
+                "#S#.............#\n" +
+                "#################\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(11048L, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
