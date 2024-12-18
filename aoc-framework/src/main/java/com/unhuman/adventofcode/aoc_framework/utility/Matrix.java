@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -384,10 +385,13 @@ public class Matrix {
                 wallChar, new HashSet<>(), 0L, new AtomicLong(Long.MAX_VALUE));
     }
 
+    record VisitInfo(Point point, Integer distance) {
+    }
+
     public int findShortestPathDijikstra(Point start, Point finish, Character wallChar) {
         // 2D arrays representing the shortest distances and visited cells
         int[][] dist = new int[getWidth()][getHeight()];
-        boolean[][] visited = new boolean[getWidth()][getHeight()];
+        HashSet<Point> visited = new HashSet<>();
 
         // initialize all distances to infinity except the starting cell
         for (int i = 0; i < getWidth(); i++) {
@@ -396,39 +400,37 @@ public class Matrix {
         dist[start.x][start.y] = 0;
 
         // create a priority queue for storing cells to visit
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);
-        pq.offer(new int[]{start.x, start.y, 0});
+        PriorityQueue<VisitInfo> pq = new PriorityQueue<>(Comparator.comparingInt(VisitInfo::distance));
+        pq.offer(new VisitInfo(start, 0));
 
         // iterate while there are cells to visit
         while (!pq.isEmpty()) {
             // remove the cell with the smallest distance from the priority queue
-            int[] curr = pq.poll();
-            int x = curr[0];
-            int y = curr[1];
-            int d = curr[2];
+            VisitInfo cell = pq.poll();
+            Point currentPoint = cell.point;
+            int distance = cell.distance;
 
             // if the cell has already been visited, skip it
-            if (visited[x][y]) {
+            if (visited.contains(currentPoint)) {
                 continue;
             }
 
             // mark the cell as visited
-            visited[x][y] = true;
+            visited.add(currentPoint);
 
             // if we've reached the end cell, return the shortest distance
-            if (x == finish.x && y == finish.y) {
-                return d;
+            if (currentPoint.equals(finish)) {
+                return distance;
             }
 
             // iterate over the neighboring cells and update their distances if necessary
-            for (Direction direction: Direction.values()) {
-                int nx = x + direction.getDirection().x;
-                int ny = y + direction.getDirection().y;
-                if (nx >= 0 && nx < getWidth() && ny >= 0 && ny < getHeight() && getValue(nx, ny) != wallChar && !visited[nx][ny]) {
-                    int nd = d + 1;
-                    if (nd < dist[nx][ny]) {
-                        dist[nx][ny] = nd;
-                        pq.offer(new int[]{nx, ny, nd});
+            for (Direction direction: getNextNavigation(currentPoint, false, wallChar)) {
+                Point nextPoint = PointHelper.addPoints(currentPoint, direction.getDirection());
+                if (!visited.contains(nextPoint)) {
+                    int newDistance = distance + 1;
+                    if (newDistance < dist[nextPoint.x][nextPoint.y]) {
+                        dist[nextPoint.x][nextPoint.y] = newDistance;
+                        pq.offer(new VisitInfo(nextPoint, newDistance));
                     }
                 }
             }

@@ -7,7 +7,10 @@ import com.unhuman.adventofcode.aoc_framework.utility.Pair;
 import com.unhuman.adventofcode.aoc_framework.utility.PointHelper;
 
 import java.awt.Point;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -26,7 +29,8 @@ public class Day16 extends InputParser {
     }
 
     // 2094 too low
-    // 134438 too high
+    // 101496 too high
+
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         Matrix maze = new Matrix(configGroup, Matrix.DataType.CHARACTER);
@@ -35,7 +39,7 @@ public class Day16 extends InputParser {
         Point end = maze.getCharacterLocations('E').get(0);
 
         shortCircuits = new HashSet<>();
-        return findPath(maze, start, end);
+        return findShortestPathDijikstra(maze, start, Matrix.Direction.RIGHT, end, '#');
     }
 
     Long findPath(Matrix maze, Point start, Point end, Matrix.Direction currentDirection,
@@ -89,6 +93,72 @@ public class Day16 extends InputParser {
         maze.eliminateDeadEnds('.', '#');
         Set<Point> visitedPoints = new HashSet<>();
         return findPath(maze, start, end, Matrix.Direction.RIGHT, visitedPoints, 0L, new AtomicLong(Long.MAX_VALUE));
+    }
+
+    public record VisitInfo(Point point, Matrix.Direction direction, Integer distance) {
+    }
+
+    /** based off Matrix.findShortestPathDijikstra */
+    public int findShortestPathDijikstra(Matrix maze, Point start, Matrix.Direction direction, Point finish, Character wallChar) {
+        // 2D arrays representing the shortest distances and visited cells
+        int[][] dist = new int[maze.getWidth()][maze.getHeight()];
+        HashSet<Point> visited = new HashSet<>();
+
+        // initialize all distances to infinity except the starting cell
+        for (int i = 0; i < maze.getWidth(); i++) {
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+        }
+        dist[start.x][start.y] = 0;
+
+        // create a priority queue for storing cells to visit
+        PriorityQueue<VisitInfo> pq = new PriorityQueue<>(Comparator.comparingInt(VisitInfo::distance));
+        pq.offer(new VisitInfo(start, direction, 0));
+
+        // iterate while there are cells to visit
+        while (!pq.isEmpty()) {
+            // remove the cell with the smallest distance from the priority queue
+            VisitInfo cell = pq.poll();
+            Point currentPoint = cell.point();
+            direction = cell.direction;
+            int distance = cell.distance();
+
+            // if the cell has already been visited, skip it
+            if (visited.contains(currentPoint)) {
+                continue;
+            }
+
+            // mark the cell as visited
+            visited.add(currentPoint);
+
+            // if we've reached the end cell, return the shortest distance
+            if (currentPoint.equals(finish)) {
+                return distance;
+            }
+
+            // iterate over the neighboring cells and update their distances if necessary
+            for (Matrix.Direction checkDirection: maze.getNextNavigation(currentPoint, false, wallChar)) {
+                Point nextPoint = PointHelper.addPoints(currentPoint, checkDirection.getDirection());
+                if (!visited.contains(nextPoint)) {
+                    int newDistance = distance + 1;
+                    if (!checkDirection.equals(direction)) {
+                        newDistance += 1000;
+                        // check for u-turns
+                        if (checkDirection.getDirection().x == -direction.getDirection().x
+                                || checkDirection.getDirection().y == -direction.getDirection().y) {
+                            newDistance += 1000;
+                        }
+                    }
+
+                    if (newDistance < dist[nextPoint.x][nextPoint.y]) {
+                        dist[nextPoint.x][nextPoint.y] = newDistance;
+                        pq.offer(new VisitInfo(nextPoint, checkDirection, newDistance));
+                    }
+                }
+            }
+        }
+
+        // if we couldn't reach the end cell, return -1
+        return -1;
     }
 
     @Override

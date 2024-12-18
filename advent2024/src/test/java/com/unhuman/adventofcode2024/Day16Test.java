@@ -24,9 +24,34 @@ public class Day16Test {
                 "#####";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(1004L, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(1004, day.processInput1(groups[0], groups[1]));
     }
 
+    @Test
+    public void test0b() {
+        String data =
+                        "#####\n" +
+                        "#S..#\n" +
+                        "#.#.#\n" +
+                        "#...#\n" +
+                        "#.###\n" +
+                        "#..E#\n" +
+                        "#####";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(2006, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test0c() {
+        String data =
+                "#####\n" +
+                "#E.S#\n" +
+                "#####";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(2002, day.processInput1(groups[0], groups[1]));
+    }
 
 
     @Test
@@ -48,7 +73,7 @@ public class Day16Test {
                 "###############";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(7036L, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(7036, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
@@ -72,7 +97,7 @@ public class Day16Test {
                 "#################\n";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(11048L, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(11048, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
@@ -80,6 +105,6 @@ public class Day16Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
     }
 }
