@@ -29,7 +29,7 @@ public class Day17 extends InputParser {
     private static final int CDV = 7;
 
     // kept here so we can pull values in tests
-    Map<Character, Integer> registers = new HashMap<>();
+    Map<Character, Long> registers = new HashMap<>();
 
     public Day17() {
         super(2024, 17, regex1, regex2);
@@ -39,7 +39,7 @@ public class Day17 extends InputParser {
         super(filename, regex1, regex2);
     }
 
-    public Integer getRegisterValue(char register) {
+    public Long getRegisterValue(char register) {
         return registers.get(register);
     }
 
@@ -50,7 +50,7 @@ public class Day17 extends InputParser {
         List<Integer> commandLine = new ArrayList<>();
         GroupItem group0 = configGroup.get(0);
         for (ItemLine line : group0) {
-            registers.put(line.getChar(0), line.getInt(1));
+            registers.put(line.getChar(0), line.getLong(1));
         }
 
         // Here's code for a 2nd group, if needed
@@ -61,11 +61,11 @@ public class Day17 extends InputParser {
             }
         }
 
-        String results = processComputer(registers, commandLine);
+        String results = processComputer(registers, commandLine, false);
         return results;
     }
 
-    public Integer getComboOperand(Integer comboNumber) {
+    public Long getComboOperand(Integer comboNumber) {
 //        Combo operands 0 through 3 represent literal values 0 through 3.
 //        Combo operand 4 represents the value of register A.
 //        Combo operand 5 represents the value of register B.
@@ -76,7 +76,7 @@ public class Day17 extends InputParser {
             case 1:
             case 2:
             case 3:
-                return comboNumber;
+                return (long) comboNumber;
             case 4:
                 return registers.get('A');
             case 5:
@@ -88,8 +88,8 @@ public class Day17 extends InputParser {
         }
     }
 
-    public String processComputer(Map<Character, Integer> registers, List<Integer> commands) {
-        List<Integer> output = new ArrayList<>();
+    public String processComputer(Map<Character, Long> registers, List<Integer> commands, boolean wantOutputMatching) {
+        List<Long> output = new ArrayList<>();
         int commandIndex = 0;
         while (commandIndex < commands.size()) {
             switch (commands.get(commandIndex++)) {
@@ -98,8 +98,12 @@ public class Day17 extends InputParser {
                     // The denominator is found by raising 2 to the power of the instruction's combo operand.
                     // (So, an operand of 2 would divide A by 4 (2^2); an operand of 5 would divide A by 2^B.)
                     // The result of the division operation is truncated to an integer and then written to the A register.
-                    int divisor = (int) Math.pow(2, getComboOperand(commands.get(commandIndex)));
-                    registers.put('A', registers.get('A') / divisor);
+                    int divisorA = (int) Math.pow(2, getComboOperand(commands.get(commandIndex)));
+                    if (divisorA == 0) {
+                        System.err.println("Error: A Divide by zero");
+                        return "Error: A Divide by zero";
+                    }
+                    registers.put('A', registers.get('A') / divisorA);
                     commandIndex++;
                     break;
                 case BXL:
@@ -134,13 +138,26 @@ public class Day17 extends InputParser {
                 case OUT:
                     // The out instruction (opcode 5) calculates the value of its combo operand modulo 8,
                     // then outputs that value. (If a program outputs multiple values, they are separated by commas.)
-                    output.add(getComboOperand(commands.get(commandIndex)) % 8);
+
+                    // Skip the output if we're looking for matching output
+                    long value = getComboOperand(commands.get(commandIndex)) % 8;
+                    if (wantOutputMatching) {
+                        if (commands.get(output.size()) != value) {
+                            return "NOPE";
+                        }
+                    }
+
+                    output.add(value);
                     commandIndex++;
                     break;
                 case BDV:
                     // The bdv instruction (opcode 6) works exactly like the adv instruction except that the
                     // result is stored in the B register. (The numerator is still read from the A register.)
                     int divisorB = (int) Math.pow(2, getComboOperand(commands.get(commandIndex)));
+                    if (divisorB == 0) {
+                        System.err.println("Error: B Divide by zero");
+                        return "Error: B Divide by zero";
+                    }
                     registers.put('B', registers.get('A') / divisorB);
                     commandIndex++;
                     break;
@@ -148,6 +165,10 @@ public class Day17 extends InputParser {
                     // The cdv instruction (opcode 7) works exactly like the adv instruction except that
                     // the result is stored in the C register. (The numerator is still read from the A register.)
                     int divisorC = (int) Math.pow(2, getComboOperand(commands.get(commandIndex)));
+                    if (divisorC == 0) {
+                        System.err.println("Error: C Divide by zero");
+                        return "Error: C Divide by zero";
+                    }
                     registers.put('C', registers.get('A') / divisorC);
                     commandIndex++;
                     break;
@@ -162,7 +183,35 @@ public class Day17 extends InputParser {
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        registers = new HashMap<>();
-        return 2;
+        List<Integer> commandLine = new ArrayList<>();
+        GroupItem group0 = configGroup.get(0);
+        Map<Character, Long> originalRegisterState = new HashMap<>();
+        for (ItemLine line : group0) {
+            originalRegisterState.put(line.getChar(0), line.getLong(1));
+        }
+
+        // Here's code for a 2nd group, if needed
+        GroupItem group1 = configGroup1.get(0);
+        for (ItemLine line : group1) {
+            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
+                commandLine.add(line.getInt(itemNum));
+            }
+        }
+
+        String desiredOutput = commandLine.stream().map(Object::toString).reduce((a, b) -> a + "," + b).orElse("");
+
+        long regAValue = 1;
+
+        while (true) {
+            registers = new HashMap<>(originalRegisterState);
+            registers.put('A', (long) regAValue);
+            String results = processComputer(registers, commandLine, true);
+            if (results.equals(desiredOutput)) {
+                return regAValue;
+            }
+            if (++regAValue % 1000000 == 0) {
+                System.out.println("Checking " + regAValue);
+            };
+        }
     }
 }

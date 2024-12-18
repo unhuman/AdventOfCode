@@ -97,10 +97,27 @@ public class Day17Test {
     }
 
     @Test
-    public void test2() {
-        String data = DATA;
+    public void test2vet() {
+        String data = "Register A: 117440\n" +
+                "Register B: 0\n" +
+                "Register C: 0\n" +
+                "\n" +
+                "Program: 0,3,5,4,3,0";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals("0,3,5,4,3,0", day.processInput1(groups[0], groups[1]));
     }
+
+    @Test
+    public void test2() {
+        String data = "Register A: 0\n" +
+                "Register B: 0\n" +
+                "Register C: 0\n" +
+                "\n" +
+                "Program: 0,3,5,4,3,0";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(117440L, day.processInput2(groups[0], groups[1]));
+    }
+
 }
