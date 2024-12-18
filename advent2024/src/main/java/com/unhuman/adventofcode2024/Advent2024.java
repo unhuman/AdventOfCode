@@ -24,9 +24,9 @@ public class Advent2024
 //        new Day14().process();
 //        new Day15().process();
 //        new Day16().process();
-        new Day17().process();
+//        new Day17().process();
 //        new Day18().process();
-//        new Day19().process();
+        new Day19().process();
 //        new Day20().process();
 //        new Day21().process();
 //        new Day22().process();

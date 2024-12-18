@@ -5,12 +5,16 @@ import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Matrix class can be used to parse input easily
@@ -112,6 +116,15 @@ public class Matrix {
 
     public Matrix(int width, int height, Matrix.DataType dataType) {
         this (width, height, dataType, Optional.empty());
+    }
+
+    public Matrix(int width, int height, Matrix.DataType dataType, Character defaultChar) {
+        this (width, height, dataType, Optional.empty());
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                setValue(x, y, defaultChar);
+            }
+        }
     }
 
     public Matrix(ConfigGroup configGroup, DataType dataType) {
@@ -326,6 +339,103 @@ public class Matrix {
                 }
             }
         } while (changed);
+    }
+
+    private long findShortestPathInternal(Point startingLocation, Point endingLocation,
+                                          Character wallChar, Set<Point> visitedLocations,
+                                          long currentScore, AtomicLong lowestScoreSoFar) {
+        // bail out if we've already navigated here
+        if ((lowestScoreSoFar != null) && (currentScore >= lowestScoreSoFar.get())) {
+            return lowestScoreSoFar.get();
+        }
+
+        // we found the end, so - we're good here
+        if (startingLocation.equals(endingLocation)) {
+            lowestScoreSoFar.set(currentScore);
+            return currentScore;
+        }
+
+        // get next locations to navigate
+        List<Direction> nextNavigations = getNextNavigation(startingLocation, false, wallChar);
+        for (Direction nextNavigation : nextNavigations) {
+            Point nextLocation = new Point(startingLocation.x + nextNavigation.getDirection().x,
+                    startingLocation.y + nextNavigation.getDirection().y);
+            if (visitedLocations.contains(nextLocation)) {
+                continue;
+            }
+
+            // track that we visited this location
+            visitedLocations = new HashSet<>(visitedLocations);
+            visitedLocations.add(startingLocation);
+
+            long score = findShortestPathInternal(nextLocation, endingLocation, wallChar, visitedLocations,
+                    currentScore + 1, lowestScoreSoFar);
+            if (score < lowestScoreSoFar.get()) {
+                lowestScoreSoFar.set(score);
+            }
+        }
+        return lowestScoreSoFar.get();
+    }
+
+
+    public long findShortestPath(Point startingLocation, Point endingLocation,
+                                 Character wallChar) {
+        return findShortestPathInternal(startingLocation, endingLocation,
+                wallChar, new HashSet<>(), 0L, new AtomicLong(Long.MAX_VALUE));
+    }
+
+    public int findShortestPathDijikstra(Point start, Point finish, Character wallChar) {
+        // 2D arrays representing the shortest distances and visited cells
+        int[][] dist = new int[getWidth()][getHeight()];
+        boolean[][] visited = new boolean[getWidth()][getHeight()];
+
+        // initialize all distances to infinity except the starting cell
+        for (int i = 0; i < getWidth(); i++) {
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+        }
+        dist[start.x][start.y] = 0;
+
+        // create a priority queue for storing cells to visit
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+        pq.offer(new int[]{start.x, start.y, 0});
+
+        // iterate while there are cells to visit
+        while (!pq.isEmpty()) {
+            // remove the cell with the smallest distance from the priority queue
+            int[] curr = pq.poll();
+            int x = curr[0];
+            int y = curr[1];
+            int d = curr[2];
+
+            // if the cell has already been visited, skip it
+            if (visited[x][y]) {
+                continue;
+            }
+
+            // mark the cell as visited
+            visited[x][y] = true;
+
+            // if we've reached the end cell, return the shortest distance
+            if (x == finish.x && y == finish.y) {
+                return d;
+            }
+
+            // iterate over the neighboring cells and update their distances if necessary
+            for (Direction direction: Direction.values()) {
+                int nx = x + direction.getDirection().x;
+                int ny = y + direction.getDirection().y;
+                if (nx >= 0 && nx < getWidth() && ny >= 0 && ny < getHeight() && getValue(nx, ny) != wallChar && !visited[nx][ny]) {
+                    int nd = d + 1;
+                    if (nd < dist[nx][ny]) {
+                        dist[nx][ny] = nd;
+                        pq.offer(new int[]{nx, ny, nd});
+                    }
+                }
+            }
+        }
+
+        // if we couldn't reach the end cell, return -1
+        return -1;
     }
 
     @Override
