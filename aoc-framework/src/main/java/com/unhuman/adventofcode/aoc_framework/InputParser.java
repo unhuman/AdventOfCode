@@ -249,6 +249,11 @@ public abstract class InputParser {
                                     ? matcher.group(i) : null;
                             dataLine.add(lineItem);
                         }
+
+                        if (matcher.group(0).length() == 0) {
+                            throw new RuntimeException("Could not extract item from line: " + line + " with regex: " + regexLineItem);
+                        }
+
                         // allow continuation for duplicate matchers on a line
                         line = line.substring(line.indexOf(matcher.group(0)) + matcher.group(0).length());
                         // if we advance to the end of the string and it's done, then we process next line

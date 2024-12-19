@@ -16,17 +16,35 @@ public class Day19Test {
 
     @Test
     public void test1() {
-        String data = DATA;
+        String data = "r, wr, b, g, bwu, rb, gb, br\n" +
+                "\n" +
+                "brwrr\n" +
+                "bggr\n" +
+                "gbbr\n" +
+                "rrbgbr\n" +
+                "ubwu\n" +
+                "bwurrg\n" +
+                "brgr\n" +
+                "bbrgwb\n";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(6L, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
     public void test2() {
-        String data = DATA;
+        String data = "r, wr, b, g, bwu, rb, gb, br\n" +
+                "\n" +
+                "brwrr\n" +
+                "bggr\n" +
+                "gbbr\n" +
+                "rrbgbr\n" +
+                "ubwu\n" +
+                "bwurrg\n" +
+                "brgr\n" +
+                "bbrgwb\n";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(16L, day.processInput2(groups[0], groups[1]));
     }
 }
