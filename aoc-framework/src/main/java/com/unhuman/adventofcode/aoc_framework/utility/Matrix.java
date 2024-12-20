@@ -314,10 +314,11 @@ public class Matrix {
         return (x >= 0 && x < getWidth() && y >=0 && y < getHeight());
     }
 
-    public void eliminateDeadEnds(Character openChar, Character wallChar) {
-        boolean changed;
+    public boolean eliminateDeadEnds(Character openChar, Character wallChar) {
+        boolean everChanged = false;
+        boolean currentChange;
         do {
-            changed = false;
+            currentChange = false;
             for (int y = 0; y < getHeight(); y++) {
                 for (int x = 0; x < getWidth(); x++) {
                     Point check = new Point(x, y);
@@ -332,14 +333,16 @@ public class Matrix {
                         }
                         if (wallCount == 3) {
                             setValue(check, wallChar);
-                            changed = true;
+                            currentChange = true;
 
                             // Todo: navigate the path until there isn't any other dead ends
                         }
                     }
                 }
             }
-        } while (changed);
+            everChanged = (everChanged) ? everChanged : currentChange;
+        } while (currentChange);
+        return everChanged;
     }
 
     private long findShortestPathInternal(Point startingLocation, Point endingLocation,
@@ -379,13 +382,19 @@ public class Matrix {
     }
 
 
-    public long findShortestPath(Point startingLocation, Point endingLocation,
-                                 Character wallChar) {
+    @Deprecated // Use findShortestPathDijikstra
+    public long findShortestPath(Point startingLocation, Point endingLocation, Character wallChar) {
         return findShortestPathInternal(startingLocation, endingLocation,
                 wallChar, new HashSet<>(), 0L, new AtomicLong(Long.MAX_VALUE));
     }
 
-    record VisitInfo(Point point, Integer distance) {
+    @Deprecated // Use findShortestPathDijikstra
+    public long findShortestPath(Character startingChar, Character endingChar, Character wallChar) {
+        Point startingLocation = getCharacterLocations(startingChar).get(0);
+        Point endingLocation = getCharacterLocations(endingChar).get(0);
+
+        return findShortestPathInternal(startingLocation, endingLocation,
+                wallChar, new HashSet<>(), 0L, new AtomicLong(Long.MAX_VALUE));
     }
 
     public int findShortestPathDijikstra(Point start, Point finish, Character wallChar) {
@@ -407,8 +416,8 @@ public class Matrix {
         while (!pq.isEmpty()) {
             // remove the cell with the smallest distance from the priority queue
             VisitInfo cell = pq.poll();
-            Point currentPoint = cell.point;
-            int distance = cell.distance;
+            Point currentPoint = cell.point();
+            int distance = cell.distance();
 
             // if the cell has already been visited, skip it
             if (visited.contains(currentPoint)) {
@@ -440,6 +449,15 @@ public class Matrix {
         return -1;
     }
 
+    public long findShortestPathDijikstra(Character startingChar, Character endingChar,
+                                          Character wallChar) {
+        Point startingLocation = getCharacterLocations(startingChar).get(0);
+        Point endingLocation = getCharacterLocations(endingChar).get(0);
+
+        return findShortestPathDijikstra(startingLocation, endingLocation,
+                wallChar);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(getHeight() * getWidth());
@@ -456,5 +474,8 @@ public class Matrix {
             }
         }
         return hash;
+    }
+
+    public record VisitInfo(Point point, Integer distance) {
     }
 }
