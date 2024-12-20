@@ -39,14 +39,21 @@ public class Day20 extends InputParser {
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
         Matrix maze = new Matrix(configGroup, Matrix.DataType.CHARACTER);
+
+        System.out.println(maze.eliminateDeadEnds('.', '#'));
+
         long bestScore = maze.findShortestPathDijikstra('S', 'E', '#');
 
         List<Integer> bestScoresWithJump = findShortestPathsWithJump(maze, 'S', 'E', '#',
                 bestScore - savings);
 
+//        Long bestScoresWithJumpDijikstra = findShortestPathDijikstraWithJump(maze, 'S', 'E', '#');
+
+
         return (long) bestScoresWithJump.size();
     }
 
+    Long totalSizes = 0L;
     private List<Integer> findPathsInternalWithJump(Matrix maze, Point startingLocation, Point endingLocation,
                                           Character wallChar, Set<Point> visitedLocations,
                                           long lowerThanScore, JumpState jumpState) {
@@ -62,26 +69,26 @@ public class Day20 extends InputParser {
 
         // get next locations to navigate
         List<Integer> scores = new ArrayList<>();
-        List<Matrix.Direction> nextNavigations = maze.getNextNavigation(startingLocation, false, '!'); // nonexistent wall
+        List<Matrix.Direction> nextNavigations = maze.getNextNavigation(startingLocation, false,
+                (jumpState == JumpState.JUMPED) ? '#' : '!'); // nonexistent wall
+
+        // track that we visited this location
+        visitedLocations.add(startingLocation);
+        totalSizes += visitedLocations.size();
+        System.out.println("Current depth: " + visitedLocations.size() + " TotalSize: " + totalSizes); // 9385278 9389611
+
         for (Matrix.Direction nextNavigation : nextNavigations) {
-            Point nextLocation = new Point(startingLocation.x + nextNavigation.getDirection().x,
-                    startingLocation.y + nextNavigation.getDirection().y);
+            Point nextLocation = PointHelper.addPoints(startingLocation, nextNavigation.getDirection());
             if (visitedLocations.contains(nextLocation)) {
                 continue;
             }
 
             // if we've already jumped - we're done here.
             Character nextChar = maze.getValue(nextLocation);
-            if (jumpState == JumpState.JUMPED && nextChar.equals(wallChar)) {
-                continue;
-            }
 
-            // track that we visited this location
-            visitedLocations = new HashSet<>(visitedLocations);
-            visitedLocations.add(startingLocation);
-
-            scores.addAll(findPathsInternalWithJump(maze, nextLocation, endingLocation, wallChar, visitedLocations,
-                    lowerThanScore, (nextChar.equals(wallChar)) ? JumpState.JUMPED : jumpState));
+            scores.addAll(findPathsInternalWithJump(maze, nextLocation, endingLocation, wallChar,
+                    new HashSet<>(visitedLocations), lowerThanScore,
+                    (nextChar.equals(wallChar)) ? JumpState.JUMPED : jumpState));
         }
         return scores;
     }
