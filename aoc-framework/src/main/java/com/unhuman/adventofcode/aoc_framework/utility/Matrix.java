@@ -220,20 +220,33 @@ public class Matrix {
     }
 
     public boolean isValid(int x, int y) {
-        return (x >= 0 && x < getWidth() && y >= 0 && y < getHeight());
+        return isValid(x, y, false);
+    }
+
+    public boolean isValid(int x, int y, boolean excludeBorder) {
+        int frame = (excludeBorder) ? 1 : 0;
+        return (x >= frame && x < getWidth() - frame && y >= frame && y < getHeight() - frame);
     }
 
     public boolean isValid(Point point) {
-        return isValid(point.x, point.y);
+        return isValid(point.x, point.y, false);
+    }
+
+    public boolean isValid(Point point, boolean excludeBorder) {
+        return isValid(point.x, point.y, excludeBorder);
     }
 
     public List<Point> getAdjacentPoints(Point point, boolean includeDiagonals) {
+        return getAdjacentPoints(point, includeDiagonals, false);
+    }
+
+    public List<Point> getAdjacentPoints(Point point, boolean includeDiagonals, boolean excludeBorder) {
         List<Point> adjacentPoints = new ArrayList<>();
 
         // verticals / rows
         for (int y = point.y - 1; y <= point.y + 1; y += 2) {
             Point checkPoint = new Point(point.x, y);
-            if (isValid(checkPoint)) {
+            if (isValid(checkPoint, excludeBorder)) {
                 adjacentPoints.add(checkPoint);
             }
         }
@@ -241,7 +254,7 @@ public class Matrix {
         // horizontal / columns
         for (int x = point.x - 1; x <= point.x + 1; x += 2) {
             Point checkPoint = new Point(x, point.y);
-            if (isValid(checkPoint)) {
+            if (isValid(checkPoint, excludeBorder)) {
                 adjacentPoints.add(checkPoint);
             }
         }
@@ -251,7 +264,7 @@ public class Matrix {
             for (int y = point.y - 1; y <= point.y + 1; y += 2) {
                 for (int x = point.x - 1; x <= point.x + 1; x += 2) {
                     Point checkPoint = new Point(x, y);
-                    if (isValid(checkPoint)) {
+                    if (isValid(checkPoint, excludeBorder)) {
                         adjacentPoints.add(checkPoint);
                     }
                 }
@@ -270,11 +283,15 @@ public class Matrix {
                 .toList();
     }
 
-
     public List<Point> getCharacterLocations(char lookFor) {
+        return getCharacterLocations(lookFor, false);
+    }
+
+    public List<Point> getCharacterLocations(char lookFor, boolean excludeBorder) {
+        int frame = (excludeBorder) ? 1 : 0;
         List<Point> founds = new ArrayList<>();
-        for (int y = 0; y < getHeight(); y++) {
-            for (int x = 0; x < getWidth(); x++) {
+        for (int y = frame; y < getHeight() - frame; y++) {
+            for (int x = frame; x < getWidth() - frame; x++) {
                 Point check = new Point(x, y);
                 if (getValue(check) == lookFor) {
                     founds.add(check);
