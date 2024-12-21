@@ -3,23 +3,22 @@ package com.unhuman.adventofcode2024;
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
+import com.unhuman.adventofcode.aoc_framework.utility.Pair;
 import com.unhuman.adventofcode.aoc_framework.utility.PointHelper;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Day20 extends InputParser {
     private static final String regex1 = "(.)";
     private static final String regex2 = null;
 
-    private enum JumpState { NOT_JUMPED, JUMPED }
+    private enum JumpState {NOT_JUMPED, JUMPED}
 
     public Day20() {
         super(2024, 20, regex1, regex2);
@@ -29,10 +28,10 @@ public class Day20 extends InputParser {
         super(filename, regex1, regex2);
     }
 
-    long savings = 100;
+    long requiredSavings = 100;
 
-    public void setSavings(long savings) {
-        this.savings = savings;
+    public void setRequiredSavings(long requiredSavings) {
+        this.requiredSavings = requiredSavings;
     }
 
     @Override
@@ -40,143 +39,130 @@ public class Day20 extends InputParser {
         // easier to assume there's only one group
         Matrix maze = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
-        System.out.println(maze.eliminateDeadEnds('.', '#'));
+        Map<Point, Integer> distances = getDistanceScores(maze);
 
-        long bestScore = maze.findShortestPathDijikstra('S', 'E', '#');
+        List<Integer> jumpScores = getJumpedDistances(maze, distances);
 
-        List<Integer> bestScoresWithJump = findShortestPathsWithJump(maze, 'S', 'E', '#',
-                bestScore - savings);
-
-//        Long bestScoresWithJumpDijikstra = findShortestPathDijikstraWithJump(maze, 'S', 'E', '#');
-
-
-        return (long) bestScoresWithJump.size();
+        return jumpScores.size();
     }
 
-    Long totalSizes = 0L;
-    private List<Integer> findPathsInternalWithJump(Matrix maze, Point startingLocation, Point endingLocation,
-                                          Character wallChar, Set<Point> visitedLocations,
-                                          long lowerThanScore, JumpState jumpState) {
-        // if we've already found a better score - we're done here
-        if (visitedLocations.size() >= lowerThanScore) {
-            return Collections.emptyList();
-        }
+    Map<Point, Integer> getDistanceScores(Matrix maze) {
+        Map<Point, Integer> distances = new HashMap<Point, Integer>();
 
-        // we found the end, so - we're good here
-        if (startingLocation.equals(endingLocation)) {
-            return (jumpState == JumpState.JUMPED) ? Collections.singletonList(visitedLocations.size()) : Collections.emptyList();
-        }
+        Point start = maze.getCharacterLocations('S').get(0);
+        Point end = maze.getCharacterLocations('E').get(0);
 
-        // get next locations to navigate
-        List<Integer> scores = new ArrayList<>();
-        List<Matrix.Direction> nextNavigations = maze.getNextNavigation(startingLocation, false,
-                (jumpState == JumpState.JUMPED) ? '#' : '!'); // nonexistent wall
+        int distance = 0;
+        do {
+            distances.put(start, distance++);
+            List<Point> checks = maze.getAdjacentPointsAvoidChar(start, false, '#');
 
-        // track that we visited this location
-        visitedLocations.add(startingLocation);
-        totalSizes += visitedLocations.size();
-        System.out.println("Current depth: " + visitedLocations.size() + " TotalSize: " + totalSizes); // 9385278 9389611
-
-        for (Matrix.Direction nextNavigation : nextNavigations) {
-            Point nextLocation = PointHelper.addPoints(startingLocation, nextNavigation.getDirection());
-            if (visitedLocations.contains(nextLocation)) {
-                continue;
+            for (Point check : checks) {
+                if (distances.containsKey(check)) {
+                    continue;
+                }
+                Character item = maze.getValue(check);
+                if (item == '.' || item == 'E' || item == ' ') {
+                    start = check;
+                    break;
+                }
             }
+        } while (!start.equals(end));
+        distances.put(start, distance);
 
-            // if we've already jumped - we're done here.
-            Character nextChar = maze.getValue(nextLocation);
+        return distances;
+    }
 
-            scores.addAll(findPathsInternalWithJump(maze, nextLocation, endingLocation, wallChar,
-                    new HashSet<>(visitedLocations), lowerThanScore,
-                    (nextChar.equals(wallChar)) ? JumpState.JUMPED : jumpState));
+    List<Integer> getJumpedDistances(Matrix maze, Map<Point, Integer> distances) {
+        List<Integer> scores = new ArrayList<>();
+
+        List<Point> jumpPoints = maze.getCharacterLocations('#', true);
+
+        for (Point jumpPoint : jumpPoints) {
+            Point above = PointHelper.addPoints(jumpPoint, Matrix.Direction.UP.getDirection());
+            Point below = PointHelper.addPoints(jumpPoint, Matrix.Direction.DOWN.getDirection());
+            Point left = PointHelper.addPoints(jumpPoint, Matrix.Direction.LEFT.getDirection());
+            Point right = PointHelper.addPoints(jumpPoint, Matrix.Direction.RIGHT.getDirection());
+
+            int diff = 0;
+            if (distances.containsKey(above) && distances.containsKey(below)) {
+                diff = Math.abs(distances.get(below) - distances.get(above)) - 1;
+            } else if (distances.containsKey(left) && distances.containsKey(right)) {
+                diff = Math.abs(distances.get(right) - distances.get(left)) - 1;
+            }
+            if (diff >= requiredSavings) {
+                scores.add(diff);
+            }
         }
+
         return scores;
     }
 
+    Map<Pair<Point, Point>, Integer> getJumpedDistances2(Matrix maze, Map<Point, Integer> distances, int maxTime) {
+        Map<Pair<Point, Point>, Integer> scores = new HashMap<>();
 
-    public List<Integer> findShortestPathsWithJump(Matrix maze, Point startingLocation, Point endingLocation,
-                                                Character wallChar, Long lowerThanScore) {
-        return findPathsInternalWithJump(maze, startingLocation, endingLocation,
-                wallChar, new HashSet<>(), lowerThanScore, JumpState.NOT_JUMPED);
-    }
+        List<Point> jumpPoints = maze.getCharacterLocations('#', true);
 
-    public List<Integer> findShortestPathsWithJump(Matrix maze, Character startingChar, Character endingChar,
-                                                Character wallChar, Long lowerThanScore) {
-        Point startingLocation = maze.getCharacterLocations(startingChar).get(0);
-        Point endingLocation = maze.getCharacterLocations(endingChar).get(0);
+        for (Point jumpPoint : jumpPoints) {
+            List<Point> checkPoints = maze.getAdjacentPoints(jumpPoint, false, true);
+            for (Point checkStart : checkPoints) {
+                if (!distances.containsKey(checkStart)) {
+                    continue;
+                }
+                for (int xOffset = -maxTime; xOffset < maxTime; xOffset++) {
+                    for (int yOffset = -(maxTime - Math.abs(xOffset)); yOffset < maxTime - Math.abs(xOffset); yOffset++) {
+                        if (xOffset == 0 && yOffset == 0) {
+                            continue;
+                        }
+                        // Ensure this point is in the maze
+                        Point checkEnd = PointHelper.addPoints(checkStart, new Point(xOffset, yOffset));
+                        if (!maze.isValid(checkEnd, true)) {
+                            continue;
+                        }
+                        List<Point> exits = maze.getAdjacentPoints(checkEnd, false, true);
+                        for (Point exit : exits) {
+                            if (checkStart.equals(exit)) {
+                                continue;
+                            }
+                            if (distances.containsKey(exit)) {
+                                Point cheatDiff = PointHelper.subtract(checkStart, exit);
 
-        return findShortestPathsWithJump(maze, startingLocation, endingLocation, wallChar, lowerThanScore);
-    }
+                                int diff = Math.abs(distances.get(checkStart) - distances.get(exit))
+                                        - Math.abs(cheatDiff.x) - Math.abs(cheatDiff.y);
 
+                                Pair<Point, Point> key = new Pair<>(checkStart, exit);
 
+                                // the ordering of points in a pair should be consistent
+                                Pair<Point, Point> keyFlip = new Pair<>(exit, checkStart);
+                                if (scores.containsKey(keyFlip)) {
+                                    key = keyFlip;
+                                }
 
-    public int findShortestPathDijikstraWithJump(Matrix maze, Point start, Point finish, Character wallChar) {
-        // 2D arrays representing the shortest distances and visited cells
-        int[][] dist = new int[maze.getWidth()][maze.getHeight()];
-        HashSet<Point> visited = new HashSet<>();
-
-        // initialize all distances to infinity except the starting cell
-        for (int i = 0; i < maze.getWidth(); i++) {
-            Arrays.fill(dist[i], Integer.MAX_VALUE);
-        }
-        dist[start.x][start.y] = 0;
-
-        // create a priority queue for storing cells to visit
-        PriorityQueue<VisitInfo> pq = new PriorityQueue<>(Comparator.comparingInt(VisitInfo::distance));
-        pq.offer(new VisitInfo(start, 0, false));
-
-        // iterate while there are cells to visit
-        while (!pq.isEmpty()) {
-            // remove the cell with the smallest distance from the priority queue
-            VisitInfo cell = pq.poll();
-            Point currentPoint = cell.point();
-            int distance = cell.distance();
-            boolean hasJumped = cell.hasJumped();
-
-            // if the cell has already been visited, skip it
-            if (visited.contains(currentPoint)) {
-                continue;
-            }
-
-            // mark the cell as visited
-            visited.add(currentPoint);
-
-            // if we've reached the end cell, return the shortest distance
-            if (currentPoint.equals(finish)) {
-                return distance;
-            }
-
-            // iterate over the neighboring cells and update their distances if necessary
-            for (Matrix.Direction direction: maze.getNextNavigation(currentPoint, false, (hasJumped) ? wallChar : '!')) {
-                Point nextPoint = PointHelper.addPoints(currentPoint, direction.getDirection());
-                if (!visited.contains(nextPoint)) {
-                    int newDistance = distance + 1;
-                    if (newDistance < dist[nextPoint.x][nextPoint.y]) {
-                        dist[nextPoint.x][nextPoint.y] = newDistance;
-                        pq.offer(new VisitInfo(nextPoint, newDistance, hasJumped || maze.getValue(nextPoint) == wallChar));
+                                if (diff >= requiredSavings && (!scores.containsKey(key) || diff > scores.get(key))) {
+                                    scores.put(key, diff);
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
-
-        // if we couldn't reach the end cell, return -1
-        return -1;
+        return scores;
     }
 
-    public long findShortestPathDijikstraWithJump(Matrix maze, Character startingChar, Character endingChar,
-                                          Character wallChar) {
-        Point startingLocation = maze.getCharacterLocations(startingChar).get(0);
-        Point endingLocation = maze.getCharacterLocations(endingChar).get(0);
-
-        return findShortestPathDijikstraWithJump(maze, startingLocation, endingLocation, wallChar);
-    }
-
-
+    // 995024 too low
+    // 1126275 too high
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
-    }
+        // easier to assume there's only one group
+        Matrix maze = new Matrix(configGroup, Matrix.DataType.CHARACTER);
 
-    public record VisitInfo(Point point, Integer distance, boolean hasJumped) {
+        Map<Point, Integer> distances = getDistanceScores(maze);
+
+        Map<Pair<Point, Point>, Integer> jumpScores = getJumpedDistances2(maze, distances, 20);
+
+        System.out.println(jumpScores.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+
+        return jumpScores.size();
     }
 }
