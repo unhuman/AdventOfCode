@@ -121,7 +121,20 @@ public class Day21 extends InputParser {
             StringBuilder sb = new StringBuilder();
 
             while (leftSteps + rightSteps + upSteps + downSteps > 0) {
-                if (canWalk(finger, Matrix.Direction.LEFT, leftSteps)) {
+                // prefer walking down first
+                if (canWalk(finger, Matrix.Direction.DOWN, downSteps)) {
+                    for (int i = 0; i < downSteps; i++) {
+                        sb.append('v');
+                        finger = PointHelper.addPoints(finger, Matrix.Direction.DOWN.getDirection());
+                    }
+                    downSteps = 0;
+                } else if (canWalk(finger, Matrix.Direction.DOWN, downSteps)) {
+                    for (int i = 0; i < downSteps; i++) {
+                        sb.append('v');
+                        finger = PointHelper.addPoints(finger, Matrix.Direction.DOWN.getDirection());
+                    }
+                    downSteps = 0;
+                } else if (canWalk(finger, Matrix.Direction.LEFT, leftSteps)) {
                     for (int i = 0; i < leftSteps; i++) {
                         sb.append('<');
                         finger = PointHelper.addPoints(finger, Matrix.Direction.LEFT.getDirection());
@@ -139,12 +152,6 @@ public class Day21 extends InputParser {
                         finger = PointHelper.addPoints(finger, Matrix.Direction.UP.getDirection());
                     }
                     upSteps = 0;
-                } else if (canWalk(finger, Matrix.Direction.DOWN, downSteps)) {
-                    for (int i = 0; i < downSteps; i++) {
-                        sb.append('v');
-                        finger = PointHelper.addPoints(finger, Matrix.Direction.DOWN.getDirection());
-                    }
-                    downSteps = 0;
                 }
             }
 

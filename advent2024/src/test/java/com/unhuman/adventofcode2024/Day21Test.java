@@ -23,6 +23,15 @@ public class Day21Test {
         Day21.KeyPad doorway = new Day21.KeyPad("789\n456\n123\n 0A");
         String answer = doorway.followDirections("<A^A>^^AvvvA");
         Assertions.assertEquals("029A", answer);
+
+        Day21.KeyPad robot = new Day21.KeyPad(" ^A\n<v>");
+
+        String processed = doorway.processCommand(answer);
+        Assertions.assertEquals("<A^A>^^AvvvA", processed);
+        processed = robot.processCommand(processed);
+        Assertions.assertEquals("v<<A>>^A<A>AvA<^AA>A<vAAA>^A".length(), processed.length());
+        processed = robot.processCommand(processed);
+        Assertions.assertEquals("<vA<AA>>^AvAA<^A>A<v<A>>^AvA^A<vA>^A<v<A>^A>AAvA^A<v<A>A>^AAAvA<^A>A".length(), processed.length());
     }
 
     @Test
@@ -81,7 +90,7 @@ public class Day21Test {
         System.out.println("Robot 1 Processing: " + output2);
         String output = robot.processCommand(output2);
         System.out.println("Robot 1 Output: " + output);
-        Assertions.assertEquals(command, output);
+        Assertions.assertEquals(command.length(), output.length());
     }
 
     @Test
@@ -106,11 +115,11 @@ public class Day21Test {
         Assertions.assertEquals(robotResults, output1);
         System.out.println("Robot 2 Processing: " + output1);
         String output2 = robot2.processCommand(output1);
-        Assertions.assertEquals(robot2Results, output2);
+        Assertions.assertEquals(robot2Results.length(), output2.length());
         System.out.println("Robot 1 Processing: " + output2);
         String output = robot.processCommand(output2);
         System.out.println("Robot 1 Output: " + output);
-        Assertions.assertEquals(command, output);
+        Assertions.assertEquals(command.length(), output.length());
     }
 
     @Test
@@ -124,6 +133,29 @@ public class Day21Test {
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(126384L, day.processInput1(groups[0], groups[1]));
     }
+
+    @Test
+    public void test1realData() {
+        String data = "789A\n" + // 66
+                "540A\n" + // 72
+                "285A\n" + // 68 (fix me) vs 72
+                "140A\n" + // 70
+                "189A\n"; // 74
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(134120L, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test1realDataBustedOne() {
+        String data =
+                "285A\n"; // 68 (fix me) vs 72
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(19380L, day.processInput1(groups[0], groups[1]));
+    }
+//    <^A^^AvAvv>A
+//    <^A^^AvA>vvA
 
     @Test
     public void keypadTestThing() {
@@ -151,9 +183,9 @@ public class Day21Test {
 
             // Go back....
             String output1 = robot.followDirections(robot2Command);
-            Assertions.assertEquals(answer, output1);
+            Assertions.assertEquals(robotCommand, output1);
             String output2 = doorway.followDirections(output1);
-            Assertions.assertEquals(program, output2);
+            Assertions.assertEquals(answer, output2);
         }
     }
 
