@@ -6,6 +6,9 @@ import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Day21Test {
     // data must be at least 2 lines - add \n for single line data
     private static final String DATA =
@@ -121,6 +124,39 @@ public class Day21Test {
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(126384L, day.processInput1(groups[0], groups[1]));
     }
+
+    @Test
+    public void keypadTestThing() {
+        List<String> commands = Arrays.asList("789A",
+                "540A",
+                "285A",
+                "140A",
+                "189A");
+        for (String command : commands) {
+            System.out.println("Processing: " + command);
+            Day21.KeyPad doorway = new Day21.KeyPad("789\n456\n123\n 0A");
+            String program = doorway.processCommand(command);
+            String answer = doorway.followDirections(program);
+            Assertions.assertEquals(command, answer);
+
+            Day21.KeyPad robot = new Day21.KeyPad(" ^A\n<v>");
+            String robotDirections = robot.processCommand(program);
+            String robotCommand = robot.followDirections(robotDirections);
+            Assertions.assertEquals(program, robotCommand);
+
+            Day21.KeyPad robot2 = new Day21.KeyPad(" ^A\n<v>");
+            String robot2Directions = robot.processCommand(robotDirections);
+            String robot2Command = robot.followDirections(robot2Directions);
+            Assertions.assertEquals(robot2Command, robotDirections);
+
+            // Go back....
+            String output1 = robot.followDirections(robot2Command);
+            Assertions.assertEquals(answer, output1);
+            String output2 = doorway.followDirections(output1);
+            Assertions.assertEquals(program, output2);
+        }
+    }
+
 
     @Test
     public void test1a() {
