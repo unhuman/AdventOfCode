@@ -9,6 +9,7 @@ import com.unhuman.adventofcode.aoc_framework.utility.PointHelper;
 
 import javax.swing.text.Position;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -66,7 +67,43 @@ public class Day21 extends InputParser {
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        KeyPad doorway = new KeyPad("789\n456\n123\n 0A");
+        KeyPad robot1 = new KeyPad(" ^A\n<v>");
+
+        List<KeyPad> keypads = new ArrayList<>();
+        keypads.add(doorway);
+        for (int i = 0; i < 25; i++) {
+            keypads.add(robot1);
+        }
+
+        // easier to assume there's only one group
+        Long result = 0L;
+        GroupItem group0 = configGroup.get(0);
+        for (ItemLine line : group0) {
+            System.out.println("Processing line: " + line);
+            for (KeyPad keypad: keypads) {
+                keypad.resetFinger();
+            }
+            String command = "";
+            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
+                command = command + line.getChar(itemNum);
+            }
+
+            String data = command;
+            for (int i = 0; i < keypads.size(); i++) {
+                System.out.println("processing " + line + " from keypad: " + i + " / " + keypads.size());
+                KeyPad keypad = keypads.get(i);
+                data = keypad.processCommand(data);
+            }
+
+            long commandValue = Long.parseLong(command.substring(0, command.length() - 1));
+            System.out.println("Command: " + command + " Length: " + data.length() + " * value: " + commandValue +
+                    " = " + data.length() * commandValue);
+            result += data.length() * commandValue;
+            System.out.println("Running total : " + result);
+        }
+
+        return result;
     }
 
     public static class KeyPad {
@@ -169,7 +206,7 @@ public class Day21 extends InputParser {
                 Character desiredButton = command.charAt(i);
                 sb.append(moveTo(desiredButton));
             }
-            System.out.println(sb.toString() + " " + sb.toString().length());
+//            System.out.println(sb.toString() + " " + sb.toString().length());
             return sb.toString();
         }
 
