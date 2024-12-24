@@ -17,11 +17,11 @@ public class ItemLine extends ArrayList<String> {
         return get(index);
     }
 
-    public int getInt(int index) {
-        return Integer.parseInt(get(index));
+    public Integer getInt(int index) {
+        return get(index) != null ? Integer.parseInt(get(index)) : null;
     }
 
-    public long getLong(int index) {
-        return Long.parseLong(get(index));
+    public Long getLong(int index) {
+        return get(index) != null ? Long.parseLong(get(index)) : null;
     }
 }
