@@ -129,7 +129,12 @@ public class Matrix {
     }
 
     public Matrix(ConfigGroup configGroup, DataType dataType) {
-        this(configGroup.get(0).get(0).size(), configGroup.get(0).size(), dataType, Optional.of(configGroup.get(0)));
+        this(configGroup.get(0), dataType);
+    }
+
+
+    public Matrix(GroupItem groupItem, DataType dataType) {
+        this(groupItem.get(0).size(), groupItem.size(), dataType, Optional.of(groupItem));
     }
 
     /**

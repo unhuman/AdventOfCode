@@ -8,7 +8,45 @@ import org.junit.jupiter.api.Test;
 public class Day25Test {
     // data must be at least 2 lines - add \n for single line data
     private static final String DATA = "" +
-            "\n";
+            "#####\n" +
+            ".####\n" +
+            ".####\n" +
+            ".####\n" +
+            ".#.#.\n" +
+            ".#...\n" +
+            ".....\n" +
+            "\n" +
+            "#####\n" +
+            "##.##\n" +
+            ".#.##\n" +
+            "...##\n" +
+            "...#.\n" +
+            "...#.\n" +
+            ".....\n" +
+            "\n" +
+            ".....\n" +
+            "#....\n" +
+            "#....\n" +
+            "#...#\n" +
+            "#.#.#\n" +
+            "#.###\n" +
+            "#####\n" +
+            "\n" +
+            ".....\n" +
+            ".....\n" +
+            "#.#..\n" +
+            "###..\n" +
+            "###.#\n" +
+            "###.#\n" +
+            "#####\n" +
+            "\n" +
+            ".....\n" +
+            ".....\n" +
+            ".....\n" +
+            "#....\n" +
+            "#.#..\n" +
+            "#.#.#\n" +
+            "#####\n\n";
 
     static InputParser getDay(String data) {
         return new Day25(data);
@@ -19,7 +57,7 @@ public class Day25Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(3L, day.processInput1(groups[0], groups[1]));
     }
 
     @Test

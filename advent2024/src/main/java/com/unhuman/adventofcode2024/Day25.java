@@ -4,9 +4,13 @@ import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
+import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Day25 extends InputParser {
-    private static final String regex1 = null;
+    private static final String regex1 = "(.)";
     private static final String regex2 = null;
 
     public Day25() {
@@ -20,27 +24,44 @@ public class Day25 extends InputParser {
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
-        GroupItem group0 = configGroup.get(0);
-        for (ItemLine line : group0) {
-            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-//                char value = line.getChar(itemNum);
-//                String value = line.getString(itemNum);
-//                Long value = line.getLong(itemNum);
+        List<List<Long>> locks = new ArrayList<>();
+        List<List<Long>> keys = new ArrayList<>();
+        for (GroupItem group : configGroup) {
+            Matrix matrix = new Matrix(group, Matrix.DataType.CHARACTER);
+            boolean isLock = matrix.getValue(0, 0) == '#';
+            List<Long> lockOrKey = new ArrayList<>();
+            for (int x = 0; x < matrix.getWidth(); x++) {
+                lockOrKey.add(0L);
+                for (int i = 1; i < matrix.getHeight() - 1; i++) {
+                    int y = (isLock) ? i : matrix.getHeight() - 1 - i;
+                    if (matrix.getValue(x, y) == '#') {
+                        lockOrKey.set(x, lockOrKey.get(x) + 1);
+                    }
+                }
+            }
+            if (isLock) {
+                locks.add(lockOrKey);
+            } else {
+                keys.add((lockOrKey));
             }
         }
 
-        // Here's code for a 2nd group, if needed
-//        GroupItem group1 = configGroup1.get(0);
-//        for (ItemLine line : group1) {
-//            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-////                char value = line.getChar(itemNum);
-////                String value = line.getString(itemNum);
-////                Long value = line.getLong(itemNum);
-//            }
-//        }
-
-
-        return 1;
+        long count = 0L;
+        for (List<Long> lock: locks) {
+            for (List<Long> key: keys) {
+                boolean match = true;
+                for (int i = 0; i < lock.size(); i ++) {
+                    if (lock.get(i) + key.get(i) > 5) {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     @Override
