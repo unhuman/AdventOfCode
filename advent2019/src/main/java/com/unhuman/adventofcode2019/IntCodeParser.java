@@ -79,7 +79,6 @@ public class IntCodeParser {
 
     ParameterMode getParameterMode(Map<Integer, ParameterMode> parameterModes, int item) {
         return (parameterModes.getOrDefault(item, ParameterMode.POSITION));
-
     }
 
     /**
@@ -138,7 +137,7 @@ public class IntCodeParser {
     }
 
     /**
-     * Opcode3 = Write value to output
+     * Opcode4 = Write value to output
      * outputs the value of its only parameter.
      * For example, the instruction 4,50 would output the value at address 50.
      *
@@ -211,8 +210,8 @@ public class IntCodeParser {
     }
 
     /**
-     * Opcode7 = less than:
-     * if the first parameter is less than the second parameter, it stores 1 in the position given by the third parameter.
+     * Opcode8 = equals
+     * if the first parameter is equal to the second parameter, it stores 1 in the position given by the third parameter.
      * Otherwise, it stores 0.
      * @param instructionPointer
      * @return
