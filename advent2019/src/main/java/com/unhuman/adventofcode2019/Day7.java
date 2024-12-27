@@ -5,6 +5,7 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import org.apache.commons.collections4.iterators.PermutationIterator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,8 +58,57 @@ public class Day7 extends InputParser {
         return nextInputSignal;
     }
 
+    protected static int processSignalPermutation2(String program, List<Integer> permutation) {
+        List<IntCodeParser> parsers = new ArrayList<>();
+        for (int i = 0; i <= 4; i++) {
+            IntCodeParser parser = new IntCodeParser(program);
+            parser.setInput(permutation.get(i).toString());
+            parsers.add(parser);
+        }
+
+        int nextInputSignal = 0;
+        boolean isRunning = true;
+        while (isRunning) {
+            for (int i = 0; i <= 4; i++) {
+                IntCodeParser parser = parsers.get(i);
+                parser.setInput(Integer.toString(nextInputSignal));
+                parser.process();
+
+                // stop when parser has halted
+                isRunning = !parser.hasHalted();
+                if (!isRunning) {
+                    break;
+                }
+
+                nextInputSignal = Integer.parseInt(parser.getOutput());
+            }
+        }
+        return nextInputSignal;
+    }
+
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+
+        // easier to assume there's only one group
+        GroupItem item = configGroup.get(0);
+        String program = item.get(0).toString();
+
+        List<Integer> phaseValues = Arrays.asList(5, 6, 7, 8, 9);
+
+        PermutationIterator<Integer> permutationIterator = new PermutationIterator<>(phaseValues);
+
+        int maxSignal = 0;
+
+        while (permutationIterator.hasNext()) {
+            List<Integer> permutation = permutationIterator.next();
+
+            int nextInputSignal = processSignalPermutation2(program, permutation);
+
+            if (nextInputSignal > maxSignal) {
+                maxSignal = nextInputSignal;
+            }
+        }
+
+        return maxSignal;
     }
 }

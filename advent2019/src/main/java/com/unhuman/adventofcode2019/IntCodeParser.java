@@ -10,15 +10,19 @@ import java.util.stream.Collectors;
 
 public class IntCodeParser {
     private List<Integer> memory;
-
-    private List<String> input = new ArrayList<>();
+    private List<String> input;
     private String output;
+    private boolean hasHalted;
+    int instructionPointer;
 
     enum ParameterMode { POSITION, IMMEDIATE }
 
     public IntCodeParser(List<String> code) {
         this.memory = new ArrayList<>(code.stream().map(Integer::parseInt).toList());
+        this.input = new ArrayList<>();
         this.output = "";
+        this.hasHalted = false;
+        this.instructionPointer = 0;
     }
 
     public IntCodeParser(String code) {
@@ -39,8 +43,14 @@ public class IntCodeParser {
         return priorValue;
     }
 
+    public boolean hasHalted() {
+        return hasHalted;
+    }
+
     public void process() {
-        int instructionPointer = 0;
+        if (hasHalted) {
+            throw new RuntimeException("This Parse has halted - cannot process");
+        }
 
         while (true) {
             String operationInfo = memory.get(instructionPointer++).toString();
@@ -61,12 +71,16 @@ public class IntCodeParser {
                     case 1 -> instructionPointer = processOpcode1(instructionPointer, parameterModes);
                     case 2 -> instructionPointer = processOpcode2(instructionPointer, parameterModes);
                     case 3 -> instructionPointer = processOpcode3(instructionPointer, parameterModes);
-                    case 4 -> instructionPointer = processOpcode4(instructionPointer, parameterModes);
+                    case 4 -> {
+                        instructionPointer = processOpcode4(instructionPointer, parameterModes);
+                        return;
+                    }
                     case 5 -> instructionPointer = processOpcode5(instructionPointer, parameterModes);
                     case 6 -> instructionPointer = processOpcode6(instructionPointer, parameterModes);
                     case 7 -> instructionPointer = processOpcode7(instructionPointer, parameterModes);
                     case 8 -> instructionPointer = processOpcode8(instructionPointer, parameterModes);
                     case 99 -> {
+                        hasHalted = true;
                         return;
                     }
                 }
@@ -232,6 +246,9 @@ public class IntCodeParser {
 
     String consumeInput() {
         System.out.println("Consuming input: ....");
+        if (input.isEmpty()) {
+            throw new RuntimeException("Can not consume input - there was none");
+        }
         return input.remove(0);
     }
 
@@ -245,7 +262,11 @@ public class IntCodeParser {
     }
 
     String getOutput() {
-        return output;
+        try {
+            return output;
+        } finally {
+            output = "";
+        }
     }
 
 }
