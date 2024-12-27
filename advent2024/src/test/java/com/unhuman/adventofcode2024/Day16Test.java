@@ -53,6 +53,98 @@ public class Day16Test {
         Assertions.assertEquals(2002, day.processInput1(groups[0], groups[1]));
     }
 
+    @Test
+    public void test0d() {
+        String data =
+                "#####\n" +
+                "###E#\n" +
+                "##..#\n" +
+                "#S.##\n" +
+                "#####";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(3004, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test0e() {
+        String data =
+                "#####\n" +
+                "#..E#\n" +
+                "#.#.#\n" +
+                "#S..#\n" +
+                "#####";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(1004, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test0f() {
+        String data =
+                "########\n" +
+                "##....E#\n" +
+                "##.##.##\n" +
+                "#S.....#\n" +
+                "########";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(2007, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test0g() {
+        String data =
+                "########\n" +
+                "##....E#\n" +
+                "###.####\n" +
+                "##....##\n" +
+                "##.##.##\n" +
+                "#S.....#\n" +
+                "########";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(4009, day.processInput1(groups[0], groups[1]));
+    }
+
+    public void test0h() {
+        String data =
+                "########\n" +
+                "##....E#\n" +
+                "####.###\n" +
+                "##....##\n" +
+                "##.##.##\n" +
+                "#S.....#\n" +
+                "########";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(4009, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test0i() {
+        String data =
+                "#####\n" +
+                "#E..#\n" +
+                "#...#\n" +
+                "#S..#\n" +
+                "#####";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(1002, day.processInput1(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test0j() {
+        String data =
+                "####\n" +
+                "#.E#\n" +
+                "#S.#\n" +
+                "####";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(1002, day.processInput1(groups[0], groups[1]));
+    }
 
     @Test
     public void test1a() {
@@ -101,10 +193,93 @@ public class Day16Test {
     }
 
     @Test
-    public void test2() {
-        String data = DATA;
+    public void testpre2a() {
+        String data =
+                "#####\n" +
+                "#...#\n" +
+                "#S#E#\n" +
+                "#...#\n" +
+                "#####";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(8, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void testpre2b() {
+        String data =
+                "######\n" +
+                "###.E#\n" +
+                "##..##\n" +
+                "##..##\n" +
+                "#S.###\n" +
+                "######";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(8, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void testpre2c() {
+        String data =
+                "######\n" +
+                "#...E#\n" +
+                "###.##\n" +
+                "#...##\n" +
+                "#.#.##\n" +
+                "#...##\n" +
+                "#.####\n" +
+                "#S####\n" +
+                "######";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(13, day.processInput2(groups[0], groups[1]));
+    }
+
+
+    @Test
+    public void test2a() {
+        String data = "###############\n" +
+                "#.......#....E#\n" +
+                "#.#.###.#.###.#\n" +
+                "#.....#.#...#.#\n" +
+                "#.###.#####.#.#\n" +
+                "#.#.#.......#.#\n" +
+                "#.#.#####.###.#\n" +
+                "#...........#.#\n" +
+                "###.#.#####.#.#\n" +
+                "#...#.....#.#.#\n" +
+                "#.#.#.###.#.#.#\n" +
+                "#.....#...#.#.#\n" +
+                "#.###.#.#.#.#.#\n" +
+                "#S..#.....#...#\n" +
+                "###############\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(45L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2b() {
+        String data = "#################\n" +
+                "#...#...#...#..E#\n" +
+                "#.#.#.#.#.#.#.#.#\n" +
+                "#.#.#.#...#...#.#\n" +
+                "#.#.#.#.###.#.#.#\n" +
+                "#...#.#.#.....#.#\n" +
+                "#.#.#.#.#.#####.#\n" +
+                "#.#...#.#.#.....#\n" +
+                "#.#.#####.#.###.#\n" +
+                "#.#.#.......#...#\n" +
+                "#.#.###.#####.###\n" +
+                "#.#.#...#.....#.#\n" +
+                "#.#.#.#####.###.#\n" +
+                "#.#.#.........#.#\n" +
+                "#.#.#.#########.#\n" +
+                "#S#.............#\n" +
+                "#################\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(64L, day.processInput2(groups[0], groups[1]));
     }
 }

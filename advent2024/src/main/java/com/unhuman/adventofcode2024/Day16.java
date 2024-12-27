@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
@@ -39,7 +40,7 @@ public class Day16 extends InputParser {
         Point end = maze.getCharacterLocations('E').get(0);
 
         shortCircuits = new HashSet<>();
-        return findShortestPathDijikstra(maze, start, Matrix.Direction.RIGHT, end, '#');
+        return findShortestPathDijikstra(maze, start, Matrix.Direction.RIGHT, end, '#', 1);
     }
 
     Long findPath(Matrix maze, Point start, Point end, Matrix.Direction currentDirection,
@@ -99,16 +100,17 @@ public class Day16 extends InputParser {
     }
 
     /** based off Matrix.findShortestPathDijikstra */
-    public int findShortestPathDijikstra(Matrix maze, Point start, Matrix.Direction direction, Point finish, Character wallChar) {
+    public int findShortestPathDijikstra(Matrix maze, Point start, Matrix.Direction direction, Point finish, Character wallChar, int mode) {
+        int shortestPath = Integer.MAX_VALUE;
         // 2D arrays representing the shortest distances and visited cells
-        int[][] dist = new int[maze.getWidth()][maze.getHeight()];
-        HashSet<Point> visited = new HashSet<>();
+        int[][] dist = new int[maze.getHeight()][maze.getWidth()];
+        HashSet<Pair<Point, Matrix.Direction>> visited = new HashSet<>();
 
         // initialize all distances to infinity except the starting cell
-        for (int i = 0; i < maze.getWidth(); i++) {
+        for (int i = 0; i < maze.getHeight(); i++) {
             Arrays.fill(dist[i], Integer.MAX_VALUE);
         }
-        dist[start.x][start.y] = 0;
+        dist[start.y][start.x] = 0;
 
         // create a priority queue for storing cells to visit
         PriorityQueue<VisitInfo> pq = new PriorityQueue<>(Comparator.comparingInt(VisitInfo::distance));
@@ -122,23 +124,26 @@ public class Day16 extends InputParser {
             direction = cell.direction;
             int distance = cell.distance();
 
-            // if the cell has already been visited, skip it
-            if (visited.contains(currentPoint)) {
-                continue;
-            }
+            // if the cell / direction has already been visited, skip it
+//            if (visited.contains(new Pair<>(currentPoint, direction))) {
+//                continue;
+//            }
 
-            // mark the cell as visited
-            visited.add(currentPoint);
+            // mark the cell / direction as visited
+            visited.add(new Pair<>(currentPoint, direction));
 
             // if we've reached the end cell, return the shortest distance
             if (currentPoint.equals(finish)) {
-                return distance;
+                System.out.println(distance);
+                if (distance < shortestPath) {
+                    shortestPath = distance;
+                }
             }
 
             // iterate over the neighboring cells and update their distances if necessary
             for (Matrix.Direction checkDirection: maze.getNextNavigation(currentPoint, false, wallChar)) {
                 Point nextPoint = PointHelper.addPoints(currentPoint, checkDirection.getDirection());
-                if (!visited.contains(nextPoint)) {
+                if (!visited.contains(new Pair<>(nextPoint, checkDirection))) {
                     int newDistance = distance + 1;
                     if (!checkDirection.equals(direction)) {
                         newDistance += 1000;
@@ -149,21 +154,53 @@ public class Day16 extends InputParser {
                         }
                     }
 
-                    if (newDistance < dist[nextPoint.x][nextPoint.y]) {
-                        dist[nextPoint.x][nextPoint.y] = newDistance;
-                        pq.offer(new VisitInfo(nextPoint, checkDirection, newDistance));
+                    if (newDistance < dist[nextPoint.y][nextPoint.x]) {
+                        dist[nextPoint.y][nextPoint.x] = newDistance;
                     }
+                    pq.offer(new VisitInfo(nextPoint, checkDirection, newDistance));
                 }
             }
         }
 
         // if we couldn't reach the end cell, return -1
-        return -1;
+        if (mode == 1) {
+            return shortestPath;
+        } else {
+            return findSeats(maze, start, finish, dist, new HashSet<>());
+        }
     }
+
+    int findSeats(Matrix maze, Point start, Point finish, int[][] dist, Set<Point> tracker) {
+        if (tracker.contains(finish)) {
+            return 0;
+        }
+        tracker.add(finish);
+        if (finish.equals(start)) {
+            return 1;
+        }
+
+        List<Matrix.Direction> directions = maze.getNextNavigation(finish, false, '#');
+        int score = 1;
+        for (Matrix.Direction direction: directions) {
+            int currentValue = dist[finish.y][finish.x];
+            Point checkPoint = PointHelper.addPoints(finish, direction.getDirection());
+            if (dist[checkPoint.y][checkPoint.x] < currentValue) {
+                score += findSeats(maze, start, checkPoint, dist, tracker);
+            }
+        }
+
+        return score;
+    }
+
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
+        Matrix maze = new Matrix(configGroup, Matrix.DataType.CHARACTER);
+
+        Point start = maze.getCharacterLocations('S').get(0);
+        Point end = maze.getCharacterLocations('E').get(0);
+
         shortCircuits = new HashSet<>();
-        return 2;
+        return findShortestPathDijikstra(maze, start, Matrix.Direction.RIGHT, end, '#', 2);
     }
 }
