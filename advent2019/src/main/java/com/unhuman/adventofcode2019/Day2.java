@@ -21,8 +21,8 @@ public class Day2 extends InputParser {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
         IntCodeParser parser = new IntCodeParser(item.get(0));
-        parser.poke(1, 12);
-        parser.poke(2, 2);
+        parser.poke(1, 12L);
+        parser.poke(2, 2L);
         parser.process();
         return parser.peek(0);
     }
@@ -32,8 +32,8 @@ public class Day2 extends InputParser {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
 
-        for (int noun = 0; noun <= 99; noun++) {
-            for (int verb = 0; verb <= 99; verb++) {
+        for (long noun = 0; noun <= 99; noun++) {
+            for (long verb = 0; verb <= 99; verb++) {
                 IntCodeParser parser = new IntCodeParser(item.get(0));
                 parser.poke(1, noun);
                 parser.poke(2, verb);

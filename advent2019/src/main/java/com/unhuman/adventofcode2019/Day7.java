@@ -62,6 +62,7 @@ public class Day7 extends InputParser {
         List<IntCodeParser> parsers = new ArrayList<>();
         for (int i = 0; i <= 4; i++) {
             IntCodeParser parser = new IntCodeParser(program);
+            parser.setReturnOnOutput(true);
             parser.setInput(permutation.get(i).toString());
             parsers.add(parser);
         }

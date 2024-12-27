@@ -9,36 +9,47 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class IntCodeParser {
-    private List<Integer> memory;
+    private Memory memory;
     private List<String> input;
     private String output;
     private boolean hasHalted;
     int instructionPointer;
+    int relativeBase;
+    boolean returnOnOutput = false;
 
-    enum ParameterMode { POSITION, IMMEDIATE }
+    public enum ParameterMode { POSITION, IMMEDIATE, RELATIVE }
 
     public IntCodeParser(List<String> code) {
-        this.memory = new ArrayList<>(code.stream().map(Integer::parseInt).toList());
+        this.memory = new Memory(code.stream().map(String::trim).map(Long::parseLong).toList());
         this.input = new ArrayList<>();
         this.output = "";
         this.hasHalted = false;
         this.instructionPointer = 0;
+        this.relativeBase = 0;
     }
 
     public IntCodeParser(String code) {
         this(Arrays.stream(code.split(",")).collect(Collectors.toList()));
     }
 
-    public List<Integer> getReadOnlyMemory() {
-        return Collections.unmodifiableList(memory);
+    /**
+     * when opcode 4 occurs to log output, pause the VM and return the output
+     * @param returnOnOutput
+     */
+    public void setReturnOnOutput(boolean returnOnOutput) {
+        this.returnOnOutput = returnOnOutput;
     }
 
-    public Integer peek(int location) {
+    public Memory getReadOnlyMemory() {
+        return memory.getReadOnlyMemory();
+    }
+
+    public Long peek(int location) {
         return memory.get(location);
     }
 
-    public Integer poke(int location, Integer value) {
-        Integer priorValue = peek(location);
+    public Long poke(int location, Long value) {
+        Long priorValue = peek(location);
         memory.set(location, value);
         return priorValue;
     }
@@ -63,6 +74,7 @@ public class IntCodeParser {
                 switch (value) {
                     case '0' -> parameterModes.put(i, ParameterMode.POSITION);
                     case '1' -> parameterModes.put(i, ParameterMode.IMMEDIATE);
+                    case '2' -> parameterModes.put(i, ParameterMode.RELATIVE);
                 }
             }
 
@@ -73,15 +85,21 @@ public class IntCodeParser {
                     case 3 -> instructionPointer = processOpcode3(instructionPointer, parameterModes);
                     case 4 -> {
                         instructionPointer = processOpcode4(instructionPointer, parameterModes);
-                        return;
+                        if (returnOnOutput) {
+                            return;
+                        }
                     }
                     case 5 -> instructionPointer = processOpcode5(instructionPointer, parameterModes);
                     case 6 -> instructionPointer = processOpcode6(instructionPointer, parameterModes);
                     case 7 -> instructionPointer = processOpcode7(instructionPointer, parameterModes);
                     case 8 -> instructionPointer = processOpcode8(instructionPointer, parameterModes);
+                    case 9 -> instructionPointer = processOpcode9(instructionPointer, parameterModes);
                     case 99 -> {
                         hasHalted = true;
                         return;
+                    }
+                    default -> {
+                        throw new RuntimeException("Invalid Opcode: " + command);
                     }
                 }
             } catch (Exception e) {
@@ -95,6 +113,20 @@ public class IntCodeParser {
         return (parameterModes.getOrDefault(item, ParameterMode.POSITION));
     }
 
+    protected int getMemoryLocation(Map<Integer, ParameterMode> parameterModes, int item, int instructionPointer) {
+        ParameterMode parameterMode = getParameterMode(parameterModes, item);
+        return switch (parameterMode) {
+            case POSITION -> Math.toIntExact(memory.get(instructionPointer));
+            case IMMEDIATE -> instructionPointer;
+            case RELATIVE -> relativeBase + Math.toIntExact(memory.get(instructionPointer));
+            default -> throw new RuntimeException("Unexpected parameter mode: " + parameterMode);
+        };
+    }
+
+    protected long getParameter(Map<Integer, ParameterMode> parameterModes, int item, int instructionPointer) {
+        return memory.get(getMemoryLocation(parameterModes, item, instructionPointer));
+    }
+
     /**
      * Opcode1 = Addition
      * Adds together numbers read from two positions and stores the result in a third position.
@@ -102,15 +134,10 @@ public class IntCodeParser {
      * @return
      */
     public int processOpcode1(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
-        int leftValue = getParameterMode(parameterModes, 1) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int rightValue = getParameterMode(parameterModes, 2) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int sum = leftValue + rightValue;
-        // Storage is always to a memory location
-        int storageLocation = memory.get(instructionPointer++);
+        long leftValue = getParameter(parameterModes, 1, instructionPointer++);
+        long rightValue = getParameter(parameterModes, 2, instructionPointer++);
+        long sum = leftValue + rightValue;
+        int storageLocation = getMemoryLocation(parameterModes, 3, instructionPointer++);
         memory.set(storageLocation, sum);
         return instructionPointer;
     }
@@ -122,15 +149,11 @@ public class IntCodeParser {
      * @return
      */
     public int processOpcode2(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
-        int leftValue = getParameterMode(parameterModes, 1) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int rightValue = getParameterMode(parameterModes, 2) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int product = leftValue * rightValue;
+        long leftValue = getParameter(parameterModes, 1, instructionPointer++);
+        long rightValue = getParameter(parameterModes, 2, instructionPointer++);
+        long product = leftValue * rightValue;
         // Storage is always to a memory location
-        int storageLocation = memory.get(instructionPointer++);
+        int storageLocation = getMemoryLocation(parameterModes, 3, instructionPointer++);
         memory.set(storageLocation, product);
         return instructionPointer;
     }
@@ -143,8 +166,8 @@ public class IntCodeParser {
      * @return
      */
     public int processOpcode3(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
-        int value = Integer.parseInt(consumeInput());
-        int storageLocation = memory.get(instructionPointer++);
+        long value = Long.parseLong(consumeInput());
+        int storageLocation = getMemoryLocation(parameterModes, 1, instructionPointer++);
         // Storage is always to a memory location
         memory.set(storageLocation, value);
         return instructionPointer;
@@ -159,9 +182,7 @@ public class IntCodeParser {
      * @return
      */
     public int processOpcode4(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
-        int data = getParameterMode(parameterModes, 1) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
+        long data = getParameter(parameterModes, 1, instructionPointer++);
         appendOutput(data, instructionPointer);
         return instructionPointer;
     }
@@ -175,13 +196,9 @@ public class IntCodeParser {
      * @return
      */
     public int processOpcode5(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
-        int check = getParameterMode(parameterModes, 1) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int jumpLine = getParameterMode(parameterModes, 2) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        return (check != 0) ? jumpLine : instructionPointer;
+        long check = getParameter(parameterModes, 1, instructionPointer++);
+        long jumpLine = getParameter(parameterModes, 2, instructionPointer++);
+        return (Math.toIntExact(check) != 0) ? Math.toIntExact(jumpLine) : instructionPointer;
     }
 
     /**
@@ -193,13 +210,9 @@ public class IntCodeParser {
      * @return
      */
     public int processOpcode6(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
-        int check = getParameterMode(parameterModes, 1) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int jumpLine = getParameterMode(parameterModes, 2) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        return (check == 0) ? jumpLine : instructionPointer;
+        long check = getParameter(parameterModes, 1, instructionPointer++);
+        long jumpLine = getParameter(parameterModes, 2, instructionPointer++);
+        return (check == 0) ? Math.toIntExact(jumpLine) : instructionPointer;
     }
 
     /**
@@ -210,16 +223,12 @@ public class IntCodeParser {
      * @return
      */
     public int processOpcode7(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
-        int leftValue = getParameterMode(parameterModes, 1) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int rightValue = getParameterMode(parameterModes, 2) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int value = (leftValue < rightValue) ? 1 : 0;
+        long leftValue = getParameter(parameterModes, 1, instructionPointer++);
+        long rightValue = getParameter(parameterModes, 2, instructionPointer++);
+        long value = (leftValue < rightValue) ? 1 : 0;
         // Storage is always to a memory location
-        int storageLocation = memory.get(instructionPointer++);
-        memory.set(storageLocation, value);
+        int storageLocation = getMemoryLocation(parameterModes, 3, instructionPointer++);
+        memory.set(Math.toIntExact(storageLocation), value);
         return instructionPointer;
     }
 
@@ -231,21 +240,32 @@ public class IntCodeParser {
      * @return
      */
     public int processOpcode8(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
-        int leftValue = getParameterMode(parameterModes, 1) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int rightValue = getParameterMode(parameterModes, 2) == ParameterMode.POSITION
-                ? memory.get(memory.get(instructionPointer++))
-                : memory.get(instructionPointer++);
-        int value = (leftValue == rightValue) ? 1 : 0;
+        long leftValue = getParameter(parameterModes, 1, instructionPointer++);
+        long rightValue = getParameter(parameterModes, 2, instructionPointer++);
+        long value = (leftValue == rightValue) ? 1L : 0L;
         // Storage is always to a memory location
-        int storageLocation = memory.get(instructionPointer++);
+        int storageLocation = getMemoryLocation(parameterModes, 3, instructionPointer++);
         memory.set(storageLocation, value);
         return instructionPointer;
     }
 
+    /**
+     * Opcode 9 = Relative Base
+     * The address a relative mode parameter refers to is itself plus the current relative base.
+     * When the relative base is 0, relative mode parameters and position mode parameters with
+     * the same value refer to the same address.
+     * @param instructionPointer
+     * @param parameterModes
+     * @return
+     */
+    public int processOpcode9(int instructionPointer, Map<Integer, ParameterMode> parameterModes) {
+        long relativeBaseOffset = getParameter(parameterModes, 1, instructionPointer++);
+        relativeBase += Math.toIntExact(relativeBaseOffset);
+        return instructionPointer;
+    }
+
     String consumeInput() {
-        System.out.println("Consuming input: ....");
+//        System.out.println("Consuming input: ....");
         if (input.isEmpty()) {
             throw new RuntimeException("Can not consume input - there was none");
         }
@@ -256,9 +276,9 @@ public class IntCodeParser {
         this.input.add(input);
     }
 
-    void appendOutput(int data, int instructionPointer) {
-        System.out.println("IP: " + instructionPointer + ": Appending output: " + data);
-        output += (!output.equals("")) ? "\n" + data : data;
+    void appendOutput(long data, int instructionPointer) {
+//        System.out.println("IP: " + instructionPointer + ": Appending output: " + data);
+        output += (!output.equals("")) ? "," + data : data;
     }
 
     String getOutput() {
@@ -269,4 +289,36 @@ public class IntCodeParser {
         }
     }
 
+    static class Memory extends ArrayList<Long> {
+        Map<Integer, Long> extendedMemory = new HashMap<>();
+
+        public Memory(List<Long> list) {
+            super(list);
+        }
+
+        @Override
+        public Long get(int index) {
+            if (index >= this.size()) {
+                return extendedMemory.getOrDefault(index, 0L);
+            }
+            // for better or worse, just get whatever was requested
+            return super.get(index);
+        }
+
+        @Override
+        public Long set(int index, Long value) {
+            if (index <= this.size()) {
+                return super.set(index, value);
+            }
+            Long oldValue = extendedMemory.get(index);
+            extendedMemory.put(index, value);
+            return oldValue;
+        }
+
+        public Memory getReadOnlyMemory() {
+            Memory copy = new Memory(Collections.unmodifiableList(this));
+            copy.extendedMemory = Collections.unmodifiableMap(new HashMap<>(extendedMemory));
+            return copy;
+        }
+    }
 }
