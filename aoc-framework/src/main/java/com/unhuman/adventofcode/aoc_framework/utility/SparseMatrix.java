@@ -136,11 +136,11 @@ public class SparseMatrix<T> {
         return bottomRight;
     }
 
-    private Set<Point> getAllPopulatedPoints() {
+    public Set<Point> getAllPopulatedPoints() {
         return Collections.unmodifiableSet(matrix.keySet());
     }
 
-    private Set<Point> getPopulatedPoints(T desiredValue) {
+    public Set<Point> getPopulatedPoints(T desiredValue) {
         return Collections.unmodifiableSet(
                 matrix.keySet().stream().filter
                         (point -> matrix.get(point).equals(desiredValue)).collect(Collectors.toSet()));

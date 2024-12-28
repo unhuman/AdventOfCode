@@ -36,6 +36,8 @@ public class Matrix {
         DOWN(new Point(0, 1)),
         LEFT(new Point (-1, 0));
 
+        public enum Rotation { LEFT, COUNTERCLOCKWISE, RIGHT, CLOCKWISE }
+
         private final Point direction;
 
         Direction(Point point) {
@@ -81,6 +83,12 @@ public class Matrix {
             }
 
             throw new RuntimeException("Invalid direction: " + value);
+        }
+
+        public Direction rotate(Rotation rotation) {
+            return (rotation == Rotation.CLOCKWISE || rotation == Rotation.RIGHT)
+                    ? Direction.values()[(this.ordinal() + 1) % Direction.values().length]
+                    : Direction.values()[(this.ordinal() == 0) ? Direction.values().length - 1 : this.ordinal() - 1];
         }
 
     }

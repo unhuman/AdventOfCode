@@ -281,6 +281,10 @@ public class IntCodeParser {
         output += (!output.equals("")) ? "," + data : data;
     }
 
+    boolean hasOutput() {
+        return !output.isEmpty();
+    }
+
     String getOutput() {
         try {
             return output;
@@ -307,7 +311,7 @@ public class IntCodeParser {
 
         @Override
         public Long set(int index, Long value) {
-            if (index <= this.size()) {
+            if (index < this.size()) {
                 return super.set(index, value);
             }
             Long oldValue = extendedMemory.get(index);
