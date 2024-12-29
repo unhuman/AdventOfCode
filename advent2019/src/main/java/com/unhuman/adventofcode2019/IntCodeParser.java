@@ -60,7 +60,7 @@ public class IntCodeParser {
 
     public void process() {
         if (hasHalted) {
-            throw new RuntimeException("This Parse has halted - cannot process");
+            throw new RuntimeException("This process has halted - cannot process");
         }
 
         while (true) {
@@ -278,7 +278,7 @@ public class IntCodeParser {
 
     void appendOutput(long data, int instructionPointer) {
 //        System.out.println("IP: " + instructionPointer + ": Appending output: " + data);
-        output += (!output.equals("")) ? "," + data : data;
+        output += (!output.isEmpty()) ? "," + data : data;
     }
 
     boolean hasOutput() {
