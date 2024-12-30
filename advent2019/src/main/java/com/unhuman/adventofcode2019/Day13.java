@@ -6,6 +6,8 @@ import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 import com.unhuman.adventofcode.aoc_framework.utility.SparseMatrix;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Day13 extends InputParser {
     private static final String regex1 = "(-?[\\d]*),?";
@@ -48,45 +50,55 @@ public class Day13 extends InputParser {
         }
     }
 
-    public boolean processOutput(GameState gameState, SparseMatrix<Character> matrix, String input) {
+    public boolean processOutput(GameState gameState, SparseMatrix<Character> matrix, List<String> input) {
+        int x = Integer.parseInt(input.get(0));
+        int y = Integer.parseInt(input.get(1));
+        int value = Integer.parseInt(input.get(2));
 
-        String[] instructions = input.split(",");
-        for (int i = 0; i < instructions.length; i += 3) {
-            int x = Integer.parseInt(instructions[i]);
-            int y = Integer.parseInt(instructions[i + 1]);
-            int value = Integer.parseInt(instructions[i + 2]);
-
-            if (x == -1 && y == 0) {
-                gameState.score = value;
-                System.out.println("Score: " + gameState.score);
-                return true;
-            }
-
-            Character character = ' ';
-            switch (value) {
-                case 0:
-                    character = ' ';
-                    break;
-                case 1:
-                    character = '#';
-                    break;
-                case 2:
-                    character = '+';
-                    break;
-                case 3:
-                    character = '_';
-                    gameState.paddle = new Point(x, y);
-                    break;
-                case 4:
-                    character = '*';
-                    gameState.ball = new Point(x, y);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + value);
-            };
-            matrix.put(x, y, character);
+        if (x == -1 && y == 0) {
+            gameState.score = value;
+            System.out.println("Score: " + gameState.score);
+            return true;
         }
+
+        Character character = ' ';
+        switch (value) {
+            case 0:
+                character = ' ';
+                break;
+            case 1:
+                character = '#';
+                break;
+            case 2:
+                character = '+';
+                break;
+            case 3:
+                character = '_';
+                gameState.paddle = new Point(x, y);
+                break;
+            case 4:
+                character = '*';
+                gameState.ball = new Point(x, y);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + value);
+        };
+        matrix.put(x, y, character);
         return false;
+    }
+
+
+    public boolean processOutput(GameState gameState, SparseMatrix<Character> matrix, String input) {
+        String[] instructions = input.split(",");
+        List<String> inputs3 = new ArrayList<>();
+        for (int i = 0; i < instructions.length; i += 3) {
+            inputs3.clear();
+            inputs3.add(instructions[i]);
+            inputs3.add(instructions[i + 1]);
+            inputs3.add(instructions[i + 2]);
+            processOutput(gameState, matrix, inputs3);
+        }
+        return true;
     }
 
     @Override
@@ -98,31 +110,28 @@ public class Day13 extends InputParser {
 
         IntCodeParser parser = new IntCodeParser(line);
         parser.setReturnOnOutput(true);
-        parser.setInput("2");
-        parser.setInput("1");
-        parser.setInput("1");
-        parser.setInput("1");
+        parser.poke(0, 2L);
         GameState gameState = new GameState(0, null, null);
 
-        Integer nextInput = null;
+        Integer nextInput = 0;
 
+        List<String> outputs = new ArrayList<>();
         while (!parser.hasHalted()) {
-            if (nextInput != null) {
-                parser.setInput(nextInput.toString());
-                nextInput = null;
-            }
-            parser.process();
-            if (parser.hasHalted()) {
-                System.out.println("HALT");
-            }
-            parser.process();
-            parser.process();
+            parser.resetInput();
+            parser.setInput(nextInput.toString());
 
-            String output = parser.getOutput();
-            System.out.println(output);
-            boolean updatedScore = processOutput(gameState, matrix, output);
-            if (updatedScore) {
-                nextInput = Integer.compare(gameState.ball.x, gameState.paddle.x);
+            // do 3 processes because every output is in groups of 3
+            parser.step();
+            if (parser.hasOutput()) {
+                outputs.add(parser.getOutput());
+                if (outputs.size() == 3) {
+                    boolean updatedScore = processOutput(gameState, matrix, outputs);
+                    outputs.clear();
+                    if (updatedScore) {
+                        System.out.println(matrix);
+                        nextInput = Integer.compare(gameState.ball.x, gameState.paddle.x);
+                    }
+                }
             }
         }
         System.out.println(matrix);

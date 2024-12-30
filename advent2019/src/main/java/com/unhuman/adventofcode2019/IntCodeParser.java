@@ -63,49 +63,52 @@ public class IntCodeParser {
             throw new RuntimeException("This process has halted - cannot process");
         }
 
-        while (true) {
-            String operationInfo = memory.get(instructionPointer++).toString();
-            int commandLocation = (operationInfo.length() > 2) ? operationInfo.length() - 2 : 0;
-            int command = Integer.parseInt(operationInfo.substring(commandLocation));
-            Map<Integer, ParameterMode> parameterModes = new HashMap<>();
-            for (int i = 1; i <= 3 && commandLocation > 0; i++) {
-                char value = (operationInfo.length() - 2 - i >= 0)
-                        ? operationInfo.charAt(operationInfo.length() - 2 - i) : 0;
-                switch (value) {
-                    case '0' -> parameterModes.put(i, ParameterMode.POSITION);
-                    case '1' -> parameterModes.put(i, ParameterMode.IMMEDIATE);
-                    case '2' -> parameterModes.put(i, ParameterMode.RELATIVE);
-                }
-            }
+        while (!hasHalted) {
+            step();
+        }
+    }
 
-            try {
-                switch (command) {
-                    case 1 -> instructionPointer = processOpcode1(instructionPointer, parameterModes);
-                    case 2 -> instructionPointer = processOpcode2(instructionPointer, parameterModes);
-                    case 3 -> instructionPointer = processOpcode3(instructionPointer, parameterModes);
-                    case 4 -> {
-                        instructionPointer = processOpcode4(instructionPointer, parameterModes);
-                        if (returnOnOutput) {
-                            return;
-                        }
-                    }
-                    case 5 -> instructionPointer = processOpcode5(instructionPointer, parameterModes);
-                    case 6 -> instructionPointer = processOpcode6(instructionPointer, parameterModes);
-                    case 7 -> instructionPointer = processOpcode7(instructionPointer, parameterModes);
-                    case 8 -> instructionPointer = processOpcode8(instructionPointer, parameterModes);
-                    case 9 -> instructionPointer = processOpcode9(instructionPointer, parameterModes);
-                    case 99 -> {
-                        hasHalted = true;
+    public void step() {
+        String operationInfo = memory.get(instructionPointer++).toString();
+        int commandLocation = (operationInfo.length() > 2) ? operationInfo.length() - 2 : 0;
+        int command = Integer.parseInt(operationInfo.substring(commandLocation));
+        Map<Integer, ParameterMode> parameterModes = new HashMap<>();
+        for (int i = 1; i <= 3 && commandLocation > 0; i++) {
+            char value = (operationInfo.length() - 2 - i >= 0)
+                    ? operationInfo.charAt(operationInfo.length() - 2 - i) : 0;
+            switch (value) {
+                case '0' -> parameterModes.put(i, ParameterMode.POSITION);
+                case '1' -> parameterModes.put(i, ParameterMode.IMMEDIATE);
+                case '2' -> parameterModes.put(i, ParameterMode.RELATIVE);
+            }
+        }
+
+        try {
+            switch (command) {
+                case 1 -> instructionPointer = processOpcode1(instructionPointer, parameterModes);
+                case 2 -> instructionPointer = processOpcode2(instructionPointer, parameterModes);
+                case 3 -> instructionPointer = processOpcode3(instructionPointer, parameterModes);
+                case 4 -> {
+                    instructionPointer = processOpcode4(instructionPointer, parameterModes);
+                    if (returnOnOutput) {
                         return;
                     }
-                    default -> {
-                        throw new RuntimeException("Invalid Opcode: " + command);
-                    }
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(String.format("Problem performing operation %s at instruction: %d",
-                        operationInfo, instructionPointer), e);
+                case 5 -> instructionPointer = processOpcode5(instructionPointer, parameterModes);
+                case 6 -> instructionPointer = processOpcode6(instructionPointer, parameterModes);
+                case 7 -> instructionPointer = processOpcode7(instructionPointer, parameterModes);
+                case 8 -> instructionPointer = processOpcode8(instructionPointer, parameterModes);
+                case 9 -> instructionPointer = processOpcode9(instructionPointer, parameterModes);
+                case 99 -> {
+                    hasHalted = true;
+                }
+                default -> {
+                    throw new RuntimeException("Invalid Opcode: " + command);
+                }
             }
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Problem performing operation %s at instruction: %d",
+                    operationInfo, instructionPointer), e);
         }
     }
 
@@ -270,6 +273,10 @@ public class IntCodeParser {
             throw new RuntimeException("Can not consume input - there was none");
         }
         return input.remove(0);
+    }
+
+    void resetInput() {
+        this.input = new ArrayList<>();
     }
 
     void setInput(String input) {
