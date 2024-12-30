@@ -50,8 +50,8 @@ public class Day7 extends InputParser {
         Integer nextInputSignal = 0;
         for (int i = 0; i <= 4; i++) {
             IntCodeParser parser = new IntCodeParser(program);
-            parser.setInput(permutation.get(i).toString());
-            parser.setInput(nextInputSignal.toString());
+            parser.addInput(permutation.get(i).toString());
+            parser.addInput(nextInputSignal.toString());
             parser.process();
             nextInputSignal = Integer.parseInt(parser.getOutput());
         }
@@ -63,7 +63,7 @@ public class Day7 extends InputParser {
         for (int i = 0; i <= 4; i++) {
             IntCodeParser parser = new IntCodeParser(program);
             parser.setReturnOnOutput(true);
-            parser.setInput(permutation.get(i).toString());
+            parser.addInput(permutation.get(i).toString());
             parsers.add(parser);
         }
 
@@ -72,7 +72,7 @@ public class Day7 extends InputParser {
         while (isRunning) {
             for (int i = 0; i <= 4; i++) {
                 IntCodeParser parser = parsers.get(i);
-                parser.setInput(Integer.toString(nextInputSignal));
+                parser.addInput(Integer.toString(nextInputSignal));
                 parser.process();
 
                 // stop when parser has halted

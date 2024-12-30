@@ -113,12 +113,11 @@ public class Day13 extends InputParser {
         parser.poke(0, 2L);
         GameState gameState = new GameState(0, null, null);
 
-        Integer nextInput = 0;
+        int nextInput = 0;
 
         List<String> outputs = new ArrayList<>();
         while (!parser.hasHalted()) {
-            parser.resetInput();
-            parser.setInput(nextInput.toString());
+            parser.setInput(Integer.toString(nextInput));
 
             // do 3 processes because every output is in groups of 3
             parser.step();

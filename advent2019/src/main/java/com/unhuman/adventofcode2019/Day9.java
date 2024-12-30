@@ -23,7 +23,7 @@ public class Day9 extends InputParser {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
         IntCodeParser parser = new IntCodeParser((item.get(0).toString()));
-        parser.setInput("1");
+        parser.addInput("1");
         parser.process();
         return parser.getOutput();
     }
@@ -33,7 +33,7 @@ public class Day9 extends InputParser {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
         IntCodeParser parser = new IntCodeParser((item.get(0).toString()));
-        parser.setInput("2");
+        parser.addInput("2");
         parser.process();
         return parser.getOutput();
     }

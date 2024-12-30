@@ -21,7 +21,7 @@ public class Day5 extends InputParser {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
         IntCodeParser parser = new IntCodeParser(item.get(0));
-        parser.setInput("1");
+        parser.addInput("1");
         parser.process();
         String output = parser.getOutput();
         return output;
@@ -32,7 +32,7 @@ public class Day5 extends InputParser {
         // easier to assume there's only one group
         GroupItem item = configGroup.get(0);
         IntCodeParser parser = new IntCodeParser(item.get(0));
-        parser.setInput("5");
+        parser.addInput("5");
         parser.process();
         String output = parser.getOutput();
         return output;

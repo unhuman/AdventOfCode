@@ -275,11 +275,27 @@ public class IntCodeParser {
         return input.remove(0);
     }
 
+    /**
+     * empty input array buffer
+     */
     void resetInput() {
         this.input = new ArrayList<>();
     }
 
+    /**
+     * adds an item to the input array buffer
+     * @param input
+     */
+    void addInput(String input) {
+        this.input.add(input);
+    }
+
+    /**
+     * Sets input buffer to a specific item
+     * @param input
+     */
     void setInput(String input) {
+        resetInput();
         this.input.add(input);
     }
 

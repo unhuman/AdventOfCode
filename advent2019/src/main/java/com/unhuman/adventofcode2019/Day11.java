@@ -37,7 +37,7 @@ public class Day11 extends InputParser {
                 // process to get paint
                 char currentValue = matrix.get(robot);
                 int input = (currentValue == ' ' || currentValue == '.') ? 0 : 1;
-                parser.setInput(Integer.toString(input));
+                parser.addInput(Integer.toString(input));
                 parser.process();
 
                 if (!parser.hasOutput()) {
@@ -75,7 +75,7 @@ public class Day11 extends InputParser {
                 char currentValue = matrix.get(robot);
                 int input = (!starting && (currentValue == ' ' || currentValue == '.')) ? 0 : 1;
                 starting = false;
-                parser.setInput(Integer.toString(input));
+                parser.addInput(Integer.toString(input));
                 parser.process();
 
                 if (!parser.hasOutput()) {
