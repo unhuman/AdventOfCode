@@ -300,14 +300,16 @@ public class IntCodeParserTest {
     public void testDay9bonus7() { // larger test
         String data = "109, 1, 3, 3, 204, 2, 99";
         IntCodeParser parser = new IntCodeParser(data);
+        parser.setInput("4");
         parser.process();
-        assertEquals(data, parser.getOutput());
+        assertEquals("4", parser.getOutput());
     }
     @Test
     public void testDay9bonus8() { // larger test
         String data = "109, 1, 203, 2, 204, 2, 99";
         IntCodeParser parser = new IntCodeParser(data);
+        parser.setInput("4");
         parser.process();
-        assertEquals(data, parser.getOutput());
+        assertEquals("4", parser.getOutput());
     }
 }
