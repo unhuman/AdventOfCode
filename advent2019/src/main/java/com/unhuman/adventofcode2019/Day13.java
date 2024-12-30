@@ -126,14 +126,13 @@ public class Day13 extends InputParser {
                 if (outputs.size() == 3) {
                     boolean updatedScore = processOutput(gameState, matrix, outputs);
                     outputs.clear();
-                    if (updatedScore) {
-                        System.out.println(matrix);
-                        nextInput = Integer.compare(gameState.ball.x, gameState.paddle.x);
-                    }
                 }
             }
+            if (gameState.ball != null && gameState.paddle != null) {
+                nextInput = Integer.compare(gameState.ball.x, gameState.paddle.x);
+//                System.out.println(matrix);
+            }
         }
-        System.out.println(matrix);
 
         return gameState.score;
     }
