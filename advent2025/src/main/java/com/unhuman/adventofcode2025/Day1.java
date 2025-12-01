@@ -7,11 +7,11 @@ import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 
 public class Day1 extends InputParser {
-    private static final String regex1 = "";
+    private static final String regex1 = "(L|R)(\\d+)";
     private static final String regex2 = null;
 
     public Day1() {
-        super(2000, 0, regex1, regex2);
+        super(2025, 1, regex1, regex2);
     }
 
     public Day1(String filename) {
@@ -22,30 +22,62 @@ public class Day1 extends InputParser {
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
         GroupItem group0 = configGroup.get(0);
+        int position = 50;
+        int countZero = 0;
         for (ItemLine line : group0) {
-            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-//                char value = line.getChar(itemNum);
-//                String value = line.getString(itemNum);
-//                Long value = line.getLong(itemNum);
+            char rotate = line.getChar(0);
+            Long amount = line.getLong(1);
+
+            switch (rotate) {
+                case 'L':
+                    position -= amount;
+                    break;
+                case 'R':
+                    position += amount;
+                    break;
+            }
+            position = position % 100;
+            if (position < 0) position += 100;
+
+            if (position == 0) {
+                countZero++;
             }
         }
 
-        // Here's code for a 2nd group, if needed
-//        GroupItem group1 = configGroup1.get(0);
-//        for (ItemLine line : group1) {
-//            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-////                char value = line.getChar(itemNum);
-////                String value = line.getString(itemNum);
-////                Long value = line.getLong(itemNum);
-//            }
-//        }
-
-
-        return 1;
+        return countZero;
     }
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        // easier to assume there's only one group
+        GroupItem group0 = configGroup.get(0);
+        int position = 50;
+        int priorPosition = position;
+        int countZero = 0;
+        for (ItemLine line : group0) {
+            char rotate = line.getChar(0);
+            Long amount = line.getLong(1);
+
+            priorPosition = position;
+
+            switch (rotate) {
+                case 'L':
+                    position -= amount;
+                    break;
+                case 'R':
+                    position += amount;
+                    break;
+            }
+            if (position >= 100) {
+                countZero += Math.abs(position / 100);
+            } else if (position <= 0) {
+                countZero += Math.abs(position / 100) + ((priorPosition != 0) ? 1 : 0);
+            }
+
+            position = position % 100;
+            if (position < 0) position += 100;
+        }
+
+        return countZero;
     }
 }
