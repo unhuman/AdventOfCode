@@ -24,15 +24,8 @@
         </plugins>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>33.3.1-jre</version>
-        </dependency>
+        <!-- removed aoc-framework dependency to avoid child modules inheriting a self-dependency -->
+        <!-- Keep parent-level dependencies empty or only include dependencies truly shared and versioned here. -->
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -41,6 +34,11 @@
                 <artifactId>junit-jupiter</artifactId>
                 <version>5.9.1</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>33.3.1-jre</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -53,5 +51,6 @@
         <module>advent2022</module>
         <module>advent2023</module>
         <module>advent2024</module>
+        <module>advent2025</module>
     </modules>
 </project>
