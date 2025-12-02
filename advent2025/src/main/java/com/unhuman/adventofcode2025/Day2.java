@@ -5,6 +5,9 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Day2 extends InputParser {
     private static final String regex1 = "(\\d+)-(\\d+),?\\r?\\n?";
     private static final String regex2 = null;
@@ -75,6 +78,25 @@ public class Day2 extends InputParser {
                 }
             }
         }
-        return invalidTotal;
+
+        // Alternate way
+        long invalidTotal2 = 0;
+        Pattern pattern = Pattern.compile("(\\d+)(\\1)+");
+        for (ItemLine line : group0) {
+            for (int i = 0; i < line.size(); i += 2) {
+                Long start = line.getLong(i);
+                Long finish = line.getLong(i + 1);
+                for (Long item = start; item <= finish; item++) {
+                    String itemString = item.toString();
+                    Matcher matcher = pattern.matcher(itemString);
+                    if (matcher.matches()) {
+                        invalidTotal2 += item;
+                    }
+                }
+            }
+        }
+
+        return invalidTotal2;
+
     }
 }
