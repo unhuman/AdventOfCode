@@ -4,3 +4,5 @@
 aocSessionTokenFile.txt
 cache/*-day-*.txt
 **/*.orig
+.DS_Store
+**/.vscode/
