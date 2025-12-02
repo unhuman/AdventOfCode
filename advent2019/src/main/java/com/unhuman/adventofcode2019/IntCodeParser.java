@@ -68,6 +68,16 @@ public class IntCodeParser {
         }
     }
 
+    public void stepUntilOutput() {
+        while (!hasHalted && output.isEmpty()) {
+            step();
+        }
+
+        if (output.isEmpty()) {
+            throw new RuntimeException("This process didn't return any output as expected");
+        }
+    }
+
     public void step() {
         String operationInfo = memory.get(instructionPointer++).toString();
         int commandLocation = (operationInfo.length() > 2) ? operationInfo.length() - 2 : 0;
@@ -297,6 +307,15 @@ public class IntCodeParser {
     void setInput(String input) {
         resetInput();
         this.input.add(input);
+    }
+
+    /**
+     * Sets input buffer to a specific item
+     * @param input
+     */
+    void setInput(Integer input) {
+        resetInput();
+        this.input.add(input.toString());
     }
 
     void appendOutput(long data, int instructionPointer) {
