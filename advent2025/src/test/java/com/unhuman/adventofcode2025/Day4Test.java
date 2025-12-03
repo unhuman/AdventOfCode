@@ -5,16 +5,14 @@ import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class Day3Test {
+public class Day4Test {
     // data must be at least 2 lines - add \n for single line data
-    private static final String DATA = "987654321111111\n" +
-            "811111111111119\n" +
-            "234234234234278\n" +
-            "818181911112111\n" +
+    private static final String DATA = "" +
             "\n";
 
     static InputParser getDay(String data) {
-        return new Day3(data);
+//        return null;
+        return new Day4(data);
     }
 
     @Test
@@ -22,7 +20,7 @@ public class Day3Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(357L, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(0, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
@@ -30,6 +28,6 @@ public class Day3Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(3121910778619L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
     }
 }
