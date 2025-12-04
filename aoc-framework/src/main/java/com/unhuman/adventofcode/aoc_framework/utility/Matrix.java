@@ -290,6 +290,10 @@ public class Matrix {
         return getAdjacentPoints(point, includeDiagonals).stream().filter(p -> getValue(p) != avoidChar).toList();
     }
 
+    public List<Point> getAdjacentPointsTargetChar(Point point, boolean includeDiagonals, Character targetChar) {
+        return getAdjacentPoints(point, includeDiagonals).stream().filter(p -> getValue(p) == targetChar).toList();
+    }
+
     public List<Direction> getNextNavigation(Point point, boolean includeDiagonals, Character avoidChar) {
         return getAdjacentPointsAvoidChar(point, includeDiagonals, avoidChar)
                 .stream().map(p -> Direction.getDirectionVelocity(new Point(p.x - point.x, p.y - point.y)))
