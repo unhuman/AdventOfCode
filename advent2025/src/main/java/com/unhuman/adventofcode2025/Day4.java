@@ -2,11 +2,14 @@ package com.unhuman.adventofcode2025;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
-import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
+import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
+
+import java.awt.Point;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Day4 extends InputParser {
-    private static final String regex1 = "";
+    private static final String regex1 = "(.)";
     private static final String regex2 = null;
 
     public Day4() {
@@ -20,31 +23,40 @@ public class Day4 extends InputParser {
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
-        GroupItem group0 = configGroup.get(0);
-        for (ItemLine line : group0) {
-            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-//                char value = line.getChar(itemNum);
-//                String value = line.getString(itemNum);
-//                Long value = line.getLong(itemNum);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
+
+        AtomicLong count = new AtomicLong();
+
+        List<Point> squares = matrix.getCharacterLocations('@');
+        squares.forEach(point -> {
+            List<Point> adjacentRolls = matrix.getAdjacentPointsAvoidChar(point, true, '.');
+            if (adjacentRolls.size() < 4) {
+                count.addAndGet(1L);
             }
-        }
+        });
 
-        // Here's code for a 2nd group, if needed
-//        GroupItem group1 = configGroup1.get(0);
-//        for (ItemLine line : group1) {
-//            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-////                char value = line.getChar(itemNum);
-////                String value = line.getString(itemNum);
-////                Long value = line.getLong(itemNum);
-//            }
-//        }
-
-
-        return 1;
+        return count.get();
     }
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        // easier to assume there's only one group
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
+
+        AtomicLong count = new AtomicLong();
+        long priorCount;
+
+        do {
+            priorCount = count.get();
+            List<Point> squares = matrix.getCharacterLocations('@');
+            squares.forEach(point -> {
+                List<Point> adjacentRolls = matrix.getAdjacentPointsAvoidChar(point, true, '.');
+                if (adjacentRolls.size() < 4) {
+                    count.addAndGet(1L);
+                    matrix.setValue(point, '.');
+                }
+            });
+        } while (priorCount != count.get());
+        return count.get();
     }
 }
