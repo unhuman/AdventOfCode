@@ -239,7 +239,7 @@ public abstract class InputParser {
                 return (data.size() > 0) ? data : null;
             }
 
-            ItemLine dataLine = new ItemLine();
+            ItemLine dataLine = new ItemLine(line);
             Matcher matcher = patternLineItem.matcher(line);
             while (true) {
                 if (matcher.find()) {
