@@ -66,12 +66,13 @@ public class Day7 extends InputParser {
             return knownPoints.get(point);
         }
 
+        // Note skip blank lines (+2) speeds up processing
         Long returnValue;
         if (matrix.getValue(point) == '^') {
-            returnValue = processDownstreams(matrix, new Point(point.x - 1, point.y + 1))
-                    + processDownstreams(matrix, new Point(point.x + 1, point.y + 1));
+            returnValue = processDownstreams(matrix, new Point(point.x - 1, point.y + 2))
+                    + processDownstreams(matrix, new Point(point.x + 1, point.y + 2));
         } else {
-            returnValue = processDownstreams(matrix, new Point(point.x, point.y + 1));
+            returnValue = processDownstreams(matrix, new Point(point.x, point.y + 2));
         }
 
         knownPoints.put(point, returnValue);
