@@ -2,11 +2,16 @@ package com.unhuman.adventofcode2025;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
-import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
+import com.unhuman.adventofcode.aoc_framework.utility.Matrix;
+
+import java.awt.Point;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Day7 extends InputParser {
-    private static final String regex1 = "";
+    private static final String regex1 = "(.)";
     private static final String regex2 = null;
 
     public Day7() {
@@ -20,31 +25,57 @@ public class Day7 extends InputParser {
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
-        GroupItem group0 = configGroup.get(0);
-        for (ItemLine line : group0) {
-            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-//                char value = line.getChar(itemNum);
-//                String value = line.getString(itemNum);
-//                Long value = line.getLong(itemNum);
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
+        Set<Integer> items = new HashSet<>();
+        long splits = 0L;
+
+        items.add(matrix.getStartingCharacterLocations('S').getFirst().x);
+
+        for (int y = matrix.getStartingCharacterLocations('S').getFirst().y + 1; y < matrix.getHeight(); y++) {
+            Set<Integer> nextSet = new HashSet<>();
+
+            for (Integer item : items) {
+                if (matrix.getValue(item, y) == '^') {
+                    ++splits;
+                    nextSet.add(item - 1);
+                    nextSet.add(item + 1);
+                } else {
+                    nextSet.add(item);
+                }
             }
+
+            items = nextSet;
         }
 
-        // Here's code for a 2nd group, if needed
-//        GroupItem group1 = configGroup1.get(0);
-//        for (ItemLine line : group1) {
-//            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-////                char value = line.getChar(itemNum);
-////                String value = line.getString(itemNum);
-////                Long value = line.getLong(itemNum);
-//            }
-//        }
-
-
-        return 1;
+        return splits;
     }
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        // easier to assume there's only one group
+        Matrix matrix = new Matrix(configGroup, Matrix.DataType.CHARACTER);
+        return processDownstreams(matrix, matrix.getStartingCharacterLocations('S').getFirst());
+    }
+
+    static final Map<Point, Long> knownPoints = new HashMap<>();
+    long processDownstreams(Matrix matrix, Point point) {
+        if (point.y >= matrix.getHeight()) {
+            return 1L;
+        }
+        if (knownPoints.containsKey(point)) {
+            return knownPoints.get(point);
+        }
+
+        Long returnValue;
+        if (matrix.getValue(point) == '^') {
+            returnValue = processDownstreams(matrix, new Point(point.x - 1, point.y + 1))
+                    + processDownstreams(matrix, new Point(point.x + 1, point.y + 1));
+        } else {
+            returnValue = processDownstreams(matrix, new Point(point.x, point.y + 1));
+        }
+
+        knownPoints.put(point, returnValue);
+
+        return returnValue;
     }
 }
