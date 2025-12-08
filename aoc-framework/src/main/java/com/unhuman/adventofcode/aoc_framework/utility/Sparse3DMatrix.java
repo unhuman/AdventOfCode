@@ -142,5 +142,11 @@ public class Sparse3DMatrix<T> {
                     || (x == other.x && Math.abs(y - other.y) == 1 && z == other.z)
                     || (Math.abs(x - other.x) == 1 && y == other.y && z == other.z));
         }
+
+        public double distance(Point3D other) {
+            return Math.sqrt(Math.pow(other.x() - x(), 2)
+                    + Math.pow(other.y() - y(), 2)
+                    + Math.pow(other.z() - z(), 2));
+        }
     }
 }

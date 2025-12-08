@@ -21,7 +21,7 @@ public class Day0 extends InputParser {
     @Override
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
-        GroupItem group0 = configGroup.get(0);
+        GroupItem group0 = configGroup.getFirst();
         for (ItemLine line : group0) {
             for (int itemNum = 0; itemNum < line.size(); itemNum++) {
 //                char value = line.getChar(itemNum);
@@ -31,7 +31,7 @@ public class Day0 extends InputParser {
         }
 
         // Here's code for a 2nd group, if needed
-//        GroupItem group1 = configGroup1.get(0);
+//        GroupItem group1 = configGroup1.getFirst();
 //        for (ItemLine line : group1) {
 //            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
 ////                char value = line.getChar(itemNum);
