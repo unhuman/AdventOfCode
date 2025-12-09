@@ -160,34 +160,45 @@ public class SparseMatrix<T> {
                         new Point(point.x + direction.getDirection().x, point.y + direction.getDirection().y);
                 // only check empty points
                 if (!allPopulatedPoints.contains(checkPoint)) {
-                    int crossCount = 0;
-                    boolean lastFoundChar = false;
-                    Point projection = new Point(-direction.getDirection().x, - direction.getDirection().y);
-                    Point projected = new Point(checkPoint);
-                    while (true) {
-                        projected = new Point(projected.x + projection.x, projected.y + projection.y);
-                        if (!isValidLocation(projected)) {
-                            break;
-                        }
-
-                        // check the projection
-                        if (allPopulatedPoints.contains(projected)) {
-                            if (!lastFoundChar) {
-                                ++crossCount;
-                                lastFoundChar = true;
-                            }
-                        } else {
-                            lastFoundChar = false;
-                        }
-                    }
-
-                    if (crossCount %2 == 1) {
+                    if (isInternalPoint(checkPoint)) {
                         return checkPoint;
                     }
                 }
             }
         }
         return null;
+    }
+
+    public boolean isInternalPoint(int x, int y) {
+        return isInternalPoint(new Point(x, y));
+    }
+
+    public boolean isInternalPoint(Point checkPoint) {
+        int crossCount = 0;
+        boolean lastFoundChar = false;
+        // for now....
+        Matrix.Direction direction = Matrix.Direction.RIGHT;
+
+        Point projection = new Point(-direction.getDirection().x, - direction.getDirection().y);
+        Point projected = new Point(checkPoint);
+        while (true) {
+            projected = new Point(projected.x + projection.x, projected.y + projection.y);
+            if (!isValidLocation(projected)) {
+                break;
+            }
+
+            // check the projection
+            if (matrix.containsKey(projected)) {
+                if (!lastFoundChar) {
+                    ++crossCount;
+                    lastFoundChar = true;
+                }
+            } else {
+                lastFoundChar = false;
+            }
+        }
+
+        return (crossCount %2 == 1);
     }
 
     boolean isValidLocation(int x, int y) {

@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 
 public class Day9Test {
     // data must be at least 2 lines - add \n for single line data
-    private static final String DATA = "7,1\n" +
+    private static final String DATA =
+            "7,1\n" +
             "11,1\n" +
             "11,7\n" +
             "9,7\n" +
