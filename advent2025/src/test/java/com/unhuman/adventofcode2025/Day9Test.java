@@ -7,7 +7,14 @@ import org.junit.jupiter.api.Test;
 
 public class Day9Test {
     // data must be at least 2 lines - add \n for single line data
-    private static final String DATA = "" +
+    private static final String DATA = "7,1\n" +
+            "11,1\n" +
+            "11,7\n" +
+            "9,7\n" +
+            "9,5\n" +
+            "2,5\n" +
+            "2,3\n" +
+            "7,3\n" +
             "\n";
 
     static InputParser getDay(String data) {
@@ -20,7 +27,7 @@ public class Day9Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(50L, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
@@ -28,6 +35,6 @@ public class Day9Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(24L, day.processInput2(groups[0], groups[1]));
     }
 }

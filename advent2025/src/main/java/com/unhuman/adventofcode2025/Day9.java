@@ -4,9 +4,12 @@ import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
+import com.unhuman.adventofcode.aoc_framework.utility.Pair;
+
+import java.util.ArrayList;
 
 public class Day9 extends InputParser {
-    private static final String regex1 = "";
+    private static final String regex1 = "(\\d+),(\\d+)";
     private static final String regex2 = null;
 
     public Day9() {
@@ -21,11 +24,19 @@ public class Day9 extends InputParser {
     public Object processInput1(ConfigGroup configGroup, ConfigGroup configGroup1) {
         // easier to assume there's only one group
         GroupItem group0 = configGroup.getFirst();
+        ArrayList<Pair<Long, Long>> points = new ArrayList<>();
         for (ItemLine line : group0) {
-            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-//                char value = line.getChar(itemNum);
-//                String value = line.getString(itemNum);
-//                Long value = line.getLong(itemNum);
+            points.add(new Pair(line.getLong(0), line.getLong(1)));
+        }
+
+        long maxArea = 0L;
+        for (int i = 0; i < points.size() - 1; i++) {
+            for (int j = i + 1; j < points.size(); j++) {
+                long area = (Math.abs(points.get(j).getLeft() - points.get(i).getLeft()) + 1)
+                        * (Math.abs(points.get(j).getRight() - points.get(i).getRight()) + 1);
+                if (area > maxArea) {
+                    maxArea = area;
+                }
             }
         }
 
@@ -39,8 +50,7 @@ public class Day9 extends InputParser {
 //            }
 //        }
 
-
-        return 1;
+        return maxArea;
     }
 
     @Override
