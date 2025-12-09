@@ -150,6 +150,81 @@ public class SparseMatrix<T> {
         return (value != null) ? value : defaultValue;
     }
 
+    public Point findInternalPoint() {
+        // loop through all known points and project a different direction
+        // (down or up, go right, right or left, go down)
+        Set<Point> allPopulatedPoints = getAllPopulatedPoints();
+        for (Point point: allPopulatedPoints) {
+            for (Matrix.Direction direction: Matrix.Direction.values()) {
+                Point checkPoint =
+                        new Point(point.x + direction.getDirection().x, point.y + direction.getDirection().y);
+                // only check empty points
+                if (!allPopulatedPoints.contains(checkPoint)) {
+                    int crossCount = 0;
+                    boolean lastFoundChar = false;
+                    Point projection = new Point(-direction.getDirection().x, - direction.getDirection().y);
+                    Point projected = new Point(checkPoint);
+                    while (true) {
+                        projected = new Point(projected.x + projection.x, projected.y + projection.y);
+                        if (!isValidLocation(projected)) {
+                            break;
+                        }
+
+                        // check the projection
+                        if (allPopulatedPoints.contains(projected)) {
+                            if (!lastFoundChar) {
+                                ++crossCount;
+                                lastFoundChar = true;
+                            }
+                        } else {
+                            lastFoundChar = false;
+                        }
+                    }
+
+                    if (crossCount %2 == 1) {
+                        return checkPoint;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    boolean isValidLocation(int x, int y) {
+        return x >= getTopLeft().x && x <= getBottomRight().x
+                && y >= getTopLeft().y && y <= getBottomRight().y;
+    }
+
+    boolean isValidLocation(Point point) {
+        return isValidLocation(point.x, point.y);
+    }
+
+    public int floodFill(Point point, T fillPattern) {
+        return floodFill(point.x, point.y, fillPattern);
+    }
+
+    public int floodFill(int x, int y, T fillPattern) {
+        if (!isValidLocation(x, y)) {
+            return 0;
+        }
+
+        Point point = new Point(x, y);
+
+        // Don't fill where something exists
+        if (matrix.get(point) != null) {
+            return 0;
+        }
+
+        matrix.put(point, fillPattern);
+
+        int count = 1
+                + floodFill(x - 1, y, fillPattern)
+                + floodFill(x + 1, y, fillPattern)
+                + floodFill(x, y - 1, fillPattern)
+                + floodFill(x, y + 1, fillPattern);
+        return count;
+    }
+
     @Override
     public String toString() {
         // Safety
