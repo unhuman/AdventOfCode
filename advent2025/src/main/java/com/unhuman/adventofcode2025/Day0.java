@@ -41,11 +41,11 @@ public class Day0 extends InputParser {
 //        }
 
 
-        return 1;
+        return 1L;
     }
 
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2;
+        return 2L;
     }
 }

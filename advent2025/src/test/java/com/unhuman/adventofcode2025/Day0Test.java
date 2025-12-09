@@ -20,7 +20,7 @@ public class Day0Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(0L, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
@@ -28,6 +28,6 @@ public class Day0Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(0L, day.processInput2(groups[0], groups[1]));
     }
 }
