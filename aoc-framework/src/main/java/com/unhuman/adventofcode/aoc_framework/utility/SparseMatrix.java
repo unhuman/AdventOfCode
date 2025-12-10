@@ -263,6 +263,18 @@ public class SparseMatrix<T> {
             sb.append("  " + y);
             sb.append('\n');
         }
+
+        int totalChars = Integer.toString(endCol).length();
+        for (int i = 0; i < totalChars; i++) {
+            for (int x = startCol; x <= endCol; x++) {
+                String currentNumber = Integer.toString(x);
+                // get the string and pad it out
+
+                sb.append((i < currentNumber.length()) ? currentNumber.charAt(i) : ' ');
+            }
+            sb.append('\n');
+        }
+
         return sb.toString();
     }
 
