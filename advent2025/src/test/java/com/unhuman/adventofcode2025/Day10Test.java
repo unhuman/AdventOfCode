@@ -30,6 +30,6 @@ public class Day10Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(33L, day.processInput2(groups[0], groups[1]));
     }
 }

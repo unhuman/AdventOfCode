@@ -45,19 +45,8 @@ public class Day10 extends InputParser {
             // Unused for part 1
             List<Integer> joltages = Arrays.stream(line.get(2).split(",")).map(Integer::parseInt).toList();
 
-            score += processLine1(targetButtonConfig, buttons);
+            score += processLights(targetButtonConfig, buttons);
         }
-
-        // Here's code for a 2nd group, if needed
-//        GroupItem group1 = configGroup1.getFirst();
-//        for (ItemLine line : group1) {
-//            for (int itemNum = 0; itemNum < line.size(); itemNum++) {
-////                char value = line.getChar(itemNum);
-////                String value = line.getString(itemNum);
-////                Long value = line.getLong(itemNum);
-//            }
-//        }
-
 
         return score;
     }
@@ -71,7 +60,7 @@ public class Day10 extends InputParser {
         return "";
     }
 
-    String applyButton(String currentState, List<Integer> button) {
+    String applyButtonLights(String currentState, List<Integer> button) {
         for (int i = 0; i < button.size(); i++) {
             int flag = button.get(i);
             char changedChar = currentState.charAt(flag) == '.' ? '#' : '.';
@@ -80,7 +69,7 @@ public class Day10 extends InputParser {
         return currentState;
     }
 
-    long processLine1(String desiredState, List<List<Integer>> buttons) {
+    long processLights(String desiredState, List<List<Integer>> buttons) {
         HashSet<String> seenStates = new HashSet<>();
 
         String emptyState = stringOfCharacter(desiredState.length(), '.');
@@ -98,7 +87,7 @@ public class Day10 extends InputParser {
             for (String currentState: currentStates) {
                 for (List<Integer> button: buttons) {
                     // Apply changes to current state based on button
-                    String mutated = applyButton(currentState, button);
+                    String mutated = applyButtonLights(currentState, button);
 
                     if (mutated.equals(desiredState)) {
                         return count;
@@ -117,8 +106,88 @@ public class Day10 extends InputParser {
         }
     }
 
+    List<Integer> applyButtonJoltage(List<Integer> joltages, List<Integer> button) {
+        joltages = new ArrayList<>(joltages);
+        for (int i = 0; i < button.size(); i++) {
+            int flag = button.get(i);
+            joltages.set(flag, joltages.get(flag) + 1);
+        }
+        return joltages;
+    }
+
     @Override
     public Object processInput2(ConfigGroup configGroup, ConfigGroup configGroup1) {
-        return 2L;
+        long score = 0L;
+        // easier to assume there's only one group
+        GroupItem group0 = configGroup.getFirst();
+        for (int i = 0; i < group0.size(); i++) {
+            System.out.println("Processing item: " + i + " of " + group0.size());
+            ItemLine line = group0.get(i);
+            // Unused for part 2
+            String targetButtonConfig = line.get(0);
+
+            List<String> subline = Arrays.stream(line.get(1).split(" ")).toList();
+            ArrayList<List<Integer>> buttons = new ArrayList<>();
+            subline.forEach(buttonText -> {
+                buttonText = buttonText.replace("(", "");
+                buttonText = buttonText.replace(")", "");
+                List<Integer> button = Arrays.stream(buttonText.split(",")).map(Integer::parseInt).toList();
+                buttons.add(button);
+            });
+
+            List<Integer> joltages = Arrays.stream(line.get(2).split(",")).map(Integer::parseInt).toList();
+
+            score += processJoltage(joltages, buttons);
+        }
+
+        return score;
+    }
+
+    long processJoltage(List<Integer> desiredJoltage, List<List<Integer>> buttons) {
+        HashSet<List<Integer>> seenStates = new HashSet<>();
+
+        List<Integer> emptyState = new ArrayList<>();
+        for (int i = 0; i < desiredJoltage.size(); i++) {
+            emptyState.add(0);
+        }
+
+        seenStates.add(emptyState);
+
+        List<List<Integer>> currentStates = new ArrayList<>();
+        currentStates.add(emptyState);
+
+        long count = 0;
+        while (true) {
+            ++count;
+
+            List<List<Integer>> newStates = new ArrayList<>();
+            for (List<Integer> currentState: currentStates) {
+                for (List<Integer> button: buttons) {
+                    // Apply changes to current state based on button
+                    List<Integer> mutated = applyButtonJoltage(currentState, button);
+
+                    if (mutated.equals(desiredJoltage)) {
+                        return count;
+                    }
+
+                    // check if any of the joltage values are over the desired value (we don't want them)
+                    boolean isValid = true;
+                    for (int i = 0; i < mutated.size(); i++) {
+                        if (mutated.get(i) > desiredJoltage.get(i)) {
+                            isValid = false;
+                        }
+                    }
+
+                    if (isValid && !seenStates.contains(mutated)) {
+                        // track we've seen this so we don't duplicate efforts
+                        seenStates.add(mutated);
+                        // indicate we'll continue with this one
+                        newStates.add(mutated);
+                    }
+                }
+            }
+            // setup next round
+            currentStates = newStates;
+        }
     }
 }
