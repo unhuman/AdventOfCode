@@ -79,7 +79,9 @@ public class Day9 extends InputParser {
 
         System.out.println(matrix);
         long maxArea = 0L;
+        System.out.println(Math.pow(points.size(), 2));
         for (int i = 0; i < points.size() - 1; i++) {
+            System.out.println("Round " + i + " of " + points.size());
             for (int j = i + 1; j < points.size(); j++) {
                 Point pointOne = points.get(i);
                 Point pointTwo = points.get(j);
@@ -87,21 +89,89 @@ public class Day9 extends InputParser {
                 // check overall area before we go digging into the valid area
                 Long checkArea = ((long) Math.abs(pointTwo.x - pointOne.x) + 1)
                         * ((long) Math.abs(pointTwo.y - pointOne.y) + 1);
-                System.out.print("Checking area " + pointOne + " - " + pointTwo + " area: " + checkArea);
+
+                // Check the corners
                 if (checkArea > maxArea) {
-                    for (int x = Math.min(pointOne.x, pointTwo.x); x <= Math.max(pointOne.x, pointTwo.x); x++) {
-                        for (int y = Math.min(pointOne.y, pointTwo.y); y <= Math.max(pointOne.y, pointTwo.y); y++) {
-                            if (matrix.get(x, y) == null && !matrix.isInternalPoint(x, y)) {
-                                // this guy is bad.
-                                checkArea = 0L;
-                                x = Math.max(pointOne.x, pointTwo.x) + 1;
-                                y = Math.max(pointOne.y, pointTwo.y) + 1;
-                            }
+                    if (matrix.get(pointOne.x, pointOne.y) == null || matrix.get(pointTwo.x, pointTwo.y) == null
+                            || (matrix.get(pointOne.x, pointTwo.y) == null && !matrix.isInternalPoint(pointOne.x, pointTwo.y))
+                            || (matrix.get(pointTwo.x, pointOne.y) == null && !matrix.isInternalPoint(pointTwo.x, pointOne.y))) {
+                        checkArea = 0L;
+                    }
+                }
+
+                // Left
+                if (checkArea > maxArea) {
+                    for (int y = Math.min(pointOne.y, pointTwo.y); y <= Math.max(pointOne.y, pointTwo.y); y++) {
+                        int x = Math.min(pointOne.x, pointTwo.x);
+
+                        // if we are going down the left side, if we aren't a marker, and there is a marker to the right of last
+                        // then we have a bad placement
+                        if (matrix.get(x, y) == null && matrix.get(x + 1, y - 1) != null) {
+                            checkArea = 0L;
+                            break;
                         }
                     }
                 }
-                System.out.println(" Contained area: " + checkArea);
+
+                // Top
                 if (checkArea > maxArea) {
+                    for (int x = Math.min(pointOne.x, pointTwo.x); x <= Math.max(pointOne.x, pointTwo.x); x++) {
+                        int y = Math.min(pointOne.y, pointTwo.y);
+
+                        // if we are going across the top, if we aren't a marker, and there is a marker below last
+                        // then we have a bad placement
+                        if (matrix.get(x, y) == null && matrix.get(x - 1, y + 1) != null) {
+                            checkArea = 0L;
+                            break;
+                        }
+                    }
+                }
+
+                // Right
+                if (checkArea > maxArea) {
+                    // Right
+                    for (int y = Math.min(pointOne.y, pointTwo.y); y <= Math.max(pointOne.y, pointTwo.y); y++) {
+                        int x = Math.max(pointOne.x, pointTwo.x);
+
+                        // if we are going down the right side, if we aren't a marker, and there is a marker to the left of last
+                        // then we have a bad placement
+                        if (matrix.get(x, y) == null && matrix.get(x - 1, y - 1) != null) {
+                            checkArea = 0L;
+                            break;
+                        }
+                    }
+                }
+
+                // Bottom
+                if (checkArea > maxArea) {
+                    for (int x = Math.min(pointOne.x, pointTwo.x); x <= Math.max(pointOne.x, pointTwo.x); x++) {
+                        int y = Math.max(pointOne.y, pointTwo.y);
+
+                        // if we are going across the bottom, if we aren't a marker, and there is a marker above last
+                        // then we have a bad placement
+                        if (matrix.get(x, y) == null && matrix.get(x - 1, y - 1) != null) {
+                            checkArea = 0L;
+                            break;
+                        }
+                    }
+                }
+
+// OLD WAY
+//                if (checkArea > maxArea) {
+//                    for (int x = Math.min(pointOne.x, pointTwo.x); x <= Math.max(pointOne.x, pointTwo.x); x++) {
+//                        for (int y = Math.min(pointOne.y, pointTwo.y); y <= Math.max(pointOne.y, pointTwo.y); y++) {
+//                            if (matrix.get(x, y) == null && !matrix.isInternalPoint(x, y)) {
+//                                // this guy is bad.
+//                                checkArea = 0L;
+//                                x = Math.max(pointOne.x, pointTwo.x) + 1;
+//                                y = Math.max(pointOne.y, pointTwo.y) + 1;
+//                            }
+//                        }
+//                    }
+//                }
+//                System.out.println(" Contained area: " + checkArea);
+                if (checkArea > maxArea) {
+                    System.out.println("assigning Max: " + checkArea);
                     maxArea = checkArea;
                 }
             }
