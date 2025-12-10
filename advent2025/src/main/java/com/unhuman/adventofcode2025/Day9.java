@@ -101,57 +101,88 @@ public class Day9 extends InputParser {
 
                 // Left
                 if (checkArea > maxArea) {
+                    boolean priorGood = false;
                     for (int y = Math.min(pointOne.y, pointTwo.y); y <= Math.max(pointOne.y, pointTwo.y); y++) {
                         int x = Math.min(pointOne.x, pointTwo.x);
 
                         // if we are going down the left side, if we aren't a marker, and there is a marker to the right of last
                         // then we have a bad placement
-                        if (matrix.get(x, y) == null && matrix.get(x + 1, y - 1) != null) {
-                            checkArea = 0L;
-                            break;
+                        if (matrix.get(x, y) != null) {
+                            priorGood = false;
+                        } else { // null
+                            Character edgeCheck = matrix.get(x + 1, y - 1);
+                            if (edgeCheck != null && !priorGood) {
+                                checkArea = 0L;
+                                break;
+                            } else {
+                                priorGood = true;
+                            }
                         }
                     }
                 }
 
                 // Top
                 if (checkArea > maxArea) {
+                    boolean priorGood = false;
                     for (int x = Math.min(pointOne.x, pointTwo.x); x <= Math.max(pointOne.x, pointTwo.x); x++) {
                         int y = Math.min(pointOne.y, pointTwo.y);
 
                         // if we are going across the top, if we aren't a marker, and there is a marker below last
                         // then we have a bad placement
-                        if (matrix.get(x, y) == null && matrix.get(x - 1, y + 1) != null) {
-                            checkArea = 0L;
-                            break;
+                        if (matrix.get(x, y) != null) {
+                            priorGood = false;
+                        } else { // null
+                            Character edgeCheck = matrix.get(x - 1, y + 1);
+                            if (edgeCheck != null && !priorGood) {
+                                checkArea = 0L;
+                                break;
+                            } else {
+                                priorGood = true;
+                            }
                         }
                     }
                 }
 
                 // Right
                 if (checkArea > maxArea) {
-                    // Right
+                    boolean priorGood = false;
                     for (int y = Math.min(pointOne.y, pointTwo.y); y <= Math.max(pointOne.y, pointTwo.y); y++) {
                         int x = Math.max(pointOne.x, pointTwo.x);
 
                         // if we are going down the right side, if we aren't a marker, and there is a marker to the left of last
                         // then we have a bad placement
-                        if (matrix.get(x, y) == null && matrix.get(x - 1, y - 1) != null) {
-                            checkArea = 0L;
-                            break;
+                        if (matrix.get(x, y) != null) {
+                            priorGood = false;
+                        } else { // null
+                            Character edgeCheck = matrix.get(x - 1, y - 1);
+                            if (edgeCheck != null && !priorGood) {
+                                checkArea = 0L;
+                                break;
+                            } else {
+                                priorGood = true;
+                            }
                         }
                     }
                 }
 
                 // Bottom
                 if (checkArea > maxArea) {
+                    boolean priorGood = false;
                     for (int x = Math.min(pointOne.x, pointTwo.x); x <= Math.max(pointOne.x, pointTwo.x); x++) {
                         int y = Math.max(pointOne.y, pointTwo.y);
 
                         // if we are going across the bottom, if we aren't a marker, and there is a marker above last
                         // then we have a bad placement
-                        if (matrix.get(x, y) == null && matrix.get(x - 1, y - 1) != null) {
-                            checkArea = 0L;
-                            break;
+                        if (matrix.get(x, y) != null) {
+                            priorGood = false;
+                        } else { // null
+                            Character edgeCheck = matrix.get(x - 1, y - 1);
+                            if (edgeCheck != null && !priorGood) {
+                                checkArea = 0L;
+                                break;
+                            } else {
+                                priorGood = true;
+                            }
                         }
                     }
                 }
