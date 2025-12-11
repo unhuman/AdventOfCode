@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Day10 extends InputParser {
     private static final String regex1 = "\\[(.*)] (\\(.*\\)) \\{(.*?,?)\\}";
-                                        // we will need other processing to get
-                                        // (2,1) (4,5,6) (7)
+    // we will need other processing to get
+    // (2,1) (4,5,6) (7)
     private static final String regex1a = "\\(.*?\\)";
     private static final String regex2 = null;
 
@@ -84,8 +85,8 @@ public class Day10 extends InputParser {
             ++count;
 
             List<String> newStates = new ArrayList<>();
-            for (String currentState: currentStates) {
-                for (List<Integer> button: buttons) {
+            for (String currentState : currentStates) {
+                for (List<Integer> button : buttons) {
                     // Apply changes to current state based on button
                     String mutated = applyButtonLights(currentState, button);
 
@@ -143,7 +144,69 @@ public class Day10 extends InputParser {
         return score;
     }
 
+    int findMaxButtonTouch(List<Integer> desiredJoltage, List<Integer> currentState, List<Integer> button) {
+        int maxTouch = Integer.MAX_VALUE;
+        for (int flag : button) {
+            int difference = desiredJoltage.get(flag) - currentState.get(flag);
+            if (difference < maxTouch) {
+                maxTouch = Math.max(difference, 0);
+            }
+        }
+        return maxTouch;
+    }
+
+    void applyButtonPress(List<Integer> currentJoltage, List<Integer> button) {
+        for (int flag: button) {
+            currentJoltage.set(flag, currentJoltage.get(flag) + 1);
+        }
+    }
+
+    int recursiveJoltage(List<Integer> desiredJoltage, AtomicInteger bestValue,
+                         List<Integer> currentJoltage, int currentCount, List<List<Integer>> buttons) {
+        // if we found what we're looking for, return the current count
+        if (desiredJoltage.equals(currentJoltage)) {
+            bestValue.set(currentCount);
+            return currentCount;
+        }
+
+        // if there is buttons left, just bail out
+        if (buttons.isEmpty()) {
+            return bestValue.get();
+        }
+
+        // if we ae greater than the value we know is best, just bail out
+        if (currentCount >= bestValue.get()) {
+            return bestValue.get();
+        }
+
+        List<Integer> button = buttons.getFirst();
+        buttons = buttons.subList(1, buttons.size());
+
+        int maxCurrentButtonPress = findMaxButtonTouch(desiredJoltage, currentJoltage, button);
+        int lowestValue = Integer.MAX_VALUE;
+        for (int i = 0; i <= maxCurrentButtonPress; i++) {
+            currentJoltage = new ArrayList<>(currentJoltage);
+            int currentScore = recursiveJoltage(desiredJoltage, bestValue, currentJoltage, currentCount, buttons);
+            if (currentScore < lowestValue) {
+                lowestValue = currentScore;
+            }
+            applyButtonPress(currentJoltage, button);
+            ++currentCount;
+        }
+        return lowestValue;
+    }
+
     long processJoltage(List<Integer> desiredJoltage, List<List<Integer>> buttons) {
+        List<Integer> emptyState = new ArrayList<>();
+        for (int i = 0; i < desiredJoltage.size(); i++) {
+            emptyState.add(0);
+        }
+
+        AtomicInteger bestValue = new AtomicInteger(Integer.MAX_VALUE);
+        return recursiveJoltage(desiredJoltage, bestValue, emptyState, 0, buttons);
+    }
+
+    long processJoltageSlow(List<Integer> desiredJoltage, List<List<Integer>> buttons) {
         HashSet<List<Integer>> seenStates = new HashSet<>();
 
         List<Integer> emptyState = new ArrayList<>();

@@ -32,4 +32,45 @@ public class Day10Test {
         ConfigGroup[] groups = day.parseFiles();
         Assertions.assertEquals(33L, day.processInput2(groups[0], groups[1]));
     }
+
+    @Test
+    public void test2A() {
+        String data = "[.##.] (0,2) {1,0,1}\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(1L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2B() {
+        String data = "[.##.] (0) (2) {1,0,1}\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(2L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2C() {
+        String data = "[.##.] (2) (0) {1,0,1}\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(2L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2D() {
+        String data = "[.##.] (1) (2) (0) {1,0,1}\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(2L, day.processInput2(groups[0], groups[1]));
+    }
+
+    @Test
+    public void test2F() {
+        String data = "[.##.] (1) (0) (2) (1,2) (0,2) {1,0,1}\n";
+        InputParser day = getDay(data);
+        ConfigGroup[] groups = day.parseFiles();
+        Assertions.assertEquals(1L, day.processInput2(groups[0], groups[1]));
+    }
+
 }
