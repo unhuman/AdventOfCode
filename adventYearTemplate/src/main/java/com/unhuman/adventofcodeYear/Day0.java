@@ -1,25 +1,21 @@
 package com.unhuman.adventofcodeYear;
 
 import com.unhuman.adventofcode.aoc_framework.InputParser;
-import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
-import com.unhuman.adventofcode.aoc_framework.InputParser;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
-import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
-import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 public class Day0 extends InputParser {
-    private static final String regex1 = "";
-    private static final String regex2 = null;
+    private static final String REGEX_1 = "";
+    private static final String REGEX_2 = null;
 
     public Day0() {
-        super(2000, 0, regex1, regex2);
+        super(2000, 0, REGEX_1, REGEX_2);
     }
 
     public Day0(String filename) {
-        super(filename, regex1, regex2);
+        super(filename, REGEX_1, REGEX_2);
     }
 
     @Override
