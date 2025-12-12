@@ -7,7 +7,16 @@ import org.junit.jupiter.api.Test;
 
 public class Day11Test {
     // data must be at least 2 lines - add \n for single line data
-    private static final String DATA = "" +
+    private static final String DATA = "aaa: you hhh\n" +
+            "you: bbb ccc\n" +
+            "bbb: ddd eee\n" +
+            "ccc: ddd eee fff\n" +
+            "ddd: ggg\n" +
+            "eee: out\n" +
+            "fff: out\n" +
+            "ggg: out\n" +
+            "hhh: ccc fff iii\n" +
+            "iii: out\n" +
             "\n";
 
     static InputParser getDay(String data) {
@@ -20,14 +29,26 @@ public class Day11Test {
         String data = DATA;
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput1(groups[0], groups[1]));
+        Assertions.assertEquals(5L, day.processInput1(groups[0], groups[1]));
     }
 
     @Test
     public void test2() {
-        String data = DATA;
+        String data = "svr: aaa bbb\n" +
+                "aaa: fft\n" +
+                "fft: ccc\n" +
+                "bbb: tty\n" +
+                "tty: ccc\n" +
+                "ccc: ddd eee\n" +
+                "ddd: hub\n" +
+                "hub: fff\n" +
+                "eee: dac\n" +
+                "dac: fff\n" +
+                "fff: ggg hhh\n" +
+                "ggg: out\n" +
+                "hhh: out\n";
         InputParser day = getDay(data);
         ConfigGroup[] groups = day.parseFiles();
-        Assertions.assertEquals(0L, day.processInput2(groups[0], groups[1]));
+        Assertions.assertEquals(2L, day.processInput2(groups[0], groups[1]));
     }
 }
