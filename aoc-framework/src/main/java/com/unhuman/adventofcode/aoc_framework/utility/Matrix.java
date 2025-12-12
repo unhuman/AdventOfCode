@@ -1,5 +1,6 @@
 package com.unhuman.adventofcode.aoc_framework.utility;
 
+import com.google.common.primitives.Chars;
 import com.unhuman.adventofcode.aoc_framework.representation.ConfigGroup;
 import com.unhuman.adventofcode.aoc_framework.representation.GroupItem;
 
@@ -37,6 +38,8 @@ public class Matrix {
         LEFT(new Point (-1, 0));
 
         public enum Rotation { LEFT, COUNTERCLOCKWISE, RIGHT, CLOCKWISE }
+
+        public enum Flip { HORIZONTAL, VERTICAL }
 
         private final Point direction;
 
@@ -136,6 +139,17 @@ public class Matrix {
         }
     }
 
+    public Matrix(List<String> content) {
+        this.dataType = DataType.CHARACTER;
+
+        int height = content.size();
+
+        this.matrix = new ArrayList<>(height);
+        for (String line: content) {
+            this.matrix.add(Chars.asList(line.toCharArray()));
+        }
+    }
+
     public Matrix(ConfigGroup configGroup, DataType dataType) {
         this(configGroup.get(0), dataType);
     }
@@ -218,6 +232,43 @@ public class Matrix {
                 + floodFill(x, y - 1, match, fillPattern)
                 + floodFill(x, y + 1, match, fillPattern);
         return count;
+    }
+
+    // Returns a new, rotated matrix
+    public static Matrix rotate(Matrix matrix, Direction.Rotation rotation) {
+        Matrix rotateMatrix = matrix;
+        // Counter clockwise is 3 clockwise rotations
+        int count = (rotation == Direction.Rotation.CLOCKWISE || rotation == Direction.Rotation.RIGHT) ? 1 : 3;
+        for (int i = 0; i < count ; i++) {
+            Matrix rotatedMatrix = new Matrix(rotateMatrix.getHeight(), rotateMatrix.getWidth(), matrix.dataType);
+
+            for (int x = 0; x < rotateMatrix.getWidth(); x++) {
+                for (int y = 0; y < rotateMatrix.getHeight(); y++) {
+                    int newX = rotatedMatrix.getWidth() - 1 - y;
+                    int newY = x;
+
+                    rotatedMatrix.setValue(newX, newY, rotateMatrix.getValue(x, y));
+                }
+            }
+
+            rotateMatrix = rotatedMatrix;
+        }
+        return rotateMatrix;
+    }
+
+    public static Matrix flip(Matrix matrix, Direction.Flip flip) {
+        Matrix flipped = new Matrix(matrix.getWidth(), matrix.getHeight(), matrix.dataType);
+
+        for (int x = 0; x < matrix.getWidth(); x++) {
+            for (int y = 0; y < matrix.getHeight(); y++) {
+                int newX = (flip == Direction.Flip.HORIZONTAL) ? matrix.getWidth() - 1 - x : x;
+                int newY = (flip == Direction.Flip.VERTICAL) ? matrix.getHeight() - 1 - y: y;
+
+                flipped.setValue(newX, newY, matrix.getValue(x, y));
+            }
+        }
+
+        return flipped;
     }
 
     public Character getValue(int x, int y) {
