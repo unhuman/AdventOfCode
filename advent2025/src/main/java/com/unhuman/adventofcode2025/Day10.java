@@ -7,8 +7,11 @@ import com.unhuman.adventofcode.aoc_framework.representation.ItemLine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Day10 extends InputParser {
@@ -107,11 +110,11 @@ public class Day10 extends InputParser {
         }
     }
 
-    List<Integer> applyButtonJoltage(List<Integer> joltages, List<Integer> button) {
+    List<Integer> applyButtonJoltage(List<Integer> joltages, List<Integer> button, int presses) {
         joltages = new ArrayList<>(joltages);
         for (int i = 0; i < button.size(); i++) {
             int flag = button.get(i);
-            joltages.set(flag, joltages.get(flag) + 1);
+            joltages.set(flag, joltages.get(flag) + presses);
         }
         return joltages;
     }
@@ -136,9 +139,27 @@ public class Day10 extends InputParser {
                 buttons.add(button);
             });
 
-            List<Integer> joltages = Arrays.stream(line.get(2).split(",")).map(Integer::parseInt).toList();
+            // We sort the buttons so we have the buttons with the most changes first
+            // They will process data quicker
+            buttons.sort(new Comparator<List<Integer>>() {
+                @Override
+                public int compare(List<Integer> o1, List<Integer> o2) {
+                    return o2.size() - o1.size();
+                }
+            });
 
-            score += processJoltage(joltages, buttons);
+            List<Integer> desiredJoltages = Arrays.stream(line.get(2).split(",")).map(Integer::parseInt).toList();
+
+            // build up an empty state to start recursion
+            List<Integer> emptyJoltages = new ArrayList<>();
+            for (Integer j: desiredJoltages) {
+                emptyJoltages.add(0);
+            }
+
+            Long currentValue = processJoltage(desiredJoltages, emptyJoltages, buttons);
+            if (currentValue != null) {
+                score += currentValue;
+            }
         }
 
         return score;
@@ -155,9 +176,9 @@ public class Day10 extends InputParser {
         return maxTouch;
     }
 
-    void applyButtonPress(List<Integer> currentJoltage, List<Integer> button) {
+    void applyButtonPress(List<Integer> currentJoltage, List<Integer> button, int increment) {
         for (int flag: button) {
-            currentJoltage.set(flag, currentJoltage.get(flag) + 1);
+            currentJoltage.set(flag, currentJoltage.get(flag) + increment);
         }
     }
 
@@ -184,26 +205,53 @@ public class Day10 extends InputParser {
 
         int maxCurrentButtonPress = findMaxButtonTouch(desiredJoltage, currentJoltage, button);
         int lowestValue = Integer.MAX_VALUE;
-        for (int i = 0; i <= maxCurrentButtonPress; i++) {
+        for (int i = maxCurrentButtonPress; i >= 0; --i) {
             currentJoltage = new ArrayList<>(currentJoltage);
+            applyButtonPress(currentJoltage, button, i);
             int currentScore = recursiveJoltage(desiredJoltage, bestValue, currentJoltage, currentCount, buttons);
             if (currentScore < lowestValue) {
                 lowestValue = currentScore;
             }
-            applyButtonPress(currentJoltage, button);
+
             ++currentCount;
         }
         return lowestValue;
     }
 
-    long processJoltage(List<Integer> desiredJoltage, List<List<Integer>> buttons) {
-        List<Integer> emptyState = new ArrayList<>();
-        for (int i = 0; i < desiredJoltage.size(); i++) {
-            emptyState.add(0);
+    Map<String, Long> cache = new HashMap<>();
+
+    Long processJoltage(List<Integer> desiredJoltage, List<Integer> currentJoltage, List<List<Integer>> buttons) {
+        String cacheKey = String.format("%d:%d:%d", desiredJoltage.hashCode(), currentJoltage.hashCode(), buttons.hashCode());
+        if (cache.containsKey(cacheKey)) {
+            return cache.get(cacheKey);
+        }
+        if (currentJoltage.equals(desiredJoltage)) {
+            return 0L;
+        }
+        if (buttons.isEmpty()) {
+            return Long.MAX_VALUE;
+        }
+        AtomicInteger bestValue = new AtomicInteger(Integer.MAX_VALUE);
+
+        int maxCurrentButtonPress = findMaxButtonTouch(desiredJoltage, currentJoltage, buttons.get(0));
+
+        Long bestCase = Long.MAX_VALUE;
+        for (int i = maxCurrentButtonPress; i >= 0; --i) {
+            List<Integer> tryingJoltages = new ArrayList<>(currentJoltage);
+            tryingJoltages = applyButtonJoltage(tryingJoltages, buttons.getFirst(), i);
+            List<List<Integer>> nextButtons = buttons.subList(1, buttons.size());
+            Long result = processJoltage(desiredJoltage, tryingJoltages, nextButtons);
+            if (result != Long.MAX_VALUE) {
+                result += i;
+            }
+            if (result < bestCase) {
+                bestCase = result;
+            }
         }
 
-        AtomicInteger bestValue = new AtomicInteger(Integer.MAX_VALUE);
-        return recursiveJoltage(desiredJoltage, bestValue, emptyState, 0, buttons);
+        cache.put(cacheKey, (bestCase != null) ? bestCase : Long.MAX_VALUE);
+
+        return bestCase;
     }
 
     long processJoltageSlow(List<Integer> desiredJoltage, List<List<Integer>> buttons) {
@@ -227,7 +275,7 @@ public class Day10 extends InputParser {
             for (List<Integer> currentState: currentStates) {
                 for (List<Integer> button: buttons) {
                     // Apply changes to current state based on button
-                    List<Integer> mutated = applyButtonJoltage(currentState, button);
+                    List<Integer> mutated = applyButtonJoltage(currentState, button, 1);
 
                     if (mutated.equals(desiredJoltage)) {
                         return count;

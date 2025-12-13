@@ -17,9 +17,9 @@ public class Advent2025
 //        new Day7().process();
 //        new Day8().process();
 //        new Day9().process();
-//        new Day10().process();
+        new Day10().process();
 //        new Day11().process();
-        new Day12().process();
+//        new Day12().process();
 //        new Day13().process();
 //        new Day14().process();
 //        new Day15().process();
